@@ -3,21 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/styles/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p> 
+
+
+
+    <div class="header">
+        <div class="header-image">
+            <img class="image-right__img" src="assets/images/header/bg_right.png" alt="bg_right">
+        </div>
+        <div class="images_star">
+            <img class="star-2" src="assets/images/header/Star 2.png" alt="star">
+            <img class="star-3" src="assets/images/header/Star 3.png" alt="star">
+            <img class="star-4" src="assets/images/header/Star 4.png" alt="star">
+            <img class="star-5" src="assets/images/header/Star 5.png" alt="star">
+        </div>
+        <div class="header-menu">
+            <span>ВИКТОРИНА</span>
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+            <span>УГАДАЙ ЧИСЛО</span>
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+            <span>ПРОВЕРЬ ТЕКСТ</span>  
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+            <span>ПРОСТАЯ АРИФМЕТИКА</span>
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+            <span>КАМЕНЬ, НОЖНИЦЫ, БУМАГА</span>    
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+            <span>ГЕНЕРАТОР СЛУЧАЙНЫХ ЦВЕТОВ</span>
+            <span class="plus"><img src="assets/images/header/Star.png" alt=""></span>
+        </div>
+        <div class="container">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1 class="hero-title">Добро пожаловать<br> на мой сайт мини-игр</h1>
+                    <p class="hero-description">Тебе предстоит пройти несколько увлекательных игр.<br> Если готов, нажимай «Поехали!» и приступай.</p>
+                </div>
+                <a href="#games" class="hero-btn">Поехали!</a>
+            </div>
+        </div>
+    </div> 
+
+    <section class="games">
+        <div class="container">
+            <div class="games__content">
+                <h2 class="games__title">Об играх</h2>
+                <p class="games__description">В моей коллекции представлено 6 игр на разные темы.<br>Игры несложные — в них может поиграть каждый.<br>Все игры доступны для пользования.</p>
+                <div class="games__list">
+                    <article class="game-card game-card--height-1" data-target="guess-number">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-1.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 1</p>
+                            <h3 class="game-card__title">Угадай число</h3>
+                        </div>
+                    </article>
+
+                    <article class="game-card game-card--height-2" data-target="arithmetic">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-2.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 2</p>
+                            <h3 class="game-card__title">Простая арифметика</h3>
+                        </div>
+                    </article>
+
+                    <article class="game-card game-card--height-3" data-target="text-reverse">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-3.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 3</p>
+                            <h3 class="game-card__title">Переверни текст</h3>
+                        </div>
+                    </article>
+
+                    <article class="game-card game-card--height-4" data-target="rock-paper-scissors">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-4.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 4</p>
+                            <h3 class="game-card__title">Камень,<br> ножницы,<br> бумага</h3>
+                        </div>
+                    </article>
+
+                    <article class="game-card game-card--height-5" data-target="quiz">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-5.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 5</p>
+                            <h3 class="game-card__title">Простая<br> викторина</h3>
+                        </div>
+                    </article>
+
+                    <article class="game-card game-card--height-6" data-target="color-generator">
+                        <img class="game-card__image" src="assets/images/info_game/info_game-6.png" alt="Игра Угадай число">
+                        <div class="game-card__info">
+                            <p class="game-card__number">Игра № 6</p>
+                            <h3 class="game-card__title">Генератор<br> случайных<br> цветов</h3>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mini-games">
+        <div class="container">
+            <div class="mini-games__header">
+                <h2 class="mini-games__title">Мини-игры</h2>
+            </div>
+            <div>
+                <article class="guess-number-card" id="guess-number">
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Угадай число</h2>
+                        <p class="guess-number-card__description">Попробуй угадать случайное<br> число от 1 до 100.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-1.png" alt="Игра Угадай число">
+                    </div>
+                </article>
+
+                <article class="guess-number-card" id="arithmetic">
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-2.png" alt="Игра Угадай число">
+                    </div>
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Простая арифметика</h2>
+                        <p class="guess-number-card__description">Попробуй решить простые арифметические задачи.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                </article>
+
+                <article class="guess-number-card" id="text-reverse">
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Переверни текст</h2>
+                        <p class="guess-number-card__description">Попробуй ввести текст, который будет перевернут.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-3.png" alt="Игра Угадай число">
+                    </div>
+                </article>
+
+                <article class="guess-number-card" id="rock-paper-scissors">
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-4.png" alt="Игра Угадай число">
+                    </div>
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Камень, ножницы, бумага</h2>
+                        <p class="guess-number-card__description">Сыграй в популярную игру против компьютера.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                </article>
+
+                <article class="guess-number-card" id="quiz">
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Простая викторина</h2>
+                        <p class="guess-number-card__description">Отвечай на вопросы викторины c вариантами ответов.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-5.png" alt="Игра Угадай число">
+                    </div>
+                </article>
+
+                <article class="guess-number-card" id="color-generator">
+                    <div class="guess-number-card__image-wrapper">
+                        <img class="guess-number-card__image" src="assets/images/guessnumbercard/guess_number_bg-6.png" alt="Игра Угадай число">
+                    </div>
+                    <div class="guess-number-card__content">
+                        <h2 class="guess-number-card__title">Генератор случайных цветов</h2>
+                        <p class="guess-number-card__description">Игра, в которой при клике на кнопку фон страницы меняется на случайный.</p>
+                        <button class="guess-number-card__button hero-btn">Играть!</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <section class="footer__section">
+            <div class="footer__content">
+                <h5 class="footer__text">Все права защищены.</h5>
+            </div>
+        </section>
+    </footer>
+
 </body>
+<script src="assets/js/marquee.js"></script>
 </html>
