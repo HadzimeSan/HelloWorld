@@ -95,8 +95,8 @@ body {
     padding-bottom: 27px;
     padding-left: 49px;
     background-color: #BCEC30;
-    font-family: Montserrat;
-    font-weight: 700;
+    font-family: 'Montserrat';
+    font-weight: 700;   
     font-size: 30px;
     line-height: 110.00000000000001%;
     letter-spacing: 4%;
@@ -164,3 +164,93 @@ body {
     left: 948px;
     border-width: 1px;
   }
+
+@media (max-width: 768px) {
+    .header {
+        width: 100vw;
+        min-height: 100vh;
+        height: auto;
+        padding: 0 0 32px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .hero {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .hero-text {
+        padding-top: 64px;
+        margin-bottom: 24px;
+        width: 100%;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .hero-title {
+        font-weight: 700!important;
+        font-size: 40px !important;
+        line-height: 130%!important;
+        letter-spacing: 0px!important;
+        text-align: center!important;
+        vertical-align: middle!important;
+    }
+    .hero-description {
+        font-weight: 400!important;
+        font-size: 16px!important;
+        line-height: 130%!important;
+        letter-spacing: 0px!important;
+        text-align: center!important;
+        vertical-align: middle!important;
+    }
+    .hero-btn {
+        width: 285px!important;
+        height: 55px!important;
+        gap: 10px!important;
+        border-radius: 60px!important;
+        border-width: 1px!important;
+        padding-top: 16px!important;
+        padding-right: 28px!important;
+        padding-bottom: 16px!important;
+        padding-left: 28px!important;
+
+        font-weight: 600!important;
+        font-size: 16px!important;
+        line-height: 142%!important;
+        letter-spacing: 0%!important;
+        text-align: center!important;
+
+    }
+
+    .header-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 27px;
+        font-size: 16px;
+        height: 51px;
+        box-sizing: border-box;
+    }
+    
+    .plus img {
+        width: 19px;
+        height: 19px;
+    }
+
+    .guess-number-card {
+        width: 100vw;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 24px;
+    }
+}

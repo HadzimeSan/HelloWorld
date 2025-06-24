@@ -108,3 +108,9 @@
     height: 551px;
     margin-top: -37px;
 }
+
+@media (max-width: 768px) {
+  .games {
+    display: none;
+  }
+}

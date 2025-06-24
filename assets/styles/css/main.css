@@ -102,7 +102,7 @@ body {
   padding-bottom: 27px;
   padding-left: 49px;
   background-color: #BCEC30;
-  font-family: Montserrat;
+  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   line-height: 110.00000000000001%;
@@ -169,6 +169,98 @@ body {
   border-width: 1px;
 }
 
+@media (max-width: 768px) {
+  .header {
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    padding: 0 0 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .hero {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .hero-text {
+    padding-top: 64px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-weight: 700 !important;
+    font-size: 40px !important;
+    line-height: 130% !important;
+    letter-spacing: 0px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  .hero-description {
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    letter-spacing: 0px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  .hero-btn {
+    width: 285px !important;
+    height: 55px !important;
+    gap: 10px !important;
+    border-radius: 60px !important;
+    border-width: 1px !important;
+    padding-top: 16px !important;
+    padding-right: 28px !important;
+    padding-bottom: 16px !important;
+    padding-left: 28px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 142% !important;
+    letter-spacing: 0% !important;
+    text-align: center !important;
+  }
+
+  .header-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 27px;
+    font-size: 16px;
+    height: 51px;
+    box-sizing: border-box;
+  }
+
+  .plus img {
+    width: 19px;
+    height: 19px;
+  }
+
+  .guess-number-card {
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 24px;
+  }
+}
 .games__content {
   padding-top: 94px;
 }
@@ -269,6 +361,11 @@ body {
   margin-top: -37px;
 }
 
+@media (max-width: 768px) {
+  .games {
+    display: none;
+  }
+}
 .mini-games {
   margin-bottom: 144px;
 }
@@ -360,6 +457,126 @@ body {
   object-fit: cover;
 }
 
+@media (max-width: 768px) {
+  .mini-games {
+    padding: 0 16px;
+    margin-bottom: 48px;
+  }
+
+  .mini-games__title {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+  }
+
+  .guess-number-card {
+    flex-direction: column;
+    width: 100vw;
+    height: auto;
+    padding-bottom: 32px;
+    margin-top: 24px;
+  }
+
+  .guess-number-card__image-wrapper,
+  .guess-number-card__content {
+    width: 100%;
+  }
+
+  .guess-number-card__image {
+    width: 343px;
+    height: 284px;
+  }
+
+  .guess-number-card__title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    padding-top: 27px;
+  }
+
+  .guess-number-card__description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+  }
+
+  .guess-number-card__button {
+    width: 285px;
+    height: 55px;
+    border-width: 1px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 60px;
+  }
+
+  .guess-number-card__image-wrapper {
+    background-color: none;
+    order: 0;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .guess-number-card__content {
+    order: 1;
+    padding-top: 0;
+    padding: 0 22px 0 22px;
+  }
+
+  .guess-number-card__button:active,
+  .guess-number-card__button:focus {
+    background: #FFFFFF;
+    color: #202027;
+    outline: none;
+  }
+
+  .image-right__img {
+    width: 223px;
+    height: 238px;
+  }
+
+  .star-2 {
+    width: 35px;
+    height: 35px;
+    top: 97px;
+    left: 38px;
+    border-width: 1px;
+    angle: 0 deg;
+  }
+
+  .star-3 {
+    width: 21px;
+    height: 21px;
+    top: 64px;
+    left: 92px;
+    border-width: 1px;
+    angle: 0 deg;
+  }
+
+  .star-4 {
+    width: 39px;
+    height: 41px;
+    top: 680px;
+    left: 304px;
+    border-width: 1px;
+    angle: 0 deg;
+  }
+
+  .star-5 {
+    width: 18px;
+    height: 18px;
+    top: 657px;
+    left: 273px;
+    border-width: 1px;
+    angle: 0 deg;
+  }
+}
 .footer {
   padding: 61px 0 60px;
   background-color: #BDED35;
@@ -380,4 +597,26 @@ body {
   letter-spacing: 0px;
   text-align: center;
   vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 40px;
+  }
+
+  .footer__text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 343px;
+    margin: 0;
+    padding: 0 8px;
+  }
 }

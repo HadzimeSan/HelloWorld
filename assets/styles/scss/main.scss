@@ -17,3 +17,11 @@ body {
 @import "_infogame.scss";
 @import "_guessnumbercard.scss";
 @import "footer.scss";
+
+@media (max-width: 768px) {
+  .container {
+    width: 343px;
+    margin: 0;
+    padding: 0 8px;
+  }
+}

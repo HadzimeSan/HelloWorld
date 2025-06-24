@@ -2,10 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling functionality for hero button
     const scrollButton = document.querySelector('.hero-btn');
     const gamesSection = document.querySelector('.games');
+    const miniGamesSection = document.querySelector('.mini-games');
 
     scrollButton.addEventListener('click', function(e) {
         e.preventDefault();
-        gamesSection.scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 768) {
+            miniGamesSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            gamesSection.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 
     // Game cards click functionality
