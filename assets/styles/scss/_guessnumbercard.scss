@@ -108,11 +108,14 @@
     line-height: 100%;
     letter-spacing: 0px;
     vertical-align: middle;
+
+    margin: 48px 0 ;
   }
 
   .guess-number-card {
     flex-direction: column;
     width: 100vw;
+    max-width: 343px;
     height: auto;
     padding-bottom: 32px;
     margin-top: 24px;
