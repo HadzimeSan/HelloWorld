@@ -1,0 +1,327 @@
+{% schema %}
+{
+  "name": "Image Carousel",
+  "class": "image-carousel-section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "unit": "px",
+      "min": 100,
+      "max": 1200,
+      "step": 20,
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "unit": "px",
+      "min": 100,
+      "max": 1200,
+      "step": 20,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "image_spacing",
+      "label": "Image spacing",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "unit": "ms",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "default": 3000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image carousel",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  # CSS стили
+  assign section_id = 'image-carousel-' | append: section.id
+%}
+
+<style>
+  #{{ section_id }} {
+    position: relative;
+    padding: 20px 0;
+  }
+  
+  #{{ section_id }} .image-carousel {
+    /*margin-left: calc(-1 * {{ section.settings.image_spacing }}px / 2);
+    margin-right: calc(-1 * {{ section.settings.image_spacing }}px / 2);*/
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+}
+  #{{ section_id }} .image-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #{{ section_id }} .carousel-slide {
+    flex: 0 0 {{ section.settings.image_width }}px;
+    scroll-snap-align: start;
+    padding: 0 calc({{ section.settings.image_spacing }}px / 2);
+  }
+  
+  #{{ section_id }} .carousel-image {
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  #{{ section_id }} .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: {% if section.settings.show_arrows %}flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #{{ section_id }} .carousel-arrow.prev {
+    left: 10px;
+  }
+  
+  #{{ section_id }} .carousel-arrow.next {
+    right: 10px;
+  }
+  
+  #{{ section_id }} .carousel-dots {
+    display: {% if section.settings.show_dots %}flex{% else %}none{% endif %};
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+  }
+  
+  #{{ section_id }} .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  #{{ section_id }} .carousel-dot.active {
+    background: #333;
+  }
+</style>
+
+<div id="{{ section_id }}" class="image-carousel-section">
+  <div class="image-carousel">
+    {% for block in section.blocks %}
+      <div class="carousel-slide" {{ block.shopify_attributes }}>
+        {% if block.settings.link != blank %}
+          <a href="{{ block.settings.link }}">
+        {% endif %}
+        
+        {% if block.settings.image != blank %}
+          <img class="carousel-image" 
+               src="{{ block.settings.image | img_url: '800x' }}" 
+               alt="{{ block.settings.alt_text | escape }}"
+               loading="lazy"
+               width="{{ section.settings.image_width }}"
+               height="{{ section.settings.image_height }}">
+        {% else %}
+          <div class="carousel-image" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+        
+        {% if block.settings.link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  
+  <button class="carousel-arrow prev" aria-label="Previous slide">←</button>
+  <button class="carousel-arrow next" aria-label="Next slide">→</button>
+  
+  <div class="carousel-dots">
+    {% for block in section.blocks %}
+      <button class="carousel-dot" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+(function() {
+  const sectionId = '{{ section_id }}';
+  const section = document.getElementById(sectionId);
+  
+  if (!section) return;
+  
+  const carousel = section.querySelector('.image-carousel');
+  const prevBtn = section.querySelector('.prev');
+  const nextBtn = section.querySelector('.next');
+  const dots = section.querySelectorAll('.carousel-dot');
+  const slides = section.querySelectorAll('.carousel-slide');
+  
+  if (!carousel || !slides.length) return;
+  
+  let currentIndex = 0;
+  let autoplayInterval;
+  const slideWidth = {{ section.settings.image_width }};
+  const spacing = {{ section.settings.image_spacing }};
+  
+  // Initialize
+  function init() {
+    updateDots();
+    
+    {% if section.settings.autoplay %}
+      startAutoplay();
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+    {% endif %}
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        goToSlide(parseInt(this.dataset.index));
+      });
+    });
+  }
+  
+  // Navigation functions
+  function goToSlide(index) {
+    currentIndex = index;
+    const scrollPosition = index * (slideWidth + spacing);
+    carousel.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth'
+    });
+    updateDots();
+  }
+  
+  function nextSlide() {
+    if (currentIndex < slides.length - 1) {
+      goToSlide(currentIndex + 1);
+    } else {
+      goToSlide(0);
+    }
+  }
+  
+  function prevSlide() {
+    if (currentIndex > 0) {
+      goToSlide(currentIndex - 1);
+    } else {
+      goToSlide(slides.length - 1);
+    }
+  }
+  
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+  
+  // Autoplay functions
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayInterval = setInterval(nextSlide, {{ section.settings.autoplay_speed }});
+  }
+  
+  function stopAutoplay() {
+    clearInterval(autoplayInterval);
+  }
+  
+  // Initialize carousel
+  init();
+})();
+</script>

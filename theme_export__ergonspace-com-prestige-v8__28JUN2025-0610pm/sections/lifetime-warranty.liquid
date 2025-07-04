@@ -1,0 +1,360 @@
+{%- comment -%}
+  Lifetime Warranty Section: аккордеон с изображениями, меняющимися при наведении
+{%- endcomment -%}
+
+<style>
+  .lifetime-warranty-outer-container {
+    max-width: 1420px;
+    margin: 40px auto;
+    padding: 0 16px;
+  }
+  .lifetime-warranty-section {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 10px 10px 10px;
+    gap: 20px;
+    margin-top: 20px;
+    background: {{ section.settings.background_color }};
+    border-radius: 24px;
+    box-sizing: border-box;
+    min-height: 700px;
+  }
+  .lifetime-warranty__left {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 260px;
+    text-align: left;
+    order: 0;
+  }
+  .lifetime-warranty__heading {
+    font-size: 2.3rem;
+    font-weight: 400;
+    margin-bottom: 18px;
+    font-family: 'Raleway', serif;
+    color: #181818;
+    text-align: left;
+  }
+  .lifetime-warranty__desc {
+    font-size: 1.1rem;
+    color: #181818;
+    margin-bottom: 60px;
+    font-family: 'Raleway', sans-serif;
+  }
+  .lifetime-warranty__accordion {
+    width: 100%;
+    background: none;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .lifetime-warranty__accordion-item {
+    border-bottom: 1px solid #47bfff;
+  }
+  .lifetime-warranty__accordion-header {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: 'Raleway', sans-serif;
+    padding: 18px 0;
+    cursor: pointer;
+    color: #181818;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .lifetime-warranty__accordion-header.active {
+    color: #47bfff;
+  }
+  .lifetime-warranty__accordion-header:hover {
+    color: #47bfff;
+  }
+  .lifetime-warranty__right {
+    order: 1;
+    display: block;
+    height: 340px;
+    margin-bottom: 0;
+    position: relative;
+    width: 50%;
+    flex: 1 1 0;
+  }
+  .lifetime-warranty__image {
+    width: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    border-radius: 18px;
+    object-fit: cover;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.5s, transform 0.5s;
+    z-index: 1;
+  }
+  .lifetime-warranty__image.active {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2;
+  }
+  .lifetime-warranty__mobile-image {
+    display: none;
+  }
+  .lifetime-warranty__right .lifetime-warranty__image {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  @media (max-width: 1000px) {
+    .lifetime-warranty-section {
+      flex-direction: column;
+      padding: 40px 10px 10px 10px;
+      gap: 20px;
+    }
+    .lifetime-warranty__right, .lifetime-warranty__left {
+      min-width: 0;
+      width: 100%;
+    }
+    .lifetime-warranty__right {
+      display: none !important;
+    }
+    .lifetime-warranty__left {
+      order: 1;
+    }
+    .lifetime-warranty__image {
+      position: absolute !important;
+      display: none;
+      width: 100%;
+      height: 340px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      opacity: 1 !important;
+      object-fit: cover;
+      transform: none !important;
+      z-index: 1;
+      max-width: none;
+      max-height: none;
+    }
+    .lifetime-warranty__image.active {
+      display: block;
+    }
+    .lifetime-warranty__mobile-image {
+      display: block;
+      margin-bottom: 20px;
+      position: relative;
+      width: 100%;
+      height: 220px;
+    }
+    .lifetime-warranty__mobile-image .lifetime-warranty__image {
+      display: none;
+      position: absolute !important;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 220px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      object-fit: cover;
+      opacity: 1 !important;
+      z-index: 1;
+      max-width: none;
+      max-height: none;
+      transform: none !important;
+    }
+    .lifetime-warranty__mobile-image .lifetime-warranty__image.active {
+      display: block;
+    }
+  }
+  @media (min-width: 1001px) {
+    .lifetime-warranty__right .lifetime-warranty__image {
+      display: none;
+      opacity: 0;
+      transform: translateY(60px);
+      z-index: 1;
+    }
+    .lifetime-warranty__right .lifetime-warranty__image.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 2;
+    }
+  }
+</style>
+
+<div class="lifetime-warranty-outer-container">
+  <section
+    id="lifetime-warranty-section-{{ section.id }}"
+    class="lifetime-warranty-section color-scheme color-scheme--{{ section.settings.color_scheme }}"
+  >
+    <!-- Мобильное изображение -->
+    <div class="lifetime-warranty__mobile-image">
+      {%- for block in section.blocks -%}
+        <img
+          src="{{ block.settings.slide_image_url }}"
+          class="lifetime-warranty__image{% if forloop.first %} active{% endif %}"
+          data-image="{{ forloop.index0 }}"
+          alt="{{ block.settings.slide_title }}"
+          loading="lazy"
+          style="width:100%;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.07);object-fit:cover;height:220px;"
+        >
+      {%- endfor -%}
+    </div>
+    <div class="lifetime-warranty__right mobile-first">
+      {%- for block in section.blocks -%}
+        <img
+          src="{{ block.settings.slide_image_url }}"
+          class="lifetime-warranty__image{% if forloop.first %} active{% endif %}"
+          data-image="{{ forloop.index0 }}"
+          alt="{{ block.settings.slide_title }}"
+          loading="lazy"
+        >
+      {%- endfor -%}
+    </div>
+    <div class="lifetime-warranty__left">
+      <h2 class="lifetime-warranty__heading">{{ section.blocks[0].settings.slide_title }}</h2>
+      <div class="lifetime-warranty__desc">{{ section.blocks[0].settings.slide_description }}</div>
+      <div class="lifetime-warranty__accordion">
+        {%- for block in section.blocks -%}
+          <div class="lifetime-warranty__accordion-item">
+            <button
+              class="lifetime-warranty__accordion-header{% if forloop.first %} active{% endif %}"
+              data-image="{{ forloop.index0 }}"
+              data-title="{{ block.settings.slide_title }}"
+              data-description="{{ block.settings.slide_description }}"
+            >
+              {{ block.settings.slide_title }}
+            </button>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.lifetime-warranty__accordion-header');
+    const desktopImages = document.querySelectorAll('.lifetime-warranty__right .lifetime-warranty__image');
+    const mobileImages = document.querySelectorAll('.lifetime-warranty__mobile-image .lifetime-warranty__image');
+    const heading = document.querySelector('.lifetime-warranty__heading');
+    const description = document.querySelector('.lifetime-warranty__desc');
+
+    function setActiveSlide(index) {
+      // Убираем активный класс у всех заголовков и изображений
+      headers.forEach(h => h.classList.remove('active'));
+      desktopImages.forEach(img => img.classList.remove('active'));
+      mobileImages.forEach(img => img.classList.remove('active'));
+
+      // Добавляем активный класс выбранному заголовку и изображению
+      headers[index].classList.add('active');
+      if (desktopImages[index]) desktopImages[index].classList.add('active');
+      if (mobileImages[index]) mobileImages[index].classList.add('active');
+
+      // Обновляем заголовок и описание
+      heading.textContent = headers[index].getAttribute('data-title');
+      description.textContent = headers[index].getAttribute('data-description');
+    }
+
+    // Устанавливаем первый слайд активным при загрузке
+    setActiveSlide(0);
+
+    headers.forEach((header, index) => {
+      // Обработка наведения
+      header.addEventListener('mouseenter', function() {
+        setActiveSlide(index);
+      });
+
+      // Обработка клика
+      header.addEventListener('click', function(e) {
+        e.preventDefault();
+        setActiveSlide(index);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Lifetime Warranty",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#E0F4FF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Slide title",
+          "default": "Slide"
+        },
+        {
+          "type": "textarea",
+          "id": "slide_description",
+          "label": "Slide description",
+          "default": "Description"
+        },
+        {
+          "type": "text",
+          "id": "slide_image_url",
+          "label": "Slide image URL",
+          "info": "Enter the URL of the image for this slide"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Lifetime Warranty",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "Lifetime Warranty",
+            "slide_description": "We offer lifetime coverage on all of our pieces because we're confident in our jewelry and think you should be too.",
+            "slide_image_url": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/stunning_gold_mixed_stone_wedding_band_forever_a12ef66a-5838-4dde-830b-5f5f8b517c2a.webp?v=1746205765"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "Featured On",
+            "slide_description": "Our jewelry has been featured in top fashion magazines and worn by celebrities worldwide.",
+            "slide_image_url": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/stunning_gold_mixed_stone_wedding_band_forever_443a7295-d5b7-41fe-a020-f63ad86bc638.webp?v=1746208200"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "53,000+ 5 Star Reviews",
+            "slide_description": "Join thousands of satisfied customers who love our high-quality jewelry and exceptional service.",
+            "slide_image_url": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/48_2C000-fivestar-reviews-silver-engagement.webp?v=1746208213"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

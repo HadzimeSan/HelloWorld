@@ -1,0 +1,290 @@
+{%- style -%}
+  .custom-rich-button-section {
+    padding: {{ section.settings.section_padding }}px 0;
+    background: {{ section.settings.background_color }};
+  }
+  .rich-button-content {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .rich-button-content .rte {
+    margin-bottom: 30px;
+    color: {{ section.settings.text_color }};
+  }
+  .custom-icon-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: {{ section.settings.button_padding }}px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text_color }} !important;
+    border-radius: {{ section.settings.button_radius }}px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .custom-icon-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  .button-icon {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+  }
+  .button-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+  .button-description {
+    margin-top: 12px;
+    font-size: 14px;
+    color: {{ section.settings.description_color }};
+  }
+{%- endstyle -%}
+
+<div class="custom-rich-button-section">
+  <div class="page-width">
+    <div class="rich-button-content">
+      <div class="rte">{{ section.settings.richtext }}</div>
+      
+      {%- if section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_link }}" class="custom-icon-button">
+          {%- if section.settings.icon_position == 'left' and section.settings.selected_icon != 'none' -%}
+            <span class="button-icon">
+              {%- render 'button-icon', icon: section.settings.selected_icon -%}
+            </span>
+          {%- endif -%}
+          
+          {{ section.settings.button_text }}
+          
+          {%- if section.settings.icon_position == 'right' and section.settings.selected_icon != 'none' -%}
+            <span class="button-icon">
+              {%- render 'button-icon', icon: section.settings.selected_icon -%}
+            </span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.button_description != blank -%}
+        <div class="button-description">
+          {{ section.settings.button_description }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rich Text + Icon Button",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "richtext",
+      "label": "Text Content",
+      "default": "<p>Describe your product or promotion here. Use rich text formatting to engage your visitors.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "richtext",
+      "id": "button_description",
+      "label": "Button Description",
+      "default": "<p>Learn more about this offer.</p>"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "select",
+      "id": "selected_icon",
+      "label": "Button Icon",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "arrow-right",
+          "label": "Arrow Right"
+        },
+        {
+          "value": "cart",
+          "label": "Cart"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "checkmark",
+          "label": "Checkmark"
+        },
+        {
+          "value": "star",
+          "label": "Star"
+        },
+        {
+          "value": "phone",
+          "label": "Phone"
+        },
+        {
+          "value": "telegram",
+          "label": "Telegram"
+        },
+        {
+          "value": "whatsapp",
+          "label": "WhatsApp"
+        }
+      ],
+      "default": "arrow-right"
+    },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "Icon Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Radius",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Padding",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 400,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "Content Width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text + Icon Button",
+      "settings": {
+        "richtext": "<p>Discover our new collection</p>",
+        "button_text": "Shop Now",
+        "button_description": "<p>Limited time offer!</p>",
+        "selected_icon": "arrow-right"
+      }
+    }
+  ]
+}
+{% endschema %}

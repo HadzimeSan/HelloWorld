@@ -1,0 +1,755 @@
+{%- schema -%}
+{
+  "name": "Audio Comparison Pro",
+  "class": "section-audio-comparison-pro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our professional mixing and mastering is the best way for you to compete in the industry today and to take your music career to the next level.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Order Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "label": "Columns per row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Section Styles"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Player Styles"
+    },
+    {
+      "type": "color",
+      "id": "player_bg",
+      "label": "Player background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "player_padding",
+      "label": "Player padding",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "player_radius",
+      "label": "Player roundness",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#333333"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "audio_pair",
+      "name": "Audio Comparison Pair",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "GENRE"
+        },
+        {
+          "type": "text",
+          "id": "before_audio",
+          "label": "Before audio file name",
+          "info": "Upload in Settings → Files and enter filename (e.g. 'before.mp3')"
+        },
+        {
+          "type": "text",
+          "id": "after_audio",
+          "label": "After audio file name",
+          "info": "Upload in Settings → Files and enter filename (e.g. 'after.mp3')"
+        },
+        {
+          "type": "color",
+          "id": "custom_bg",
+          "label": "Custom background",
+          "default": "#f5f5f5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Audio Comparison Pro",
+      "category": "Custom",
+      "blocks": [
+        {"type": "audio_pair", "settings": {"title": "POP"}},
+        {"type": "audio_pair", "settings": {"title": "ROCK"}}
+      ]
+    }
+  ]
+}
+{%- endschema -%}
+
+{%- style -%}
+.section-audio-comparison-pro {
+  padding: {{ section.settings.section_padding }}px 0;
+  background-color: {{ section.settings.section_bg }};
+}
+
+.audio-comparison-pro__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.audio-comparison-pro__description {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.audio-comparison-pro__grid {
+  display: grid;
+  grid-template-columns: repeat({{ section.settings.grid_columns }}, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.custom-audio-player {
+  background: {{ section.settings.player_bg }};
+  border-radius: {{ section.settings.player_radius }}px;
+  padding: {{ section.settings.player_padding }}px;
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  position: relative;
+}
+
+.custom-audio-player[style*="--custom-bg"] {
+  background: var(--custom-bg) !important;
+}
+
+.custom-audio-player.error {
+  opacity: 0.7;
+}
+
+.audio-comparison-pro__title {
+  color: {{ section.settings.title_color }};
+  font-weight: bold;
+  min-width: 50px;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        flex-wrap: wrap;
+        align-content: center;
+        flex-direction: row;
+}
+
+.player-controls-wrapper {
+  flex-grow: 1;
+}
+
+.track-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.track-btn {
+  padding: 4px 8px;
+  font-size: 0.7em;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  background: #e0e0e0;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+.track-btn.active {
+  background: #29282D;
+  color: #fff;
+}
+
+.track-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.play-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  background: #29282D;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.play-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.play-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.progress-container {
+  flex: 1;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #29282D;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.time-display {
+  font-size: 0.7em;
+  min-width: 70px;
+  text-align: right;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.audio-comparison-pro__button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.audio-comparison-pro__button .btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #29282D;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+}
+
+.audio-comparison-pro__button .btn:hover {
+  opacity: 0.9;
+}
+
+.loading-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 5px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 767px) {
+  .audio-comparison-pro__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .custom-audio-player {
+    min-height: 50px;
+    padding: 8px;
+  }
+  
+  .audio-comparison-pro__title {
+    min-width: 50px;
+    font-size: 16px;
+  }
+  
+  .track-btn {
+    padding: 3px 6px;
+    font-size: 0.65em;
+  }
+  
+  .play-btn {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .time-display {
+    min-width: 60px;
+    font-size: 0.65em;
+  }
+}
+  .progress-container {
+  flex: 1;
+  height: 8px; /* Увеличили высоту */
+  background: #e0e0e0;
+  border-radius: 4px; /* Увеличили скругление */
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0 8px; /* Добавили отступы */
+}
+
+.progress-bar {
+  height: 100% !important;
+  background: #29282D;
+  opacity: 1 !important;
+  width: 0%;
+  visibility: visible !important;
+  transition: width 0.1s linear;
+  border-radius: 4px; /* Добавили скругление для самого прогресс-бара */
+}
+.play-btn {
+  cursor: pointer;
+  outline: none;
+}
+/* Для мобильных устройств можно сделать немного меньше */
+@media (max-width: 767px) {
+  .progress-container {
+    height: 6px;
+  }
+}
+/* Отключаем подсветку в Safari */
+.custom-audio-player {
+  -webkit-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+
+/* Фиксируем прозрачность при любом состоянии */
+.custom-audio-player,
+.custom-audio-player:active,
+.custom-audio-player *:active {
+  opacity: 1 !important;
+}
+  
+{%- endstyle -%}
+
+<div class="section-audio-comparison-pro">
+  <div class="audio-comparison-pro__container">
+    {% if section.settings.description != blank %}
+      <div class="audio-comparison-pro__description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+    
+    <div class="audio-comparison-pro__grid">
+      {% for block in section.blocks %}
+        {%- assign before_audio_url = block.settings.before_audio | file_url -%}
+        {%- assign after_audio_url = block.settings.after_audio | file_url -%}
+        
+        <div class="audio-comparison-pro__item" {{ block.shopify_attributes }}>
+          <div class="custom-audio-player" {% if block.settings.custom_bg != blank %}style="--custom-bg: {{ block.settings.custom_bg }}"{% endif %}>
+            
+            <div class="player-controls-wrapper">
+            
+        <div class="track-selector">
+                <button class="track-btn before active" data-track="before" {% unless before_audio_url contains '.mp3' or before_audio_url contains '.wav' or before_audio_url contains '.ogg' %}disabled{% endunless %}>
+                  BEFORE
+                </button>
+                <button class="track-btn after" data-track="after" {% unless after_audio_url contains '.mp3' or after_audio_url contains '.wav' or after_audio_url contains '.ogg' %}disabled{% endunless %}>
+                  AFTER
+                </button>
+          <h3 class="audio-comparison-pro__title">{{ block.settings.title }}</h3>  
+              </div>
+              <div class="player-controls">
+                <div class="play-btn" role="button" tabindex="0" {% unless before_audio_url contains '.mp3' or before_audio_url contains '.wav' or before_audio_url contains '.ogg' %}disabled{% endunless %}>
+                  <svg class="play-icon" viewBox="0 0 24 24" width="12" height="12">
+                    <path fill="currentColor" d="M8 5v14l11-7z"/>
+                  </svg>
+                  <svg class="pause-icon" viewBox="0 0 24 24" width="12" height="12" style="display:none;">
+                    <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                  </svg>
+                  <span class="loading-spinner"></span>
+                </div>
+                <div class="progress-container">
+                  <div class="progress-bar"></div>
+                </div>
+                <div class="time-display">
+                  {% if before_audio_url contains '.mp3' or before_audio_url contains '.wav' or before_audio_url contains '.ogg' %}
+                    0:00 / 0:00
+                  {% else %}
+                    File missing
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            
+            {% if before_audio_url contains '.mp3' or before_audio_url contains '.wav' or before_audio_url contains '.ogg' %}
+              <audio class="before-audio" preload="none" src="{{ before_audio_url }}"></audio>
+            {% endif %}
+            
+            {% if after_audio_url contains '.mp3' or after_audio_url contains '.wav' or after_audio_url contains '.ogg' %}
+              <audio class="after-audio" preload="none" src="{{ after_audio_url }}"></audio>
+            {% endif %}
+          </div>
+        </div>
+      {% else %}
+        {% for i in (1..2) %}
+          <div class="audio-comparison-pro__item">
+            <div class="custom-audio-player">
+              <h3 class="audio-comparison-pro__title">GENRE {{ i }}</h3>
+              <div class="player-controls-wrapper">
+                <div class="track-selector">
+                  <button class="track-btn before active" data-track="before" disabled>BEFORE</button>
+                  <button class="track-btn after" data-track="after" disabled>AFTER</button>
+                </div>
+                <div class="player-controls">
+                  <button class="play-btn" disabled>
+                    <svg class="play-icon" viewBox="0 0 24 24" width="12" height="12">
+                      <path fill="currentColor" d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" width="12" height="12" style="display:none;">
+                      <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                  </button>
+                  <div class="progress-container">
+                    <div class="progress-bar"></div>
+                  </div>
+                  <div class="time-display">Add audio files</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_button and section.settings.button_text != blank %}
+      <div class="audio-comparison-pro__button">
+        <a href="{{ section.settings.button_link }}" class="btn">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+
+document.querySelectorAll('.play-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const player = this.closest('.custom-audio-player');
+    if (!player) return;
+
+    // Принудительно сбрасываем прозрачность
+    player.style.opacity = '1';
+    player.style.webkitOpacity = '1'; // Для старых Safari
+
+    // Если кнопка Play/Pause меняет состояние, обновляем стиль
+    setTimeout(() => {
+      player.style.opacity = '1';
+      player.style.webkitOpacity = '1';
+    }, 50);
+  });
+
+  // Для тач-устройств (iOS Safari)
+  btn.addEventListener('touchstart', function(e) {
+    const player = this.closest('.custom-audio-player');
+    if (!player) return;
+
+    player.style.opacity = '1';
+    player.style.webkitOpacity = '1';
+  }, { passive: true });
+});
+  
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.body.classList.contains('shopify-design-mode')) {
+    return; // Don't initialize in theme editor
+  }
+
+  function initializeAudioPlayers() {
+    document.querySelectorAll('.custom-audio-player').forEach(player => {
+      const beforeBtn = player.querySelector('.track-btn.before');
+      const afterBtn = player.querySelector('.track-btn.after');
+      const playBtn = player.querySelector('.play-btn');
+      const progressBar = player.querySelector('.progress-bar');
+      const progressContainer = player.querySelector('.progress-container');
+      const timeDisplay = player.querySelector('.time-display');
+      const playIcon = player.querySelector('.play-icon');
+      const pauseIcon = player.querySelector('.pause-icon');
+      const spinner = player.querySelector('.loading-spinner');
+      
+      const beforeAudio = player.querySelector('.before-audio');
+      const afterAudio = player.querySelector('.after-audio');
+      
+      // Skip if no valid audio elements found
+      if (!beforeAudio && !afterAudio) {
+        player.classList.add('error');
+        return;
+      }
+      
+      // Initialize variables
+      let currentAudio = beforeAudio || afterAudio;
+      let isPlaying = false;
+      let fadeInterval = null;
+      let isLoading = false;
+
+      // Helper functions
+      function setSafeVolume(audio, volume) {
+        try {
+          if (audio) {
+            audio.volume = Math.max(0, Math.min(1, volume));
+          }
+        } catch (e) {
+          console.error('Volume error:', e);
+        }
+      }
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      function updateProgress() {
+  if (!currentAudio || !currentAudio.duration || isNaN(currentAudio.duration)) {
+    timeDisplay.textContent = "0:00 / 0:00";
+    progressBar.style.width = "0%";
+    return;
+  }
+  
+  const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+  progressBar.style.width = `${progress}%`;
+  timeDisplay.textContent = `${formatTime(currentAudio.currentTime)} / ${formatTime(currentAudio.duration)}`;
+}
+
+      function switchTrack(track) {
+        if (isLoading) return;
+        
+        const newAudio = track === 'before' ? beforeAudio : afterAudio;
+        if (!newAudio || currentAudio === newAudio) return;
+        
+        // Clear any existing fade
+        if (fadeInterval) {
+          clearInterval(fadeInterval);
+          fadeInterval = null;
+        }
+        
+        const oldAudio = currentAudio;
+        currentAudio = newAudio;
+        
+        // Update UI
+        beforeBtn.classList.toggle('active', track === 'before');
+        afterBtn.classList.toggle('active', track === 'after');
+        
+        // Crossfade between tracks
+        let volume = 0;
+        fadeInterval = setInterval(() => {
+          volume += 0.05;
+          
+          if (oldAudio) setSafeVolume(oldAudio, 1 - volume);
+          if (newAudio) setSafeVolume(newAudio, volume);
+          
+          if (newAudio) newAudio.currentTime = oldAudio ? oldAudio.currentTime : 0;
+          
+          if (volume >= 1) {
+            clearInterval(fadeInterval);
+            fadeInterval = null;
+            if (oldAudio) oldAudio.pause();
+            if (isPlaying && newAudio) {
+              newAudio.play().catch(e => {
+                console.error('Playback failed:', e);
+                showError('Playback error');
+              });
+            }
+          }
+        }, 30);
+      }
+
+      function showLoading() {
+        isLoading = true;
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'none';
+        if (spinner) spinner.style.display = 'block';
+        playBtn.disabled = true;
+      }
+
+      function hideLoading() {
+        isLoading = false;
+        if (spinner) spinner.style.display = 'none';
+        playBtn.disabled = false;
+      }
+
+      function showError(message) {
+        timeDisplay.textContent = message;
+        player.classList.add('error');
+        hideLoading();
+      }
+
+      async function togglePlay() {
+        if (!currentAudio || isLoading) return;
+        
+        if (isPlaying) {
+          // Pause current playback
+          try {
+            currentAudio.pause();
+            isPlaying = false;
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+          } catch (e) {
+            console.error('Pause error:', e);
+            showError('Pause error');
+          }
+        } else {
+          // Start playback
+          try {
+            showLoading();
+            
+            // For Safari iOS, we need to play/pause immediately after page load
+            if (currentAudio.readyState === 0) {
+              await currentAudio.load();
+            }
+            
+            await currentAudio.play();
+            
+            isPlaying = true;
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            hideLoading();
+          } catch (e) {
+            console.error('Play error:', e);
+            showError('Playback failed');
+            
+            // Try fallback - sometimes autoplay needs user interaction
+            if (e.name === 'NotAllowedError') {
+              playBtn.addEventListener('click', function handler() {
+                currentAudio.play().then(() => {
+                  isPlaying = true;
+                  playIcon.style.display = 'none';
+                  pauseIcon.style.display = 'block';
+                  hideLoading();
+                }).catch(e => {
+                  console.error('Retry failed:', e);
+                });
+                playBtn.removeEventListener('click', handler);
+              }, { once: true });
+            }
+          }
+        }
+      }
+
+      function seek(e) {
+        if (!currentAudio || !currentAudio.duration) return;
+        
+        const rect = progressContainer.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        currentAudio.currentTime = pos * currentAudio.duration;
+      }
+
+      // Event listeners
+      if (beforeBtn) beforeBtn.addEventListener('click', () => switchTrack('before'));
+      if (afterBtn) afterBtn.addEventListener('click', () => switchTrack('after'));
+      if (playBtn) playBtn.addEventListener('click', togglePlay);
+      if (progressContainer) progressContainer.addEventListener('click', seek);
+      
+      // Audio event listeners
+      if (beforeAudio) {
+        
+         beforeAudio.addEventListener('timeupdate', function() {
+    requestAnimationFrame(updateProgress);
+  });
+        beforeAudio.addEventListener('ended', () => {
+          isPlaying = false;
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        });
+        beforeAudio.addEventListener('error', () => {
+          showError('Audio error');
+          if (beforeBtn) beforeBtn.disabled = true;
+        });
+      }
+      
+      if (afterAudio) {
+        afterAudio.addEventListener('timeupdate', function() {
+    requestAnimationFrame(updateProgress);
+  });
+        afterAudio.addEventListener('ended', () => {
+          isPlaying = false;
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        });
+        afterAudio.addEventListener('error', () => {
+          showError('Audio error');
+          if (afterBtn) afterBtn.disabled = true;
+        });
+      }
+      
+      // Initial setup
+      if (beforeAudio) setSafeVolume(beforeAudio, 1);
+      if (afterAudio) setSafeVolume(afterAudio, 0);
+    });
+  }
+
+  // Initialize with a small delay to allow browser to process
+  setTimeout(initializeAudioPlayers, 100);
+});
+</script>

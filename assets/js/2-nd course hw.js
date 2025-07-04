@@ -47,6 +47,46 @@ let result = Math.pow(2, 5);
 // Выводим результат возведения в степень на экран
 document.getElementById('task5').innerHTML = "2 в 5-й степени = " + result + "<br>Результат записан в переменную 'result'";
 
+// Задание 5: Определение сезона по номеру месяца
+let monthNumber = 12; // Можно менять для проверки
+if (monthNumber > 12 || monthNumber < 1) {
+    // Если номер месяца некорректный, программа не выполняется
+    console.log('Некорректный номер месяца');
+    const task5Div = document.getElementById('task5');
+    if (task5Div) {
+        task5Div.textContent = 'Некорректный номер месяца';
+    }
+} else {
+    let season;
+    switch (monthNumber) {
+        case 12:
+        case 1:
+        case 2:
+            season = 'зима';
+            break;
+        case 3:
+        case 4:
+        case 5:
+            season = 'весна';
+            break;
+        case 6:
+        case 7:
+        case 8:
+            season = 'лето';
+            break;
+        case 9:
+        case 10:
+        case 11:
+            season = 'осень';
+            break;
+    }
+    console.log(season);
+    const task5Div = document.getElementById('task5');
+    if (task5Div) {
+        task5Div.textContent = 'Сезон: ' + season;
+    }
+}
+
 // Создаем переменные a = 9 и b = 2
 let a_task6 = 9;
 let b_task6 = 2;
@@ -113,3 +153,62 @@ let finalResult = divided - number;
 alert("Вычли исходное число: " + finalResult);
 
 alert("Ответ всегда равен 5!");
+
+// Задание 1: Проверка правильности введенного пароля
+(function() {
+    let password = 'пароль';
+    let userInput = prompt('Введите пароль');
+    let result;
+    if (userInput === password) {
+        result = 'Пароль введен верно';
+    } else {
+        result = 'Пароль введен неправильно';
+    }
+    // Выводим результат в блок на странице, если он есть
+    const task1Div = document.getElementById('task1');
+    if (task1Div) {
+        task1Div.textContent = result;
+    } else {
+        alert(result);
+    }
+})();
+
+// Задание 2: Проверка значения переменной c
+let c = 0; // Проверьте с 10, -3, 2
+let result2;
+if (c > 0 && c < 10) {
+    result2 = 'Верно';
+} else {
+    result2 = 'Неверно';
+}
+console.log(result2);
+const task2Div = document.getElementById('task2');
+if (task2Div) {
+    task2Div.textContent = result2;
+}
+
+// Задание 3: Проверка переменных d и e
+let d = 50; // Можно менять для проверки
+let e = 150; // Можно менять для проверки
+let result3;
+if (d > 100 || e > 100) {
+    result3 = 'Верно';
+} else {
+    result3 = 'Неверно';
+}
+console.log(result3);
+const task3Div = document.getElementById('task3');
+if (task3Div) {
+    task3Div.textContent = result3;
+}
+
+// Задание 4: Исправить сложение строк, чтобы получить число 5
+let a4 = '2';
+let b4 = '3';
+// Код выше изменять нельзя. Чтобы решить задачу исправьте код ниже:
+let sum4 = Number(a4) + Number(b4);
+alert(sum4);
+const task4Div = document.getElementById('task4');
+if (task4Div) {
+    task4Div.textContent = 'Сумма чисел: ' + sum4;
+}

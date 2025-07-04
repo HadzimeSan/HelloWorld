@@ -1,0 +1,203 @@
+{% schema %}
+{
+  "name": "Video with Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Video Section"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Add your descriptive text here.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Play Video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (YouTube, Vimeo, or .mp4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video with Text",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  const playButtons = document.querySelectorAll('.video-play-button');
+  
+  playButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const videoContainer = this.closest('.video-text-section').querySelector('.video-container');
+      const video = videoContainer.querySelector('video, iframe');
+      
+      if (video.tagName === 'VIDEO') {
+        video.play();
+        video.controls = true;
+      } else if (video.tagName === 'IFRAME') {
+        const src = video.src;
+        video.src = src.includes('?') ? `${src}&autoplay=1` : `${src}?autoplay=1`;
+      }
+      
+      // Скрываем все кнопки Play в этой секции
+      const section = this.closest('.video-text-section');
+      section.querySelectorAll('.video-play-button').forEach(btn => {
+        btn.style.display = 'none';
+      });
+    });
+  });
+});
+{% endjavascript %}
+
+<style>
+  .video-text-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    padding: 50px 0;
+  }
+  
+  .video-container {
+    flex: 1 1 50%;
+    position: relative;
+    min-height: 300px;
+    order: 2; /* По умолчанию видео справа */
+  }
+  
+  .video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .video-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+  }
+  
+  .video-play-button {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  
+  .video-play-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .video-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  
+  .text-content {
+    flex: 1 1 40%;
+    order: 1; /* По умолчанию текст слева */
+  }
+  
+  .text-content .video-play-button {
+    margin-top: 20px;
+    display: inline-block;
+  }
+  
+  @media (max-width: 768px) {
+    .video-text-section {
+      flex-direction: column;
+    }
+    
+    .video-container,
+    .text-content {
+      flex: 1 1 100%;
+      width: 100%;
+    }
+    
+    /* В мобильной версии меняем порядок - текст сверху */
+    .text-content {
+      order: 1;
+      margin-bottom: 20px;
+    }
+    
+    .video-container {
+      order: 2;
+    }
+    
+    /* Скрываем кнопку в текстовом блоке в мобильной версии */
+    .text-content .video-play-button {
+      display: none;
+    }
+    
+    /* Показываем только кнопку поверх видео */
+    .video-play-overlay {
+      display: block;
+    }
+  }
+</style>
+
+<div class="video-text-section">
+  <div class="video-container">
+    {% if section.settings.video_url %}
+      {% if section.settings.video_url contains 'youtube.com' or section.settings.video_url contains 'youtu.be' %}
+        <iframe 
+          src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      {% elsif section.settings.video_url contains 'vimeo.com' %}
+        <iframe 
+          src="{{ section.settings.video_url | replace: 'vimeo.com', 'player.vimeo.com/video' }}" 
+          frameborder="0" 
+          allow="autoplay; fullscreen" 
+          allowfullscreen>
+        </iframe>
+      {% elsif section.settings.video_url contains '.mp4' %}
+        <video 
+          {% if section.settings.cover_image %}poster="{{ section.settings.cover_image | img_url: '800x' }}"{% endif %}
+          controls>
+          <source src="{{ section.settings.video_url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {% endif %}
+    {% endif %}
+    
+    {% unless section.settings.video_url contains '.mp4' %}
+      <button class="video-play-button video-play-overlay">{{ section.settings.button_label }}</button>
+    {% endunless %}
+  </div>
+  
+  <div class="text-content">
+    <h2>{{ section.settings.heading }}</h2>
+    <div>{{ section.settings.text }}</div>
+    
+    <button class="video-play-button">{{ section.settings.button_label }}</button>
+  </div>
+</div>

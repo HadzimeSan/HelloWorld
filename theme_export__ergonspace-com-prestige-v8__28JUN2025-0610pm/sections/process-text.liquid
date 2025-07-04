@@ -1,0 +1,594 @@
+{% schema %}
+{
+  "name": "Icon Features Carousel",
+  "class": "icon-features-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Features"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Icon Settings"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "icon_style",
+      "label": "Icon container style",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "range",
+      "id": "icon_radius",
+      "label": "Icon radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "icon_bg",
+      "label": "Icon background",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "Icon padding",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Card width (desktop)",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "unit": "ms",
+      "default": 3000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Recommended size: 100x100px (transparent PNG/SVG)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Feature description text</p>"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#444444"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Features Carousel",
+      "category": "Custom Content",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{%- liquid
+  assign section_id = 'icon-features-' | append: section.id
+  capture icon_container_style
+    case section.settings.icon_style
+      when 'circle'
+        echo 'border-radius: 50%;'
+      when 'rounded'
+        echo 'border-radius: ' | append: section.settings.icon_radius | append: 'px;'
+      when 'square'
+        echo 'border-radius: 0;'
+    endcase
+  endcapture
+-%}
+
+<style>
+  #{{ section_id }} {
+    padding: {{ section.settings.section_padding }}px 0;
+    background: {{ section.settings.bg_color }};
+  }
+
+  .section-heading-{{ section.id }} {
+    text-align: center;
+    margin: 0 auto 40px;
+    color: {{ section.settings.heading_color }};
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  .icon-container-{{ section.id }} {
+    width: {{ section.settings.icon_size | plus: section.settings.icon_padding | times: 2 }}px;
+    height: {{ section.settings.icon_size | plus: section.settings.icon_padding | times: 2 }}px;
+    background: {{ section.settings.icon_bg }};
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ section.settings.icon_padding }}px;
+    {{ icon_container_style }}
+  }
+
+  .icon-image-{{ section.id }} {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    object-fit: contain;
+  }
+
+  .feature-card-{{ section.id }} {
+    flex: 0 0 {{ section.settings.card_width }}px;
+    scroll-snap-align: center;
+    padding: 0 {{ section.settings.card_padding | divided_by: 2 }}px;
+  }
+
+  .feature-content-{{ section.id }} {
+    background: {{ section.settings.card_bg }};
+    padding: {{ section.settings.card_padding }}px;
+    border-radius: {{ section.settings.card_radius }}px;
+    text-align: center;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-content-{{ section.id }}:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature-title-{{ section.id }} {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .feature-text-{{ section.id }} {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .features-carousel-{{ section.id }} {
+        display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 0;
+    scroll-padding: 0 calc((100vw - {{ section.settings.card_width }}px) / 2);
+    
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .features-carousel-{{ section.id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-arrow-{{ section.id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: {% if section.settings.show_arrows %}flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .carousel-arrow-{{ section.id }}:hover {
+    opacity: 1;
+  }
+
+  .carousel-arrow-{{ section.id }}.prev {
+    left: 20px;
+  }
+
+  .carousel-arrow-{{ section.id }}.next {
+    right: 20px;
+  }
+
+  .carousel-dots-{{ section.id }} {
+    display: {% if section.settings.show_dots %}flex{% else %}none{% endif %};
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+  }
+
+  .carousel-dot-{{ section.id }} {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease;
+  }
+
+  .carousel-dot-{{ section.id }}.active {
+    background: #333;
+  }
+
+ @media (max-width: 767px) {
+  #{{ section_id }} {
+    overflow-x: hidden;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .features-carousel-{{ section.id }} {
+    display: flex;
+    width: 100vw;
+    padding: 0 10px;
+    margin-left: -10px;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+  }
+
+  .feature-card-{{ section.id }} {
+    flex: 0 0 calc(100vw - 20px);
+    width: calc(100vw - 20px);
+    margin: 0 5px;
+    scroll-snap-align: center;
+    transform: translateX(10px);
+    box-sizing: border-box;
+  }
+
+  .features-carousel-{{ section.id }}::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>
+
+<div id="{{ section_id }}" class="icon-features-section">
+  {% if section.settings.heading != blank %}
+    <h2 class="section-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+  {% endif %}
+  
+  <div class="features-carousel-{{ section.id }}">
+    {% for block in section.blocks %}
+      <div class="feature-card-{{ section.id }}" {{ block.shopify_attributes }}>
+        <div class="feature-content-{{ section.id }}">
+          <div class="icon-container-{{ section.id }}">
+            {%- if block.settings.icon != blank -%}
+              <img class="icon-image-{{ section.id }}"
+                   src="{{ block.settings.icon | img_url: '200x200' }}"
+                   alt="{{ block.settings.title | escape }}"
+                   loading="lazy"
+                   width="{{ section.settings.icon_size }}"
+                   height="{{ section.settings.icon_size }}">
+            {%- else -%}
+              <div class="icon-image-{{ section.id }} placeholder">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <h3 class="feature-title-{{ section.id }}" style="color: {{ block.settings.title_color }};">
+            {{ block.settings.title }}
+          </h3>
+
+          <div class="feature-text-{{ section.id }}" style="color: {{ block.settings.text_color }};">
+            {{ block.settings.text }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-arrow-{{ section.id }} prev" aria-label="Previous">{% render 'icon-arrow-left' %}</button>
+  <button class="carousel-arrow-{{ section.id }} next" aria-label="Next">{% render 'icon-arrow-right' %}</button>
+
+  <div class="carousel-dots-{{ section.id }}">
+    {% for block in section.blocks %}
+      <button class="carousel-dot-{{ section.id }} {% if forloop.first %}active{% endif %}" 
+              data-index="{{ forloop.index0 }}" 
+              aria-label="Go to slide {{ forloop.index }}"></button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+(function() {
+  const sectionId = '{{ section_id }}';
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+
+  const carousel = section.querySelector('.features-carousel-{{ section.id }}');
+  const prevBtn = section.querySelector('.prev');
+  const nextBtn = section.querySelector('.next');
+  const dots = section.querySelectorAll('.carousel-dot-{{ section.id }}');
+  const cards = section.querySelectorAll('.feature-card-{{ section.id }}');
+  
+  if (!carousel || !cards.length) return;
+
+  let currentIndex = 0;
+  let autoplayInterval;
+  const cardWidth = {{ section.settings.card_width }};
+  const cardSpacing = {{ section.settings.card_padding }};
+
+  // Center first card on mobile initially
+const centerInitialCard = () => {
+  if (window.innerWidth < 768) {
+    carousel.scrollTo({
+      left: 0,
+      behavior: 'auto'
+    });
+  }
+};
+
+// Вызывать при загрузке и ресайзе
+window.addEventListener('load', centerInitialCard);
+window.addEventListener('resize', centerInitialCard);
+
+  const updateDots = () => {
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  };
+
+  const goToSlide = (index) => {
+    currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const scrollPos = cards[currentIndex].offsetLeft - (carousel.offsetWidth - cards[currentIndex].offsetWidth) / 2;
+    carousel.scrollTo({ left: scrollPos, behavior: 'smooth' });
+    updateDots();
+  };
+
+  const nextSlide = () => {
+    if (currentIndex < cards.length - 1) {
+      goToSlide(currentIndex + 1);
+    } else {
+      goToSlide(0);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      goToSlide(currentIndex - 1);
+    } else {
+      goToSlide(cards.length - 1);
+    }
+  };
+
+  // Handle scroll events to update current index
+  const handleScroll = () => {
+    if (window.innerWidth < 768) {
+      const cardWidth = cards[0].offsetWidth;
+      const scrollPosition = carousel.scrollLeft + (cardWidth / 2);
+      
+      cards.forEach((card, index) => {
+        const cardStart = card.offsetLeft;
+        const cardEnd = cardStart + card.offsetWidth;
+        
+        if (scrollPosition >= cardStart && scrollPosition < cardEnd) {
+          currentIndex = index;
+          updateDots();
+        }
+      });
+    }
+  };
+
+  // Initialize
+  const initCarousel = () => {
+    centerInitialCard();
+    
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.dataset.index));
+      });
+    });
+
+    carousel.addEventListener('scroll', handleScroll);
+    
+    {% if section.settings.autoplay %}
+      const startAutoplay = () => {
+        autoplayInterval = setInterval(nextSlide, {{ section.settings.autoplay_speed }});
+      };
+      const stopAutoplay = () => {
+        clearInterval(autoplayInterval);
+      };
+      startAutoplay();
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+    {% endif %}
+  };
+
+  // Handle resize
+  const handleResize = () => {
+    centerInitialCard();
+  };
+
+  window.addEventListener('resize', handleResize);
+  initCarousel();
+})();
+  const forceMobileLayout = () => {
+  if (window.innerWidth < 768) {
+    const carousel = document.querySelector('.features-carousel-{{ section.id }}');
+    if (carousel) {
+      carousel.scrollLeft = 10; // Смещение для компенсации padding
+    }
+  }
+};
+
+// Инициализация
+window.addEventListener('load', () => {
+  forceMobileLayout();
+  setTimeout(forceMobileLayout, 100); // Двойная проверка
+});
+
+// Обработка ресайза
+window.addEventListener('resize', forceMobileLayout);
+</script>

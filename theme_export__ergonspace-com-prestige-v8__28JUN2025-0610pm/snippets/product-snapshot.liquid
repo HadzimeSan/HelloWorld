@@ -1,0 +1,59 @@
+{% comment %}
+  Product Snapshot
+  Shows key product features in a tag-like format
+{% endcomment %}
+
+{%- style -%}
+  .product-snapshot {
+    margin: 1rem 0;
+  }
+
+  .product-snapshot__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .product-snapshot__item {
+    background-color: #E0F4FF;
+    padding: 0.5rem 0.5rem;
+    border-radius: 2.5px;
+    font-size: 0.875rem;
+    color: rgb(33, 33, 33);
+  }
+
+  .product-snapshot__heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-snapshot__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+{%- endstyle -%}
+
+<div class="product-snapshot" {{ block.shopify_attributes }}>
+  <div class="product-snapshot__heading">
+    {%- render 'icon' with 'picto-jewelry', class: 'product-snapshot__icon' -%}
+    <h2 class="h6">{{ block.settings.title | default: 'Product Snapshot' }}</h2>
+  </div>
+
+  <ul class="product-snapshot__list">
+    {%- if block.settings.feature_1 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_1 }}</li>{%- endif -%}
+    {%- if block.settings.feature_2 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_2 }}</li>{%- endif -%}
+    {%- if block.settings.feature_3 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_3 }}</li>{%- endif -%}
+    {%- if block.settings.feature_4 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_4 }}</li>{%- endif -%}
+    {%- if block.settings.feature_5 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_5 }}</li>{%- endif -%}
+    {%- if block.settings.feature_6 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_6 }}</li>{%- endif -%}
+    {%- if block.settings.feature_7 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_7 }}</li>{%- endif -%}
+    {%- if block.settings.feature_8 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_8 }}</li>{%- endif -%}
+    {%- if block.settings.feature_9 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_9 }}</li>{%- endif -%}
+    {%- if block.settings.feature_10 != blank -%}<li class="product-snapshot__item">{{ block.settings.feature_10 }}</li>{%- endif -%}
+  </ul>
+</div> 

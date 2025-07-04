@@ -1,0 +1,170 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --top-bar-height: {{ section.settings.height }}px;
+    --top-bar-bg: {{ section.settings.background }};
+    --image-max-height: {{ section.settings.image_max_height }}px;
+  }
+
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--top-bar-height);
+    background: var(--top-bar-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1001;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: translateZ(0); /* Для улучшения рендеринга */
+  }
+
+  .top-bar__content {
+    width: 100%;
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  .top-bar__left .text {
+    font-size: {{ section.settings.text_size }}px;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  .top-bar__right img {
+    max-height: var(--image-max-height);
+    width: auto;
+    display: block;
+  }
+
+  body {
+    padding-top: var(--top-bar-height) !important; /* Важно переопределить возможные другие стили */
+  }
+
+  /* Исправление для фиксированного хедера */
+  .shopify-section-header.header--sticky {
+    top: var(--top-bar-height) !important;
+    z-index: 1000;
+  }
+{%- endstyle -%}
+
+<div class="top-bar">
+  <div class="top-bar__content">
+    <div class="top-bar__left">
+      <div class="text">
+        {{ section.settings.text }}
+      </div>
+    </div>
+    
+    <div class="top-bar__right">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | img_url: '300x' }}" 
+             alt="{{ section.settings.image.alt | escape }}"
+             loading="lazy"
+             width="{{ section.settings.image.width }}"
+             height="{{ section.settings.image.height }}">
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Top Bar",
+  "tag": "section",
+  "class": "shopify-section--top-bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 30,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Bar height",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 800,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1200
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text content",
+      "default": "<p>Your text here</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Right image"
+    },
+    {
+      "type": "range",
+      "id": "image_max_height",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Image max height",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Bar",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

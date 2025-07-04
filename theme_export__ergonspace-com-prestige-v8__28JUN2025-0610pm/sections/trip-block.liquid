@@ -1,0 +1,1494 @@
+<style>
+  /* Основные стили секции */
+  .triple-block-section {
+    background-color: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+  .block-title {
+    text-align: center;
+    margin: 0 auto 40px;
+    color: #29282d;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 1000px) {
+  .triple-block-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ section.settings.gap_between_blocks }}px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  }
+ @media screen and (min-width: 1000px) {
+.triple-block-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    justify-content: center;
+}}
+  
+
+  /* Стили блоков */
+  .triple-block-item {
+    position: relative;
+    flex: 1 1 calc({{ section.settings.block_min_width }}px - {{ section.settings.gap_between_blocks }}px);
+    min-width: 280px;
+    padding: {{ section.settings.block_padding }}px;
+    background-color: {{ section.settings.block_bg_color }};
+    border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    border-radius: {{ section.settings.border_radius }}px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Бейдж */
+  .triple-block-badge {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    background-color: {{ section.settings.badge_bg_color }};
+    color: {{ section.settings.badge_text_color }};
+    padding: 5px 20px;
+    font-size: {{ section.settings.badge_font_size }}px;
+    transform: translateX(-30%) rotate(-45deg);
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 120px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .triple-block-badge {
+      padding: 3px 15px;
+      font-size: calc({{ section.settings.badge_font_size }}px - 2px);
+      width: 100px;
+      transform: translateX(-25%) rotate(-45deg);
+    }
+  }
+
+  /* Заголовок */
+  .triple-block-title-wrapper {
+    background-color: {{ block.settings.title_bg_color }};
+    padding: 20px;
+    margin: -{{ section.settings.block_padding }}px -{{ section.settings.block_padding }}px 20px -{{ section.settings.block_padding }}px;
+    border-radius: {{ section.settings.border_radius }}px {{ section.settings.border_radius }}px 0 0;
+  }
+  
+  .triple-block-title {
+    font-size: {{ section.settings.title_font_size }}px;
+    color: {{ section.settings.title_color }};
+    margin: 0;
+    font-weight: 700;
+  }
+
+  /* Подзаголовок */
+  .triple-block-subtitle {
+    display: inline-block;
+    font-size: {{ section.settings.subtitle_font_size }}px;
+    color: {{ section.settings.subtitle_text_color }};
+    background-color: {{ section.settings.subtitle_bg_color }};
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  /* Цена */
+  .triple-block-price-wrapper {
+    background-color: {{ block.settings.price_bg_color }};
+    padding: 15px;
+    margin: 0 -{{ section.settings.block_padding }}px;
+  }
+  
+  .triple-block-price {
+    font-size: {{ section.settings.price_font_size }}px;
+    font-weight: bold;
+    color: {{ section.settings.price_color }};
+    margin: 0;
+  }
+
+  /* Описание */
+  .triple-block-description-wrapper {
+    background-color: {{ block.settings.description_bg_color }};
+    padding: 20px;
+    margin: 0 -{{ section.settings.block_padding }}px -{{ section.settings.block_padding }}px -{{ section.settings.block_padding }}px;
+    border-radius: 0 0 {{ section.settings.border_radius }}px {{ section.settings.border_radius }}px;
+  }
+  
+  .triple-block-description {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Кнопка */
+  .triple-block-button-wrapper {
+    margin-top: 25px;
+  }
+  
+  .triple-block-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .triple-block-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  /* Модальное окно */
+  .triple-block-modal {
+    border: none;
+    border-radius: {{ section.settings.border_radius }}px;
+    padding: 0;
+    width: 90%;
+    max-width: 600px;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .triple-block-modal::backdrop {
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
+  }
+  
+  .modal-container {
+    padding: 30px;
+    position: relative;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+  }
+  
+  .modal-close:hover {
+    color: #000;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: {{ section.settings.button_bg_color }};
+    outline: none;
+  }
+  
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .modal-submit-btn {
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.3s;
+  }
+  
+  .modal-submit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  .skip-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  
+  .skip-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+  }
+  
+  .modal-button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  
+  .consent-checkbox {
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .consent-checkbox input {
+    margin-right: 10px;
+    width: auto;
+  }
+  
+  .success-message {
+    color: #28a745;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .triple-block-item {
+      flex: 1 1 100%;
+    }
+    
+    .modal-button-group {
+      flex-direction: column;
+    }
+    
+    .triple-block-badge {
+      font-size: calc({{ section.settings.badge_font_size }}px - 2px);
+      padding: 3px 30px;
+    }
+  }
+  cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: white;
+  z-index: 9999;
+  transition: right 0.3s ease;
+}
+
+cart-drawer.is-open {
+  right: 0;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+  
+  .modal-faq-section {
+  margin: 25px 0;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+  .modal-chat-section {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.faq-safe__item {
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.faq-safe__question {
+  width: 100%;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.faq-safe__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  padding: 0 16px;
+  text-align: left;
+}
+
+.faq-safe__item.is-open .faq-safe__answer {
+  max-height: 1800px;
+  padding-bottom: 16px;
+}
+
+.faq-safe__item.is-open .faq-safe__icon {
+  transform: rotate(45deg);
+}
+ .modal-faq-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+.form-group-text-btn{
+  margin-bottom: 7px;
+}
+</style>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<div class="triple-block-section">
+  <div class="block-title"><h2>OUR SERVICES</h2>
+      </div>
+  <div class="triple-block-container">
+    {% for block in section.blocks %}
+      {%- liquid
+        assign variant_id = block.settings.variant_id | default: 0 | plus: 0
+        assign selected_variant = nil
+        
+        if block.settings.product and block.settings.product.variants
+          assign selected_variant = block.settings.product.variants | where: 'id', variant_id | first
+        endif
+      -%}
+      
+      <div id="ordernow" class="triple-block-item" {{ block.shopify_attributes }} style="overflow: hidden; position: relative;">
+        {% if block.settings.show_badge and block.settings.badge_text != blank %}
+          <div class="triple-block-badge">
+            {{ block.settings.badge_text }}
+          </div>
+        {% endif %}       
+        
+        <div class="triple-block-title-wrapper" style="background-color: {{ block.settings.title_bg_color }};">
+          <h3 class="triple-block-title">
+            {{ block.settings.title }}
+          </h3>
+          
+          {% if block.settings.subtitle != blank %}
+            <div class="triple-block-subtitle" 
+                 style="color: {{ block.settings.subtitle_text_color }}; 
+                        background-color: {{ block.settings.subtitle_bg_color }};
+                        font-size: {{ block.settings.subtitle_font_size }}px;">
+              {{ block.settings.subtitle }}
+            </div>
+          {% endif %}
+        </div>
+        <div class="triple-block-link">
+            <p id="{{ block.settings.linkid }}"></p>
+          </div>
+        <div class="triple-block-price-wrapper" style="background-color: {{ block.settings.price_bg_color }};">
+          <p class="triple-block-price">
+            {{ block.settings.price }}
+          </p>
+        </div>
+        
+        <div class="triple-block-description-wrapper" style="background-color: {{ block.settings.description_bg_color }};">
+          <div class="triple-block-description">
+            {{ block.settings.description }}
+          </div>
+        </div>
+        
+        <div class="triple-block-button-wrapper">
+          {% if block.settings.button_type == 'url' and block.settings.button_link != blank %}
+            <a href="{{ block.settings.button_link }}" 
+               class="triple-block-button" 
+               style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};">
+              {{ block.settings.button_text }}
+            </a>
+          {% elsif block.settings.button_type == 'buy_now' or block.settings.button_type == 'popup' %}
+            <button type="button" 
+                    class="triple-block-button" 
+                    style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};"
+                    onclick="openModal('{{ block.settings.popup_id | handle }}')"
+                    {% unless selected_variant %}disabled{% endunless %}>
+              {{ block.settings.button_text }}
+            </button>
+          {% endif %}
+
+
+      
+        </div>
+
+        {% if block.settings.button_type == 'popup' or block.settings.button_type == 'buy_now' %}
+          <dialog id="{{ block.settings.popup_id | handle }}" class="triple-block-modal">
+            <div class="modal-container">
+              <button class="modal-close" onclick="closeModal('{{ block.settings.popup_id | handle }}')" aria-label="Close">
+                ×
+              </button>
+              <div class="modal-content">
+                <h3>{{ block.settings.popup_title | default: "Order Details" }}</h3>
+                
+                {% if selected_variant %}
+                  <input type="hidden" name="contact[variant_id]" value="{{ selected_variant.id }}">
+                  
+                {% else %}
+                  <p class="error" style="color: red; margin-bottom: 15px;">
+                    Configuration error: Product variant not found!
+                  </p>
+                {% endif %}
+                
+                {% if block.settings.popup_content_type == 'form' %}
+  {% form 'contact', id: "contact-form-{{ block.id }}", data-variant-id:"{{ selected_variant.id }}" %}
+    {% if form.posted_successfully? %}
+      
+    {% endif %}
+    
+    {% if selected_variant %}
+      <input type="hidden" name="contact[variant_id]" value="{{ selected_variant.id }}">
+      <input type="hidden" name="typeProduct" value="{{ block.settings.subtitle }}">
+      <input type="hidden" name="contact[variant]" value="{{ block.settings.product.title }} - {{ selected_variant.price | money }}">
+      
+    {% endif %}
+  <div class="form-group"> 
+    {% unless block.settings.form_only %}
+    <p>After you complete the form and make the payment, we’ll send the final song to the email you provided within 1-3 days.
+Please check your SPAM folder if you don’t receive a notification.
+If you’ve already filled out the form, just click “Skip If Form & Song Sent” and proceed to payment.</p>  
+    {% else %}
+      <p>After you complete the form, we’ll send a preview of your song to the email you provided within 5–7 days. Please check your SPAM folder if you don’t receive a notification. Pay within 24 hours after listening to the demo or files will be deleted
+</p>
+    {% endunless %}
+    
+  </div>
+   <div class="form-group-text-btn">              
+   <p style="font-weight: bold;"> Need help or have a question?</p>
+    </div>
+   <div class="modal-chat-section">     
+     <button 
+  type="button" 
+  class="feedback-chat-toggle" 
+  onclick="closeModal2('{{ block.settings.popup_id | handle }}')"
+  style="
+    background-color: #4e2dd4;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  "
+>
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 9.78374C4 5.84433 4.81543 5 8.62 5H11.38C15.1846 5 16 5.84433 16 9.78374C16 13.7232 15.1846 14.9008 11.38 14.9008H10.8303C10.8025 14.9346 10.7703 14.9666 10.7336 14.9962L8.54286 16.86C8.12929 17.1935 7.5137 16.898 7.5137 16.3667V14.87C4.65254 14.6884 4 13.3078 4 9.78374ZM10 10.6667C10.3682 10.6667 10.6667 10.3682 10.6667 10C10.6667 9.63181 10.3682 9.33333 10 9.33333C9.63181 9.33333 9.33333 9.63181 9.33333 10C9.33333 10.3682 9.63181 10.6667 10 10.6667ZM13.3333 10C13.3333 10.3682 13.0349 10.6667 12.6667 10.6667C12.2985 10.6667 12 10.3682 12 10C12 9.63181 12.2985 9.33333 12.6667 9.33333C13.0349 9.33333 13.3333 9.63181 13.3333 10ZM7.33333 10.6667C7.70152 10.6667 8 10.3682 8 10C8 9.63181 7.70152 9.33333 7.33333 9.33333C6.96514 9.33333 6.66667 9.63181 6.66667 10C6.66667 10.3682 6.96514 10.6667 7.33333 10.6667Z" fill="white"></path>
+  </svg>
+  Open chat
+</button> 
+    </div>
+    <div class="form-group">
+      <input type="text" name="contact[name]" placeholder="Your Name*" required>
+    </div>
+    <div class="form-group">
+      <input type="email" name="contact[email]" placeholder="Your Email*" required>
+    </div>
+    <div class="form-group">
+      <input type="tel" name="contact[phone]" placeholder="Your Phone" >
+    </div>
+          <div class="form-group">        
+    <p style="text-align: justify">Add a download link (for example, Google Drive) to your stems/song, or email them to us: support@ergonspace.com </p>
+    </div>
+     <div class="form-group">
+      <input type="text" name="contact[music_link]" placeholder="Your project link" >
+    </div>
+    <div class="form-group">
+      <textarea name="contact[reference_track]" placeholder="Reference Track – Share the name of a song that captures the sound you’re going for with your track (optional)." rows="2" ></textarea>
+    </div>
+
+      <div class="form-group">
+      <textarea name="contact[body]" placeholder="Additional Notes – Let us know any specific details or preferences you’d like us to keep in mind during mixing and mastering (optional)." rows="4" ></textarea>
+    </div>
+
+    <div class="consent-checkbox">
+      <input type="checkbox" id="consent-{{ block.id }}" required>
+      <label for="consent-{{ block.id }}">
+        I agree to the <a href="/policies/privacy-policy" target="_blank">Privacy Policy</a>*
+      </label>
+    </div>
+
+    {% unless block.settings.form_only %}
+      <div class="modal-button-group">
+        {% if block.settings.button_type == 'buy_now' and selected_variant %}
+          <button type="button" 
+                  class="skip-button" 
+                  onclick="addToCartAndOpenDrawer('{{ block.settings.popup_id | handle }}', {{ selected_variant.id }})">
+            {{ 'cart.general.skip_and_view' | t }}
+          </button>
+        {% endif %}
+        <button type="submit" class="modal-submit-btn" onclick="addToCart('{{ block.settings.popup_id | handle }}', {{ selected_variant.id }}, '{{ block.settings.button_type }}')" >Continue</button>
+      </div>
+    {% else %}
+      <button type="submit" class="modal-submit-btn">Send Message</button>
+    {% endunless %}
+
+
+                
+     <!-- Добавленный FAQ блок -->
+    <div class="modal-faq-section">
+  <div class="modal-faq-title">FAQ</div>
+  
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        How do I place an order for mixing and mastering?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <ul><li>Choose the service you need</li><li>Fill out a short form and include a link to your stems or song, or email them to us</li><li>Let us know any specific notes or preferences for your mix</li><li>Complete your order at checkout<br>Once payment is made, your track will be delivered within 1–3 days and sent to your email</li></ul>If you don’t see the message, make sure to check your SPAM folder</li></ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        How to Get a Free 30-Second Demo (+$29 added to final price if you proceed)
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <ul><li>Select the <strong>Free Demo</strong> package</li><li>Fill out a short form and include a link to your stems or song, or send them to our email</li><li>Share any notes or preferences you have for the mix</li><li>Hit <strong>Submit</strong> and we’ll take care of the rest</li><li>Wait 5–7 days to receive your 30-second demo</li></ul><p>We create free demos within 5–7 days, as priority is given to artists who pay upfront.<br><br>Once the demo is ready, we’ll send it to your email.<br><br>If you don’t see the message, make sure to check your SPAM folder<br><br></p><p><strong>If you don’t like it – no worries, just forget about it.</strong><br><br><strong>If you love it – pay the full amount, and we’ll send you the complete track.</strong></p><h3>⚠️ <strong>PLEASE NOTE:</strong></h3><ul><li>The demo is stored in our system for <strong>24 hours only</strong> after delivery. If you like it, be sure to make payment within that time to receive the full track.</li><li>If you decide to move forward with the full project after hearing the demo, <strong>an additional $29</strong> will be added to the total cost. This covers the risk and time we invest by working before payment.</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        When Do I Pay?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>If you choose the free 30 second demo mix you only pay after you hear it<br><br>Once we send the 30 second preview and you like what you hear you’ll have 24 hours to complete the payment<br><br>After that we’ll deliver the full mix straight to your email.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What file format for is best mixing & mastering?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Any file you have will work, but ideally, please send: WAV file or AIFF at 24 bit - Keep sample rate the same as your project, or what you recorded the audio in. Sample rates could be 44.1khz, 88.2khz, 96khz or 192khz.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What Is Mixing?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Mixing is the process of taking all the different parts of a song — vocals, instruments, drums, background sounds — and blending them into one clean, professional-sounding track. The goal is to make sure everything sounds balanced, clear, and works together as one cohesive piece.</p><p><strong>Volume Balancing:</strong> Making sure no sound is too loud or too quiet — everything sits right in the mix.<br><strong>Panning:</strong> Placing sounds in the stereo space (left, right, center) to create width and depth.<br><strong>EQ (Equalization):</strong> Shaping each sound by boosting or cutting certain frequencies to make things sound cleaner and more polished.<br><strong>Compression &amp; Limiting:</strong> Controlling dynamics so the mix sounds tight and consistent, without anything jumping out or getting buried.<br><strong>Effects:</strong> Adding reverb, delay, and other effects to bring life, space, and emotion to the track.</p><p>At the end of the day, mixing is about bringing the artist’s vision to life — making sure every sound supports the song and delivers the impact it’s meant to. A skilled mix engineer knows how to turn raw stems into something powerful, emotional, and ready for release.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What Is Mastering?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Once your mix is finalized, mastering is the final step before release<br><br>The goal of mastering is to make sure your track sounds polished, loud, and consistent across all platforms — from phones and laptops to car speakers and club systems</p><p>During mastering, we process the full track (the master bus) using tools like<br><br>– EQ<br><br>– Compression<br><br>– Limiting<br><br>– Saturation<br><br>– Stereo widening<br><br>– De-essing<br><br>– And other fine-tuning techniques</p><p>A professional mastering engineer adds the final touch — making your song sound wider, cleaner, and more controlled<br><br>It’s all about making sure your track plays back perfectly no matter where it’s heard</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What are “stems”?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Stems are the individual parts of your song separated into their own audio tracks.<br><br>For example: kick, snare, bass, piano, lead vocal, background vocals, and so on.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        Can I Send a Demo Mix?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Absolutely — it’s super helpful! It gives us a clear sense of the sound you’re aiming for, including levels, effects, and overall feel.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        Is it okay to send a reference track?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Feel free to send us a song that matches the vibe you're going for — it helps us dial in your sound. Don’t have one? No problem, we’ll find something that fits your style.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        How Many Tweaks Can I Request?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>You get unlimited revisions until you're 100% satisfied with your project.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What Kind of Music Do You Specialize In?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>We work with <em>all</em> genres. Depending on your project, we’ll assign it to an engineer who specializes in that specific style of music.</p><p>We regularly handle:<br><br>Hip-Hop, Trap, R&amp;B, Pop, Rock, EDM, House, Techno, Reggaeton, Afrobeat, Drill, Indie, Acoustic, Soul, Jazz — and more.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        Got Multiple Tracks? We’ve Got Deals.
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Absolutely — we offer discounts for bulk orders. The more songs you send, the bigger the discount. You can always message us in the chat or on social media to get the most up-to-date pricing.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What If I Send The Wrong Stems?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>No worries just reach out to us by email and we’ll swap the files<br><br>Just make sure to contact us as soon as possible so we can use the correct stems before the engineer starts working<br><br>If the mix has already started and new stems mean starting over there may be an extra charge.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        What Will I Receive Back?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Stereo mixes are returned in the following formats, if you require any others, please let us know:&nbsp;</p><ul><li>96kHz 24bit wav</li></ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        Where is your team located?
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Our engineers are based in different countries around the world. This gives us a unique edge — we bring together diverse influences, time zones, and creative perspectives to deliver a truly global sound. It also allows us to stay responsive around the clock and adapt to any artist’s style, no matter where you’re from.</p>
+      </div>
+    </div>
+  </div>
+
+<div class="faq-safe"> 
+    <div class="faq-safe__item">
+      <button class="faq-safe__question" type="button" data-faq-safe>
+        Need More Info? Just Reach Out.
+        <span class="faq-safe__icon">+</span>
+      </button>
+      <div class="faq-safe__answer">
+        <p>Of course! You can always contact us through Live Chat on our website, or reach us directly here:<br><br>📧 Email: <a>support@ergonspace.com</a>.<br><br>📘 Facebook: <a href="https://www.facebook.com/share/198XZk6ycq/?mibextid=wwXIfr" title="https://www.facebook.com/share/198XZk6ycq/?mibextid=wwXIfr">ErgonLiplap</a><br><br>📸 Instagram: <a href="https://www.instagram.com/ergonliplap?igsh=MWFldGZrNW9vZHpsdw%3D%3D&utm_source=qr" title="https://www.instagram.com/ergonliplap?igsh=MWFldGZrNW9vZHpsdw%3D%3D&utm_source=qr">@ergonliplap</a></p>
+      </div>
+    </div>
+  </div>
+      
+</div>
+                
+  {% endform %}
+{% else %}
+  <div class="custom-content">
+    {{ block.settings.popup_custom_content }}
+  </div>
+{% endif %}
+              </div>
+            </div>
+          </dialog>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+ if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+    window.onpageshow = (event) => {
+      if (event.persisted) {
+        window.location.reload(); // Принудительно перезагружает страницу, если Safari достал её из кеша
+      }
+    };
+  }
+  
+  // Модальные окна
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal?.showModal();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal?.close();
+    document.body.style.overflow = '';
+  }
+function closeModal2(modalId) {
+    const modal = document.getElementById(modalId);
+    modal?.close();
+    document.body.style.overflow = '';
+  // Находим и кликаем на кнопку чата
+    const chatButton = document.querySelector("#ShopifyChat").shadowRoot.querySelector("div > button");
+    if (chatButton) {
+      chatButton.click();
+    } else {
+      console.warn('Кнопка чата не найдена');
+    }
+  }
+
+async function addToCart(modalId, variantId, trial) {
+  console.log(trial)
+    if(trial != 'buy_now') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('trial', 'true');
+      window.history.pushState({}, '', url);
+    }
+  
+    // Добавляем товар в корзину
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: [{ id: Number(variantId), quantity: 1 }]
+      })
+    });
+    
+    const data = await response.json();
+
+    // Обновляем счетчик корзины (если есть)
+    document.querySelectorAll('.cart-count').forEach(el => {
+      el.textContent = (parseInt(el.textContent) || 0) + 1;
+    });
+}
+
+  // Добавление в корзину
+  // Функция для добавления в корзину и открытия drawer
+async function addToCartAndOpenDrawer(modalId, variantId) {
+  try {
+    // Добавляем товар в корзину
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: [{ id: Number(variantId), quantity: 1 }]
+      })
+    });
+    
+    const data = await response.json();
+
+    // Закрываем модальное окно
+    if (modalId) document.getElementById(modalId)?.close();
+    
+    // Обновляем счетчик корзины (если есть)
+    document.querySelectorAll('.cart-count').forEach(el => {
+      el.textContent = (parseInt(el.textContent) || 0) + 1;
+    });
+
+    // Открываем cart drawer
+    const event = new Event('cart:refresh');
+    document.dispatchEvent(event);
+    
+    // Альтернативные способы открытия drawer
+    const drawer = document.querySelector('cart-drawer, #cart-drawer');
+    if (drawer) {
+      if (typeof drawer.show === 'function') {
+        drawer.show();
+      } else {
+        drawer.classList.add('active', 'open');
+      }
+    } else {
+      // window.location.href = '/cart';
+    }
+    
+  } catch (error) {
+    console.error('Error:', error);
+    // alert(`Error: ${error.message}`);
+  }
+}
+
+// Универсальная функция для открытия существующего drawer
+function openExistingCartDrawer() {
+  // Вариант 1: Если drawer использует классы для открытия
+  const drawer = document.querySelector('cart-drawer, #cart-drawer, .cart-drawer');
+  
+  if (drawer) {
+    // Попробуем разные способы открытия
+    if (typeof drawer.show === 'function') {
+      drawer.show();
+    } 
+    else if (typeof drawer.open === 'function') {
+      drawer.open();
+    }
+    else {
+      // Стандартный способ через классы
+      drawer.classList.add('active', 'open', 'is-visible', 'is-open');
+      document.body.classList.add('cart-drawer-open', 'no-scroll');
+    }
+    
+    // Обновляем содержимое через Shopify AJAX API
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        // Можно добавить логику обновления UI если нужно
+        console.log('Cart updated', cart);
+      });
+  } else {
+    console.warn('Cart drawer element not found');
+    // Fallback: открываем страницу корзины
+    window.location.href = '/cart';
+  }
+}
+  document.querySelectorAll('.skip-button').forEach(button => {
+  button.addEventListener('click', function() {
+    const modalId = this.getAttribute('data-modal-id');
+    const variantId = this.getAttribute('data-variant-id');
+    addToCartAndOpenDrawer(modalId, variantId);
+  });
+});
+
+  document.addEventListener('DOMContentLoaded', function() {
+  // открытие картины после покупки 
+  const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('contact_posted') === 'true') {
+      urlParams.delete('contact_posted');
+      const newUrl = window.location.pathname + '?' + urlParams.toString();
+      window.history.replaceState({}, '', newUrl);
+
+      if (localStorage.getItem('typeProduct') != 'FREE') {
+        // Открываем cart drawer
+        const event = new Event('cart:refresh');
+        document.dispatchEvent(event);
+        
+        // Альтернативные способы открытия drawer
+        const drawer = document.querySelector('cart-drawer, #cart-drawer');
+        if (drawer) {
+          if (typeof drawer.show === 'function') {
+            drawer.show();
+          } else {
+            drawer.classList.add('active', 'open');
+          }
+        } else {
+          window.location.href = '/cart';
+        }
+      }
+
+      localStorage.removeItem('typeProduct');
+    }
+
+    
+  // Обработка отправки форм
+  document.querySelectorAll('form[id^="contact-form-"]').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const formData = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+
+      const dataFromData = Object.fromEntries(formData.entries());
+      if(dataFromData.typeProduct == 'FREE') {
+        localStorage.setItem('typeProduct', 'FREE');
+      }
+      
+      // Показ загрузки
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;      
+      
+      try {
+        const response = await fetch('/contact', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });      
+        
+        if (response.ok) {
+          // Показ сообщения об успехе
+           window.location.href = '/cart';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // alert('Error submitting form. Please try again.');
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        e.preventDefault();
+      }
+    });
+  });
+});
+
+document.querySelectorAll('[data-faq-safe]').forEach(button => {
+  button.addEventListener('click', function(e) {
+    // 1. Останавливаем ТОЛЬКО если клик внутри аккордеона
+    if (e.target.closest('.faq-safe__question')) {
+      e.stopPropagation(); // Запрещаем всплытие только здесь
+    }
+    
+    // 2. Логика аккордеона
+    const item = this.closest('.faq-safe__item');
+    const isOpen = item.classList.contains('is-open');
+    
+    // Закрываем другие
+    document.querySelectorAll('.faq-safe__item.is-open').forEach(openItem => {
+      if (openItem !== item) openItem.classList.remove('is-open');
+    });
+    
+    // Переключаем текущий
+    item.classList.toggle('is-open', !isOpen);
+  });
+});
+  
+</script>
+
+{% schema %}
+{
+  "name": "Triple Block Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gap_between_blocks",
+      "label": "Gap Between Blocks",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "block_min_width",
+      "label": "Block Min Width",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "block_padding",
+      "label": "Block Padding",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "color",
+      "id": "block_bg_color",
+      "label": "Block Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border Width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Badge Settings"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background",
+      "default": "#ff5722"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "Badge Font Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Text Styles"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title Font Size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "label": "Subtitle Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subtitle_text_color",
+      "label": "Subtitle Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_bg_color",
+      "label": "Subtitle Background",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#2196F3"
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "label": "Price Font Size",
+      "min": 16,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Description Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Default Button Background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Default Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Content Block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Badge"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "label": "Show Badge",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "Popular"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "color",
+          "id": "title_bg_color",
+          "label": "Title Background",
+          "default": "#f5f5f5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Plan Name"
+        },
+        {
+          "type": "text",
+          "id": "linkid",
+          "label": "LINK ID",
+          "default": "order"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Best Value"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_text_color",
+          "label": "Subtitle Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_bg_color",
+          "label": "Subtitle Background",
+          "default": "#4CAF50"
+        },
+        {
+          "type": "range",
+          "id": "subtitle_font_size",
+          "label": "Subtitle Font Size",
+          "min": 10,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "color",
+          "id": "price_bg_color",
+          "label": "Price Background",
+          "default": "transparent"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$99.99"
+        },
+        {
+          "type": "color",
+          "id": "description_bg_color",
+          "label": "Description Background",
+          "default": "transparent"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Feature description goes here</p>"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Get Started"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button Action",
+          "options": [
+            {
+              "value": "url",
+              "label": "Link to URL"
+            },
+            {
+              "value": "popup",
+              "label": "Open Popup"
+            },
+            {
+              "value": "buy_now",
+              "label": "Buy Now"
+            }
+          ],
+          "default": "url"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link",
+          "info": "Only for 'Link to URL' action"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background",
+          "default": "#333333"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Popup Settings"
+        },
+        {
+          "type": "text",
+          "id": "popup_id",
+          "label": "Popup ID",
+          "default": "popup-1",
+          "info": "Must be unique (no spaces)"
+        },
+        {
+          "type": "text",
+          "id": "popup_title",
+          "label": "Popup Title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "select",
+          "id": "popup_content_type",
+          "label": "Popup Content Type",
+          "options": [
+            {
+              "value": "form",
+              "label": "Contact Form"
+            },
+            {
+              "value": "custom",
+              "label": "Custom Content"
+            }
+          ],
+          "default": "form"
+        },
+        {
+          "type": "checkbox",
+          "id": "form_only",
+          "label": "Show Form Only",
+          "default": false,
+          "info": "Hide 'Skip' button if checked"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product for Buy Now",
+          "info": "Select product to get variants"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID",
+          "info": "Enter numeric variant ID from product URL"
+        },
+        {
+          "type": "richtext",
+          "id": "popup_custom_content",
+          "label": "Custom Content",
+          "info": "Only for 'Custom Content' type"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Triple Block Section",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Basic Plan",
+            "price": "$29/month",
+            "description": "<p>Perfect for getting started</p>",
+            "button_text": "Choose Plan",
+            "button_type": "url"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "show_badge": true,
+            "badge_text": "Popular",
+            "title": "Pro Plan",
+            "subtitle": "Best Value",
+            "price": "$99/month",
+            "description": "<p>For growing businesses</p>",
+            "button_text": "Get Started",
+            "button_type": "buy_now",
+            "product": "",
+            "variant_id": "41007279759412",
+            "popup_id": "popup-pro",
+            "popup_title": "Order Pro Plan"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Enterprise",
+            "price": "Custom",
+            "description": "<p>Tailored solutions</p>",
+            "button_text": "Contact Us",
+            "button_type": "popup",
+            "popup_id": "popup-contact",
+            "popup_title": "Request a Quote"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 
