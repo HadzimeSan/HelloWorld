@@ -251,3 +251,212 @@ const task4Div = document.getElementById('task4');
 if (task4Div) {
     task4Div.textContent = 'Сумма чисел: ' + sum4;
 }
+
+// Игра "Угадай число"
+function guessNumberGame() {
+    // Генерируем случайное число от 1 до 100
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+    
+    console.log("Добро пожаловать в игру 'Угадай число'!");
+    console.log("Я загадал число от 1 до 100. Попробуй угадать!");
+    
+    function makeGuess() {
+        const userGuess = prompt("Введите число от 1 до 100:");
+        
+        // Проверяем, что пользователь ввел число
+        if (userGuess === null) {
+            console.log("Игра завершена.");
+            return;
+        }
+        
+        const guess = parseInt(userGuess);
+        
+        if (isNaN(guess) || guess < 1 || guess > 100) {
+            alert("Пожалуйста, введите корректное число от 1 до 100!");
+            makeGuess();
+            return;
+        }
+        
+        attempts++;
+        
+        if (guess === randomNumber) {
+            alert(`Поздравляю! Вы угадали число ${randomNumber} за ${attempts} попыток!`);
+            console.log(`Игра завершена! Число было угадано за ${attempts} попыток.`);
+        } else if (guess < randomNumber) {
+            alert("Загаданное число больше! Попробуйте еще раз.");
+            makeGuess();
+        } else {
+            alert("Загаданное число меньше! Попробуйте еще раз.");
+            makeGuess();
+        }
+    }
+    
+    makeGuess();
+}
+
+// Связываем игру с кнопкой
+document.addEventListener('DOMContentLoaded', function() {
+    const guessNumberButton = document.querySelector('#guess-number .guess-number-card__button');
+    if (guessNumberButton) {
+        guessNumberButton.addEventListener('click', guessNumberGame);
+    }
+});
+
+// Задание 1: Функция, которая возвращает меньшее из двух чисел
+function findMinNumber(num1, num2) {
+    return Math.min(num1, num2);
+}
+
+// Примеры использования функции
+console.log("Меньшее из 8 и 4:", findMinNumber(8, 4)); // 4
+console.log("Меньшее из 6 и 6:", findMinNumber(6, 6)); // 6
+console.log("Меньшее из 10 и 15:", findMinNumber(10, 15)); // 10
+
+// Задание 2: Функция, которая проверяет четность числа
+function checkEvenOdd(number) {
+    if (number % 2 === 0) {
+        return 'Число четное';
+    } else {
+        return 'Число нечетное';
+    }
+}
+
+// Примеры использования функции
+
+console.log("Проверка числа 4:", checkEvenOdd(4)); // "Число четное"
+console.log("Проверка числа 7:", checkEvenOdd(7)); // "Число нечетное"
+console.log("Проверка числа 10:", checkEvenOdd(10)); // "Число четное"
+console.log("Проверка числа 15:", checkEvenOdd(15)); // "Число нечетное"
+
+// Задание 3: Функции для работы с квадратом числа
+// Функция 1: выводит квадрат в консоль
+function printSquare(number) {
+    const square = number * number;
+    console.log(`Квадрат числа ${number} равен ${square}`);
+}
+
+// Функция 2: возвращает квадрат числа
+function getSquare(number) {
+    return number * number;
+}
+
+// Примеры использования функций
+printSquare(5); // выведет в консоль: "Квадрат числа 5 равен 25"
+printSquare(3); // выведет в консоль: "Квадрат числа 3 равен 9"
+
+const result1 = getSquare(4);
+console.log("Квадрат числа 4:", result1); // 16
+
+const resultSquare2 = getSquare(7);
+console.log("Квадрат числа 7:", resultSquare2); // 49
+
+// Использование возвращаемого значения в вычислениях
+const sumOfSquares = getSquare(3) + getSquare(4);
+console.log("Сумма квадратов 3 и 4:", sumOfSquares); // 9 + 16 = 25
+
+// Задание 4: Функция для проверки возраста пользователя
+function checkAge() {
+    const age = prompt("Сколько вам лет?");
+    
+    // Проверяем, что пользователь ввел число
+    if (age === null) {
+        console.log("Операция отменена пользователем");
+        return;
+    }
+    
+    const userAge = parseInt(age);
+    
+    if (isNaN(userAge)) {
+        alert("Вы ввели неправильное значение");
+    } else if (userAge < 0) {
+        alert("Вы ввели неправильное значение");
+    } else if (userAge >= 0 && userAge <= 12) {
+        alert("Привет, друг!");
+    } else if (userAge >= 13) {
+        alert("Добро пожаловать!");
+    }
+}
+
+// Примеры использования функции
+console.log("Функция checkAge() готова к использованию");
+console.log("Вызовите checkAge() для проверки возраста");
+
+// Задание 5: Функция для проверки и умножения двух чисел
+function multiplyNumbers(num1, num2) {
+    // Проверяем, являются ли параметры корректными числами
+    if (isNaN(num1) || isNaN(num2)) {
+        return 'Одно или оба значения не являются числом';
+    } else {
+        return num1 * num2;
+    }
+}
+
+// Примеры использования функции
+console.log("Умножение 5 и 3:", multiplyNumbers(5, 3)); // 15
+console.log("Умножение 10 и 2:", multiplyNumbers(10, 2)); // 20
+console.log("Умножение с некорректными данными:", multiplyNumbers("abc", 5)); // "Одно или оба значения не являются числом"
+console.log("Умножение с некорректными данными:", multiplyNumbers(10, "xyz")); // "Одно или оба значения не являются числом"
+console.log("Умножение с двумя некорректными данными:", multiplyNumbers("abc", "def")); // "Одно или оба значения не являются числом"
+
+// Задание 6: Функция для возведения числа в куб
+function cubeNumber() {
+    const input = prompt("Введите число:");
+    
+    // Проверяем, что пользователь не отменил ввод
+    if (input === null) {
+        console.log("Операция отменена пользователем");
+        return;
+    }
+    
+    const number = parseFloat(input);
+    
+    // Проверяем, является ли введенное значение числом
+    if (isNaN(number)) {
+        return 'Переданный параметр не является числом';
+    } else {
+        const cube = Math.pow(number, 3);
+        return `${number} в кубе равняется ${cube}`;
+    }
+}
+
+// Функция для тестирования с числами от 0 до 10
+function testCubeFunction() {
+    console.log("Тестирование функции cubeNumber с числами от 0 до 10:");
+    for (let i = 0; i <= 10; i++) {
+        console.log(`${i} в кубе равняется ${Math.pow(i, 3)}`);
+    }
+}
+
+// Запускаем тестирование
+testCubeFunction();
+
+// Задание 7: Создание объектов circle1 и circle2 с методами
+const circle1 = {
+    radius: 5,
+    getArea: function() {
+        return Math.PI * this.radius * this.radius;
+    },
+    getPerimeter: function() {
+        return 2 * Math.PI * this.radius;
+    }
+};
+
+const circle2 = {
+    radius: 10,
+    getArea: function() {
+        return Math.PI * this.radius * this.radius;
+    },
+    getPerimeter: function() {
+        return 2 * Math.PI * this.radius;
+    }
+};
+
+// Примеры использования объектов
+console.log("Circle1 (радиус = 5):");
+console.log("Площадь:", circle1.getArea().toFixed(2));
+console.log("Периметр:", circle1.getPerimeter().toFixed(2));
+
+console.log("Circle2 (радиус = 10):");
+console.log("Площадь:", circle2.getArea().toFixed(2));
+console.log("Периметр:", circle2.getPerimeter().toFixed(2));
