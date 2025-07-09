@@ -303,6 +303,70 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Игра "Простая арифметика"
+function arithmeticGame() {
+    // Генерируем случайную арифметическую задачу
+    const operations = ['+', '-', '*', '/'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+    let num1, num2, question, correctAnswer;
+
+    switch (operation) {
+        case '+':
+            num1 = Math.floor(Math.random() * 50) + 1;
+            num2 = Math.floor(Math.random() * 50) + 1;
+            correctAnswer = num1 + num2;
+            question = `${num1} + ${num2}`;
+            break;
+        case '-':
+            num1 = Math.floor(Math.random() * 50) + 1;
+            num2 = Math.floor(Math.random() * 50) + 1;
+            // Чтобы не было отрицательных ответов
+            if (num2 > num1) [num1, num2] = [num2, num1];
+            correctAnswer = num1 - num2;
+            question = `${num1} - ${num2}`;
+            break;
+        case '*':
+            num1 = Math.floor(Math.random() * 12) + 1;
+            num2 = Math.floor(Math.random() * 12) + 1;
+            correctAnswer = num1 * num2;
+            question = `${num1} * ${num2}`;
+            break;
+        case '/':
+            num2 = Math.floor(Math.random() * 12) + 1;
+            correctAnswer = Math.floor(Math.random() * 12) + 1;
+            num1 = num2 * correctAnswer; // чтобы деление было нацело
+            question = `${num1} / ${num2}`;
+            break;
+    }
+
+    const userInput = prompt(`Решите пример: ${question}`);
+    if (userInput === null) {
+        // Пользователь отменил ввод
+        return;
+    }
+    const userAnswer = Number(userInput);
+    let resultText;
+    if (userAnswer === correctAnswer) {
+        resultText = `Верно! ${question} = ${correctAnswer}`;
+    } else {
+        resultText = `Ошибка! ${question} = ${correctAnswer}, а вы ответили: ${userInput}`;
+    }
+    const task2Div = document.getElementById('task2');
+    if (task2Div) {
+        task2Div.textContent = resultText;
+    } else {
+        alert(resultText);
+    }
+}
+
+// Связываем игру с кнопкой
+document.addEventListener('DOMContentLoaded', function() {
+    const arithmeticButton = document.querySelector('#arithmetic .guess-number-card__button');
+    if (arithmeticButton) {
+        arithmeticButton.addEventListener('click', arithmeticGame);
+    }
+});
+
 // Задание 1: Функция, которая возвращает меньшее из двух чисел
 function findMinNumber(num1, num2) {
     return Math.min(num1, num2);
@@ -460,3 +524,190 @@ console.log("Периметр:", circle1.getPerimeter().toFixed(2));
 console.log("Circle2 (радиус = 10):");
 console.log("Площадь:", circle2.getArea().toFixed(2));
 console.log("Периметр:", circle2.getPerimeter().toFixed(2));
+
+// Задание 1: Вывод элементов массива до 10 включительно
+const arr1 = [1, 5, 4, 10, 0, 3];
+let arr1Result = '';
+for (let i = 0; i < arr1.length; i++) {
+    console.log(arr1[i]);
+    arr1Result += arr1[i] + ' ';
+    if (arr1[i] === 10) {
+        break;
+    }
+}
+const task1Div = document.getElementById('task1');
+if (task1Div) {
+    task1Div.innerHTML += '<br><strong>Задание 1 (массив до 10):</strong> ' + arr1Result;
+}
+
+// Задание 2: Найти индекс значения 4 в массиве
+const arr2 = [1, 5, 4, 10, 0, 3];
+let indexOf4 = -1;
+for (let i = 0; i < arr2.length; i++) {
+    if (arr2[i] === 4) {
+        indexOf4 = i;
+        break;
+    }
+}
+console.log('Индекс значения 4:', indexOf4);
+const task2Div2 = document.getElementById('task2');
+if (task2Div2) {
+    task2Div2.innerHTML += '<br><strong>Задание 2 (индекс 4):</strong> ' + indexOf4;
+}
+
+// Задание 3: Вывести элементы массива через пробел с помощью join
+const arr3 = [1, 3, 5, 10, 20];
+const arr3Str = arr3.join(' ');
+console.log('Задание 3 (join):', arr3Str);
+const task3DivArr = document.getElementById('task3');
+if (task3DivArr) {
+    task3DivArr.innerHTML += '<br><strong>Задание 3 (join):</strong> ' + arr3Str;
+}
+
+// Задание 4: Создать многомерный массив [[1, 1, 1], [1, 1, 1], [1, 1, 1]] с помощью вложенных циклов
+const arr4 = [];
+for (let i = 0; i < 3; i++) {
+    const inner = [];
+    for (let j = 0; j < 3; j++) {
+        inner.push(1);
+    }
+    arr4.push(inner);
+}
+console.log('Задание 4 (многомерный массив):', arr4);
+const task4DivArr = document.getElementById('task4');
+if (task4DivArr) {
+    task4DivArr.innerHTML += '<br><strong>Задание 4 (многомерный массив):</strong> ' + JSON.stringify(arr4);
+}
+
+// Задание 5: Добавить в конец массива [1, 1, 1] значения 2, 2, 2
+const arr5 = [1, 1, 1];
+arr5.push(2, 2, 2);
+console.log('Задание 5 (push):', arr5);
+const task5DivArr = document.getElementById('task5');
+if (task5DivArr) {
+    task5DivArr.innerHTML += '<br><strong>Задание 5 (push):</strong> ' + JSON.stringify(arr5);
+}
+
+// Задание 6: Отсортировать массив и удалить букву 'a'
+let arr6 = [9, 8, 7, 'a', 6, 5];
+arr6 = arr6.sort();
+arr6 = arr6.filter(item => item !== 'a');
+console.log('Задание 6 (sort, filter):', arr6);
+const task6DivArr = document.getElementById('task6');
+if (task6DivArr) {
+    task6DivArr.innerHTML += '<br><strong>Задание 6 (sort, filter):</strong> ' + JSON.stringify(arr6);
+}
+
+// Задание 7: Угадай число из массива
+const arr7 = [9, 8, 7, 6, 5];
+const userGuess7 = prompt('Угадайте число из массива [9, 8, 7, 6, 5]');
+let guessResult7 = '';
+if (userGuess7 !== null) {
+    const numGuess7 = Number(userGuess7);
+    if (arr7.includes(numGuess7)) {
+        alert('Угадал');
+        guessResult7 = 'Угадал';
+    } else {
+        alert('Не угадал');
+        guessResult7 = 'Не угадал';
+    }
+    const task7DivArr = document.getElementById('task7');
+    if (task7DivArr) {
+        task7DivArr.innerHTML += '<br><strong>Задание 7 (угадай число):</strong> ' + guessResult7 + ' (ваш ввод: ' + userGuess7 + ')';
+    }
+}
+
+// Задание 8: Перевернуть строку 'abcdef'
+const str8 = 'abcdef';
+const reversedStr8 = str8.split('').reverse().join('');
+console.log('Задание 8 (reverse):', reversedStr8);
+const task1Div8 = document.getElementById('task1');
+if (task1Div8) {
+    task1Div8.innerHTML += '<br><strong>Задание 8 (reverse):</strong> ' + reversedStr8;
+}
+
+// Задание 9: Преобразовать двумерный массив в одномерный с помощью spread
+const arr9 = [[1, 2, 3], [4, 5, 6]];
+const flatArr9 = [...arr9[0], ...arr9[1]];
+console.log('Задание 9 (spread):', flatArr9);
+const task2Div9 = document.getElementById('task2');
+if (task2Div9) {
+    task2Div9.innerHTML += '<br><strong>Задание 9 (spread):</strong> ' + JSON.stringify(flatArr9);
+}
+
+// Задание 10: Сумма текущего и следующего элементов массива
+const arr10 = [3, 7, 2, 9, 5, 1, 8]; // произвольные числа от 1 до 10
+let arr10Result = '';
+for (let i = 0; i < arr10.length - 1; i++) {
+    const sum = arr10[i] + arr10[i + 1];
+    console.log(`Сумма элементов ${arr10[i]} и ${arr10[i + 1]}:`, sum);
+    arr10Result += `${arr10[i]}+${arr10[i + 1]}=${sum}; `;
+}
+const task3Div10 = document.getElementById('task3');
+if (task3Div10) {
+    task3Div10.innerHTML += '<br><strong>Задание 10 (суммы):</strong> ' + arr10Result;
+}
+
+// Задание 11: Функция, возвращающая массив квадратов чисел
+function getSquares(arr) {
+    return arr.map(x => x * x);
+}
+const arr11 = [2, 4, 6, 8];
+const squares11 = getSquares(arr11);
+console.log('Задание 11 (квадраты):', squares11);
+const task4Div11 = document.getElementById('task4');
+if (task4Div11) {
+    task4Div11.innerHTML += '<br><strong>Задание 11 (квадраты):</strong> ' + JSON.stringify(squares11);
+}
+
+// Задание 12: Функция, возвращающая массив длин строк
+function getWordLengths(arr) {
+    return arr.map(str => str.length);
+}
+const arr12 = ['apple', 'banana', 'kiwi', 'pear'];
+const lengths12 = getWordLengths(arr12);
+console.log('Задание 12 (длины слов):', lengths12);
+const task5Div12 = document.getElementById('task5');
+if (task5Div12) {
+    task5Div12.innerHTML += '<br><strong>Задание 12 (длины слов):</strong> ' + JSON.stringify(lengths12);
+}
+
+// Задание 13: Функция, возвращающая массив только с отрицательными числами
+function getNegatives(arr) {
+    return arr.filter(x => x < 0);
+}
+const arr13 = [5, -3, 8, -1, 0, -7, 2];
+const negatives13 = getNegatives(arr13);
+console.log('Задание 13 (отрицательные):', negatives13);
+const task6Div13 = document.getElementById('task6');
+if (task6Div13) {
+    task6Div13.innerHTML += '<br><strong>Задание 13 (отрицательные):</strong> ' + JSON.stringify(negatives13);
+}
+
+// Задание 14: Массив из 10 случайных чисел и массив четных значений
+const arr14 = [];
+for (let i = 0; i < 10; i++) {
+    arr14.push(Math.floor(Math.random() * 11));
+}
+const evenArr14 = arr14.filter(x => x % 2 === 0);
+console.log('Задание 14 (исходный):', arr14);
+console.log('Задание 14 (четные):', evenArr14);
+const task7Div14 = document.getElementById('task7');
+if (task7Div14) {
+    task7Div14.innerHTML += '<br><strong>Задание 14 (исходный):</strong> ' + JSON.stringify(arr14);
+    task7Div14.innerHTML += '<br><strong>Задание 14 (четные):</strong> ' + JSON.stringify(evenArr14);
+}
+
+// Задание 15: Среднее арифметическое массива из 6 случайных чисел
+const arr15 = [];
+for (let i = 0; i < 6; i++) {
+    arr15.push(Math.floor(Math.random() * 10) + 1);
+}
+const avg15 = arr15.reduce((sum, x) => sum + x, 0) / arr15.length;
+console.log('Задание 15 (массив):', arr15);
+console.log('Задание 15 (среднее):', avg15);
+const task1Div15 = document.getElementById('task1');
+if (task1Div15) {
+    task1Div15.innerHTML += '<br><strong>Задание 15 (массив):</strong> ' + JSON.stringify(arr15);
+    task1Div15.innerHTML += '<br><strong>Задание 15 (среднее):</strong> ' + avg15;
+}
