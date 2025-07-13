@@ -1,0 +1,947 @@
+<style>
+  body{background:#fff;margin:0;padding:0;color:#29282D;font-family:'Raleway',Arial,sans-serif!important;}
+  *,*::before,*::after{font-family:'Raleway',Arial,sans-serif!important;}
+  .ctl-flex-row{display:flex;flex-direction:row;align-items:flex-start;gap:32px;max-width:1920px;margin:32px auto;margin-top:-60px;}
+  .ctl-look-video{width:720px;margin-top:50px;margin-left:100px;border-radius:18px;box-shadow:0 2px 16px #0002;object-fit:cover;background:#e0f4ff;box-shadow:0 2px 16px #0002;object-fit:cover;background:#e0f4ff;}
+  .complete-the-look{max-width:400px;font-family:'Raleway',Arial,sans-serif;background:#fff;margin-right:345px;margin-bottom:24px;}
+  .complete-the-look h3{font-size:18px;font-weight:600;margin-bottom:16px;text-align:left;}
+  .ctl-list{display:flex;flex-direction:column;gap:18px;}
+  .ctl-item{display:flex;align-items:center;background:#f2f2f2;border-radius:16px;padding:16px;box-shadow:0 2px 8px #0001;position:relative;}
+  .ctl-img{width:100px;height:100px;object-fit:contain;border-radius:8px;margin-right:16px;background:#fff;}
+  .ctl-info{flex:1;text-align:left;}
+  .ctl-info>*{margin-left:0!important;margin-right:0!important;text-align:left!important;}
+  .ctl-title{font-weight:600;font-size:16px;margin-bottom:4px;}
+  .ctl-rating{font-size:14px;color:#222;margin-bottom:4px;}
+  .ctl-rating span{color:#29282D;font-weight:600;}
+  .ctl-prices{font-size:15px;margin-bottom:8px;}
+  .ctl-old{text-decoration:line-through;color:#aaa;margin-right:6px;}
+  .ctl-new{color:#29282D;font-weight:600;}
+  .ctl-size{color:#000;padding:4px 8px;border-radius:6px;border:1px solid #ccc;font-size:14px;}
+  .ctl-size option{color:#000;}
+  .ctl-cart{width:36px;height:36px;background:#edecec;border:none;border-radius:50%;margin-left:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background .35s cubic-bezier(.4,0,.2,1);}
+  .ctl-cart svg{width:22px;height:22px;display:block;fill:#29282D;transition:fill .35s cubic-bezier(.4,0,.2,1);}
+  .ctl-cart:hover:not(:disabled),.ctl-cart:not(:disabled):hover{background:#29282D;}
+  .ctl-cart:hover:not(:disabled) svg,.ctl-cart:not(:disabled):hover svg{fill:#fff;}
+  .ctl-cart:disabled,.ctl-cart.disabled{opacity:.5;cursor:not-allowed;}
+  @media (max-width:1500px){.complete-the-look{margin-right:55px;}}
+  @media (max-width:1024px){.complete-the-look{margin-right:100px;}.ctl-look-video{max-width:500px;}}
+  @media (max-width:900px){.ctl-flex-row{flex-direction:column;align-items:stretch;max-width:100vw;margin-top:-40px;margin-bottom:-50px;}.ctl-look-video{order:2;width:100%;max-width:400px;margin:0 auto 24px auto;display:block;}.complete-the-look{order:1;max-width:100vw;margin:0 auto;}}
+  .ring-available-section{background:#faf9f7;border-radius:28px;margin:48px auto 0 auto;max-width:1200px;box-shadow:0 2px 16px #0001;padding:0;margin-top:20px;}
+  .ring-available-row{display:flex;flex-direction:row;align-items:stretch;min-height:400px;}
+  .ring-available-img-wrap{flex:1 1 50%;border-radius:28px 0 0 28px;overflow:hidden;background:#E0F4FF;display:flex;align-items:stretch;justify-content:stretch;}
+  .ring-available-img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ring-available-content{flex:1 1 50%;background:#E0F4FF;border-radius:0 28px 28px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;}
+  .ring-available-label{font-size:26px;font-family:'Raleway',Arial,sans-serif;font-weight:500;letter-spacing:1px;margin-bottom:32px;color:#222;}
+  .ring-available-list{display:flex;flex-direction:column;gap:18px;}
+  .ring-available-item{font-size:38px;font-family:'Georgia',serif;font-style:italic;color:#222;font-weight:400;line-height:1.1;}
+  .ring-available-item--active{text-decoration:underline;text-underline-offset:6px;font-weight:500;}
+  @media (max-width:900px){.ring-available-row{flex-direction:column;min-height:unset;}.ring-available-img-wrap,.ring-available-content{border-radius:28px 28px 0 0;}.ring-available-content{border-radius:0 0 28px 28px;}.ring-available-img{width:100%!important;max-width:400px;max-height:285px;margin:0 auto 24px auto;display:block;height:auto!important;}}
+  #ctl-modal-overlay {
+    display: none;
+  }
+  #ctl-modal-overlay.ctl-modal-overlay--visible {
+    display: block;
+  }
+  #ctl-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  #ctl-modal[style*="display: flex"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .ctl-modal-dialog {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px #0002, 0 1.5px 6px #0001;
+    width: 590px;
+    min-height: 200px;
+    max-width: 930px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 90vh;
+    color: #000;
+    font-size: 1rem;
+  }
+  .ctl-modal-dialog::-webkit-scrollbar{display:none;}
+  #ctl-modal-close{position:absolute;top:24px;right:24px;background:none;border:none;font-size:2rem;color:#000;cursor:pointer;z-index:1002;transition:color .2s;}
+  #ctl-modal-close:hover{color:#bfa14a;}
+  .ctl-modal-img-wrap{width:100%;display:flex;align-items:center;justify-content:center;position:relative;margin:0;padding:0 0 16px 0;background:#fff;border-radius:24px 24px 0 0;padding-top:0;}
+  #ctl-modal-media{width:545px;height:545px;display:flex;align-items:center;justify-content:center;position:relative;margin-top:0;}
+  #ctl-modal-media img,#ctl-modal-media video{width:545px!important;height:545px!important;object-fit:contain;border-radius:0;background:#fff;box-shadow:none;display:block;padding-top:24px!important;}
+  .ctl-modal-arrow{position:absolute;top:50%;left:16px;right:16px;transform:translateY(-50%);z-index:2;background:none;border:none;font-size:2.2rem;color:#888;cursor:pointer;transition:color .2s;opacity:.7;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+  .ctl-modal-arrow.left{left:16px;right:auto;}
+  .ctl-modal-arrow.right{right:16px;left:auto;}
+  .ctl-modal-dots{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:18px;}
+  .ctl-modal-dot{width:8px;height:8px;border-radius:50%;background:#ccc;transition:background .2s;}
+  .ctl-modal-dot.active{background:#222;}
+  .ctl-modal-info{width:100%;text-align:left;padding:0;margin-bottom:0;box-sizing:border-box;}
+  .ctl-modal-title-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2px;}
+  #ctl-modal-title{font-size:1.25rem;font-weight:600;color:#222;margin-bottom:0;}
+  #ctl-modal-prices{display:flex;align-items:center;gap:8px;font-size:1.1rem;}
+  #ctl-modal-prices .ctl-old{text-decoration:line-through;color:#aaa;font-size:1rem;}
+  #ctl-modal-prices .ctl-new{color:#222;font-weight:700;font-size:1.2rem;}
+  .ctl-modal-rating-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .ctl-modal-stars{color:#29282D;font-size:1.1rem;letter-spacing:1px;}
+  .ctl-modal-reviews{color:#222;font-size:1rem;font-weight:500;}
+  .ctl-modal-row{display:flex;gap:10px;margin-bottom:16px;width:100%;}
+  #ctl-modal-size{width:260px;height:35px;border:1px solid #222;border-radius:20px;background:#fff;color:#222;font-size:1rem;text-align:left;padding-left:12px;padding-right:32px;box-sizing:border-box;outline:none;transition:border .2s;appearance:none;-webkit-appearance:none;-moz-appearance:none;position:relative;}
+  #ctl-modal-size:focus{border:1.5px solid #222;}
+  #ctl-modal-size option{color:#222;text-align:left;}
+  .ctl-modal-qty-wrap{display:flex;align-items:center;width:260px;height:35px;border:1px solid #222;border-radius:20px;background:#fff;box-sizing:border-box;padding:0 12px;font-size:1rem;gap:10px;justify-content:space-between;}
+  .ctl-modal-qty-label{margin-right:8px;color:#222;font-size:1rem;flex-shrink:0;}
+  .ctl-modal-qty-controls{display:flex;align-items:center;gap:8px;}
+  .ctl-modal-qty-value{min-width:24px;text-align:center;font-weight:bold;font-size:1.1rem;color:#222;}
+  #ctl-modal-add{width:100%;background:#222;color:#fff;border:none;border-radius:24px;padding:5px 0;font-size:1.1rem;font-weight:700;cursor:pointer;margin-bottom:2px;margin-top:4px;letter-spacing:.03em;transition:background .2s;}
+  #ctl-modal-add:disabled{background:#ccc;cursor:not-allowed;}
+  .ctl-modal-section,.ctl-modal-section.open{padding:0 16px!important;}
+  .ctl-modal-section-title{font-size:.85rem;font-weight:600;margin-bottom:2px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:1rem;padding-top:2px;color:#222;user-select:none;margin-top:0;}
+  .ctl-modal-section-title .arrow{font-size:1.2em;margin-left:8px;transition:transform .2s;}
+  .ctl-modal-section-content{display:none;text-align:left!important;max-height:260px;overflow-y:auto;margin-bottom:0;word-break:break-word;overflow-wrap:break-word;}
+  .ctl-modal-section.open .ctl-modal-section-content{display:block;}
+  .ctl-modal-section:not(:last-child){margin-bottom:8px;}
+  @media (max-width:600px){.ctl-flex-row{flex-direction:column;gap:0;margin:0;padding:0 4px;}.complete-the-look{margin:0 auto 16px auto;max-width:100vw;width:100%;box-sizing:border-box;}.ctl-list{gap:10px;}.ctl-item{flex-direction:row;align-items:center;padding:10px;margin:0;width:100%;box-sizing:border-box;}.ctl-img{margin:0 16px 0 0;width:80px;height:80px;flex-shrink:0;}.ctl-info{width:100%;}.ctl-modal-row{flex-direction:row;gap:8px;width:100%;justify-content:flex-start;align-items:center;}#ctl-modal-size{font-size:.95rem;height:32px;padding-left:8px;padding-right:24px;width:120px;min-width:0;max-width:48vw}.ctl-modal-qty-wrap{font-size:.95rem;height:36px;min-width:110px;width:auto;max-width:44vw;padding:0 8px;display:flex;align-items:center;justify-content:space-between;border-radius:20px;box-sizing:border-box;}.ctl-modal-qty-label{margin-right:4px;font-size:1rem;}.ctl-modal-qty-controls{display:flex;align-items:center;gap:0;}.ctl-modal-qty-controls button{min-width:32px;min-height:32px;font-size:1.2rem;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;margin:0 2px;}.ctl-modal-qty-value{min-width:24px;text-align:center;font-weight:bold;font-size:1.1rem;color:#222;display:inline-block;}}
+  body.body--modal-open{overflow:hidden!important;touch-action:none;}
+  #ctl-modal .ctl-modal-row #ctl-modal-size{width:260px;height:35px;border:1px solid #222;border-radius:20px;background:#fff;color:#222;font-size:.95rem;text-align:left;padding-left:8px;padding-right:24px;box-sizing:border-box;outline:none;transition:border .2s;appearance:none;-webkit-appearance:none;-moz-appearance:none;position:relative;}
+  #ctl-modal .ctl-modal-row #ctl-modal-size:focus{border:1.5px solid #222;}
+  #ctl-modal .ctl-modal-row #ctl-modal-size option{color:#222;text-align:left;}
+  #ctl-modal .ctl-modal-row{position:relative;}
+  #ctl-modal .ctl-modal-row #ctl-modal-size::-ms-expand{display:none;}
+  #ctl-modal .ctl-modal-row #ctl-modal-size::after{content:'';position:absolute;right:18px;top:50%;width:0;height:0;pointer-events:none;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #222;transform:translateY(-50%);}
+  .ctl-modal-section{margin-top:0;}
+  .ctl-modal-section:first-of-type{margin-top:0;padding-top:0;}
+  .ctl-modal-content{width:100%;box-sizing:border-box;padding-left:24px;padding-right:24px;}
+  .ctl-modal-info{padding-left:0;padding-right:0;}
+  .ctl-modal-section{padding-left:0;padding-right:0;}
+  .ctl-modal-dialog,.ctl-modal-content,.ctl-modal-section-content{scrollbar-width:none;-ms-overflow-style:none;}
+  .ctl-modal-dialog::-webkit-scrollbar,.ctl-modal-content::-webkit-scrollbar,.ctl-modal-section-content::-webkit-scrollbar{display:none;}
+  .ctl-modal-section.open #ctl-modal-materials-content{margin-bottom:24px;}
+  .ctl-modal-color-switcher{width:100%;margin:12px 0 18px 0;text-align:left;}
+  .ctl-modal-color-label{font-size:1.1rem;font-family:'Georgia',serif;margin-bottom:6px;color:#222;}
+  .ctl-modal-color-list{display:flex;gap:18px;align-items:center;}
+  .ctl-modal-color{width:32px;height:32px;border-radius:50%;border:2px solid #ddd;display:inline-block;cursor:pointer;box-sizing:border-box;transition:border .2s;}
+  .ctl-modal-color--active{border:3px solid #222;}
+  .ctl-color-switcher{margin-top:8px;display:flex;gap:12px;align-items:center;}
+  .ctl-color{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;display:inline-block;cursor:pointer;box-sizing:border-box;transition:border .2s;}
+  .ctl-color--active{border:3px solid #222;}
+  #ctl-modal {
+    z-index: 9999;
+    background: none;
+  }
+  #ctl-modal-overlay {
+    z-index: 9998;
+    background: rgba(0,0,0,0.5);
+  }
+  #ctl-modal, #ctl-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+  #ctl-modal {
+    display: none;
+    z-index: 9999;
+  }
+  #ctl-modal-overlay {
+    display: none;
+    z-index: 9998;
+  }
+  #ctl-modal-overlay.ctl-modal-overlay--visible {
+    display: block;
+  }
+</style>
+
+<div class="ctl-flex-row">
+  <div class="complete-the-look">
+    <h3>{{ section.settings.title }}</h3>
+    <div class="ctl-list">
+      {% for block in section.blocks limit: section.settings.products_to_show %}
+        {% assign product = all_products[block.settings.product] %}
+        <div class="ctl-item" {{ block.shopify_attributes }}>
+          <div class="ctl-img-gallery">
+            <img
+              src="{{ block.settings.gold_image_1 | img_url: '200x200', crop: 'center' }}"
+              alt="{{ block.settings.gold_title }}"
+              class="ctl-img"
+            >
+          </div>
+          <div class="ctl-info">
+            <div class="ctl-title">
+              {{ block.settings.gold_title | default: block.settings.title | default: product.title }}
+            </div>
+            <div class="ctl-rating">
+              {% assign rating = block.settings.rating | default: 5 | plus: 0 %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}★{% else %}☆{% endif %}
+              {% endfor %}
+              <span>({{ block.settings.reviews }})</span>
+            </div>
+            <div class="ctl-prices">
+              <span class="ctl-old">{{ block.settings.gold_old_price }}</span>
+              <span class="ctl-new">{{ block.settings.gold_new_price }}</span>
+            </div>
+            <select class="ctl-size">
+              <option disabled selected>Select Size</option>
+              <option>Size: 3.5</option>
+              <option>Size: 4</option>
+              <option>Size: 4.5</option>
+              <option>Size: 5</option>
+              <option>Size: 5.5</option>
+              <option>Size: 6</option>
+              <option>Size: 6.5</option>
+              <option>Size: 7</option>
+              <option>Size: 7.5</option>
+              <option>Size: 8</option>
+              <option>Size: 8.5</option>
+              <option>Size: 9</option>
+              <option>Size: 9.5</option>
+              <option>Size: 10</option>
+              <option>Size: 10.5</option>
+              <option>Size: 11</option>
+              <option>Size: 11.5</option>
+              <option>Size: 12</option>
+              <option>Size: 13</option>
+            </select>
+            <div class="ctl-color-switcher">
+              <span class="ctl-color ctl-color--active" data-color="gold" style="background:#f5d487;"></span>
+              <span class="ctl-color" data-color="rose" style="background:#f7c7c3;"></span>
+              <span class="ctl-color" data-color="silver" style="background:#e3e3e1;"></span>
+            </div>
+          </div>
+          <button class="ctl-cart" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="682.667" height="682.667" viewBox="0 0 512 512">
+              <path d="M241 17.4c-23.2 5-41.8 18.1-53.9 38.1-7.4 12.1-11.1 27.3-11.1 45.1v11.3l-42.9.3c-41.6.3-43 .4-45.7 2.4-1.5 1.1-3.7 3.3-4.8 4.8-2.1 2.7-2.1 2.9-2.4 160.7-.2 176.7-.7 165.6 7 180.9 7.3 14.5 20.3 25.7 37 31.8l7.3 2.7 121.2.3c135.9.3 129.1.6 144.2-7 14.9-7.5 27.2-22.1 32.4-38.3l2.2-7V122.1l-2.1-2.7c-1.1-1.5-3.3-3.7-4.8-4.8-2.7-2-4.1-2.1-45.5-2.4l-42.9-.3-.5-14.7c-.7-19.8-3.9-31.1-12.6-44.4C311.7 35.4 295.9 24 275 18.3c-7.8-2.1-26-2.6-34-.9zm26.5 32.1c8.7 2.3 16.7 7 22.8 13.4 9.9 10.4 13.7 21 13.7 38.3V112h-96v-10.8c0-17.3 3.8-27.9 13.7-38.3 11.8-12.4 29.6-17.6 45.8-13.4zm-91.3 105.4c.3 11.8 1.2 14.1 7.2 18.5 3.9 2.9 13.3 2.9 17.2 0 6-4.4 6.9-6.7 7.2-18.5l.4-10.9h95.6l.4 10.9c.3 11.8 1.2 14.1 7.2 18.5 3.9 2.9 13.3 2.9 17.2 0 6-4.4 6.9-6.7 7.2-18.5l.4-10.9H400l-.2 148.2-.3 148.3-2.7 5.1c-4 7.6-7 10.7-14 14.5l-6.3 3.4h-241l-5.1-2.7c-7.6-4-10.7-7-14.5-14l-3.4-6.3-.3-148.3L112 144h63.8l.4 10.9z"/>
+            </svg>
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div id="ctl-modal-overlay">&#8203;</div>
+<div id="ctl-modal">
+  <div class="ctl-modal-dialog">
+    <button id="ctl-modal-close">&times;</button>
+    <div class="ctl-modal-content">
+      <div class="ctl-modal-img-wrap">
+        <button class="ctl-modal-arrow left">&#x2039;</button>
+        <div id="ctl-modal-media"></div>
+        <button class="ctl-modal-arrow right">&#x203A;</button>
+      </div>
+      <div class="ctl-modal-dots"></div>
+      <div class="ctl-modal-info">
+        <div class="ctl-modal-title-row">
+          <div id="ctl-modal-title"></div>
+          <div id="ctl-modal-prices"></div>
+        </div>
+        <div class="ctl-modal-rating-row">
+          <span class="ctl-modal-stars"></span>
+          <span class="ctl-modal-reviews"></span>
+        </div>
+        <div class="ctl-modal-row">
+          <select id="ctl-modal-size"></select>
+          <div class="ctl-modal-qty-wrap">
+            <span class="ctl-modal-qty-label">Qty:</span>
+            <span class="ctl-modal-qty-controls">
+              <button class="ctl-modal-qty-btn" id="ctl-modal-qty-minus">–</button>
+              <span class="ctl-modal-qty-value" id="ctl-modal-qty-value">1</span>
+              <button class="ctl-modal-qty-btn" id="ctl-modal-qty-plus">+</button>
+            </span>
+          </div>
+        </div>
+        <div class="ctl-modal-color-switcher">
+          <div class="ctl-modal-color-label">Color - Gold</div>
+          <div class="ctl-modal-color-list">
+            <span class="ctl-modal-color ctl-modal-color--active" style="background:#f5d487;"></span>
+            <span class="ctl-modal-color" style="background:#f7c7c3;"></span>
+            <span class="ctl-modal-color" style="background:#e3e3e1;"></span>
+          </div>
+        </div>
+        <button id="ctl-modal-add">ADD TO BAG</button>
+      </div>
+      <div class="ctl-modal-section">
+        <div class="ctl-modal-section-title">Description <span class="arrow">+</span></div>
+        <div class="ctl-modal-section-content" id="ctl-modal-description-content"></div>
+      </div>
+      <div class="ctl-modal-section">
+        <div class="ctl-modal-section-title">Materials <span class="arrow">+</span></div>
+        <div class="ctl-modal-section-content" id="ctl-modal-materials-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  console.log('Скрипт complete-the-look.liquid загружен');
+
+  let ctlModalBaseNew = 0;
+  let ctlModalBaseOld = 0;
+  window.completeTheLookProducts = [
+    {% for block in section.blocks limit: section.settings.products_to_show %}
+      {% assign product = all_products[block.settings.product] %}
+      {
+        product: {{ product | json }},
+        colors: {
+          gold: {
+            title: {{ block.settings.gold_title | default: block.settings.title | json }},
+            oldPrice: {{ block.settings.gold_old_price | default: block.settings.old_price | json }},
+            newPrice: {{ block.settings.gold_new_price | default: block.settings.new_price | json }},
+            images: [
+              {% if block.settings.gold_image_1 != blank %}{{ block.settings.gold_image_1 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.gold_image_2 != blank %}{{ block.settings.gold_image_2 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.gold_image_3 != blank %}{{ block.settings.gold_image_3 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.video != blank %}{{ block.settings.video | json }}{% endif %}
+            ]
+          },
+          rose: {
+            title: {{ block.settings.rose_title | default: block.settings.title | append: ' - Rose Gold' | json }},
+            oldPrice: {{ block.settings.rose_old_price | default: block.settings.old_price | json }},
+            newPrice: {{ block.settings.rose_new_price | default: block.settings.new_price | json }},
+            images: [
+              {% if block.settings.rose_image_1 != blank %}{{ block.settings.rose_image_1 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.rose_image_2 != blank %}{{ block.settings.rose_image_2 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.rose_image_3 != blank %}{{ block.settings.rose_image_3 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.video != blank %}{{ block.settings.video | json }}{% endif %}
+            ]
+          },
+          silver: {
+            title: {{ block.settings.silver_title | default: block.settings.title | append: ' - Silver' | json }},
+            oldPrice: {{ block.settings.silver_old_price | default: block.settings.old_price | json }},
+            newPrice: {{ block.settings.silver_new_price | default: block.settings.new_price | json }},
+            images: [
+              {% if block.settings.silver_image_1 != blank %}{{ block.settings.silver_image_1 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.silver_image_2 != blank %}{{ block.settings.silver_image_2 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.silver_image_3 != blank %}{{ block.settings.silver_image_3 | img_url: '545x545', crop: 'center' | json }},{% endif %}
+              {% if block.settings.video != blank %}{{ block.settings.video | json }}{% endif %}
+            ]
+          }
+        },
+        stars: 5,
+        reviews: 144,
+        sizes: ['3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '13'],
+        description: `<h2>This Ring Is The Moment</h2> <h4>Friends dont let friends go out without accessorizing!</h4><p>When you need a little glam in your life, look no further than The Artemis! A breathtaking 18k gold-plated baguette band with an inset of stones surrounding the entire ring. The shine is unreal and youll never want to take this one off once you put it on.</p><em>All rings are nickel free, come with a Lifetime Warranty, and are guaranteed not to turn your skin green.</em>`,
+        materials: `<h2>High Quality & Conflict Free</h2><p>Our rings are all handmade and are crafted to perfection with a gorgeous alternative to a mined diamond. Youll get all of the brilliance of a perfect and colorless diamond without having to spend a fortune. Our stones are cut to the highest quality standards and the color, cut, and clarity will amaze you with their brilliant shine. The band is made of premium 925 sterling silver and is extremely durable to the elements. This ring is plated with 18k Gold and is perfect for those with sensitive skin.</p><p><strong>Stones:</strong>Simulated Diamonds</p><p><strong>Material:</strong>925 Sterling Silver with 18k gold plating</p><p><strong>Fit:</strong>US Standard Fit</p>`,
+        video: 'https://cdn.shopify.com/videos/c/o/v/ac0b05ef1bbe42cc91e946962be90ae9.mp4'
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+  const ctlProducts = window.completeTheLookProducts;
+  const ctlSelectedColors = Array(ctlProducts.length).fill('gold');
+  let currentModalIdx = null;
+
+  document.querySelectorAll('.ctl-item').forEach((item, idx) => {
+    const product = ctlProducts[idx];
+    const img = item.querySelector('.ctl-img');
+    const title = item.querySelector('.ctl-title');
+    const prices = item.querySelector('.ctl-prices');
+    const colorSwitchers = item.querySelectorAll('.ctl-color');
+    let currentColor = ctlSelectedColors[idx];
+    
+    colorSwitchers.forEach(c => c.classList.remove('ctl-color--active'));
+    const activeColorEl = Array.from(colorSwitchers).find(c => c.getAttribute('data-color') === currentColor);
+    if (activeColorEl) activeColorEl.classList.add('ctl-color--active');
+    
+    colorSwitchers.forEach(colorEl => {
+      colorEl.addEventListener('click', function() {
+        colorSwitchers.forEach(c => c.classList.remove('ctl-color--active'));
+        this.classList.add('ctl-color--active');
+        currentColor = this.getAttribute('data-color');
+        ctlSelectedColors[idx] = currentColor;
+        const colorData = product.colors[currentColor];
+        img.src = colorData.images[0];
+        img.alt = colorData.title;
+        title.textContent = colorData.title;
+        prices.innerHTML = `<span class="ctl-old">${colorData.oldPrice}</span> <span class="ctl-new">${colorData.newPrice}</span>`;
+      });
+    });
+  });
+
+  document.querySelectorAll('.ctl-item').forEach((item, idx) => {
+    item.addEventListener('click', (e) => {
+      // Не открывать модалку, если клик по кнопке корзины
+      if (e.target.closest('.ctl-cart')) return;
+      // Открывать модалку только при клике на картинку или название
+      if (
+        e.target.classList.contains('ctl-img') ||
+        e.target.classList.contains('ctl-title')
+      ) {
+        console.log('Открытие модалки для индекса', idx);
+        openCtlModal(idx);
+      }
+    });
+  });
+
+  function openCtlModal(idx) {
+    currentModalIdx = idx;
+    document.body.classList.add('body--modal-open');
+    const overlay = document.getElementById('ctl-modal-overlay');
+    overlay && overlay.classList.add('ctl-modal-overlay--visible');
+    const modal = document.getElementById('ctl-modal');
+    if (modal) {
+      modal.style.display = 'flex';
+      modal.style.opacity = 1;
+      modal.style.visibility = 'visible';
+      modal.style.zIndex = 9999;
+    }
+    // --- Исправленный updateAll ---
+    const p = ctlProducts[idx];
+    let currentColor = ctlSelectedColors[idx],
+        productColorData = p.colors[currentColor],
+        images = productColorData.images.filter(Boolean).slice(),
+        currentImg = 0;
+
+    function updateDots() {
+      const dotsWrap = document.querySelector('.ctl-modal-dots');
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = images.map((_, i) => `<span class="ctl-modal-dot${i === currentImg ? ' active' : ''}"></span>`).join('');
+      dotsWrap.onclick = function(e) {
+        if (e.target.classList.contains('ctl-modal-dot')) {
+          const dotIdx = Array.from(dotsWrap.children).indexOf(e.target);
+          dotIdx >= 0 && (currentImg = dotIdx, renderMedia(images[currentImg], productColorData.title), updateDots());
+        }
+      };
+    }
+
+    function showImage() {
+      renderMedia(images[currentImg], productColorData.title);
+      updateDots();
+    }
+
+    function updateAll() {
+      productColorData = p.colors[currentColor];
+      images = productColorData.images.filter(Boolean).slice();
+      currentImg = 0;
+      document.getElementById('ctl-modal-title').textContent = productColorData.title || '';
+      document.getElementById('ctl-modal-prices').innerHTML = `<span class='ctl-old'>${productColorData.oldPrice || ''}</span> <span class='ctl-new'>${productColorData.newPrice || ''}</span>`;
+      const sizeSel = document.getElementById('ctl-modal-size');
+      if (sizeSel) {
+        sizeSel.innerHTML = '<option disabled selected>Select Size</option>' + (p.sizes || []).map(s => `<option>Size: ${s}</option>`).join('');
+        sizeSel.selectedIndex = 0;
+        sizeSel.onchange = function() {
+          document.getElementById('ctl-modal-add').disabled = 0 === this.selectedIndex;
+        };
+      }
+      const descEl = document.getElementById('ctl-modal-description-content');
+      const matEl = document.getElementById('ctl-modal-materials-content');
+      if (descEl) descEl.innerHTML = p.description || '';
+      if (matEl) matEl.innerHTML = p.materials || '';
+      const starsEl = document.querySelector('.ctl-modal-stars');
+      const reviewsEl = document.querySelector('.ctl-modal-reviews');
+      if (starsEl) starsEl.textContent = '★★★★★'.slice(0, p.stars || 0);
+      if (reviewsEl) reviewsEl.textContent = `(${p.reviews || 0})`;
+      const addBtn = document.getElementById('ctl-modal-add');
+      if (addBtn) addBtn.disabled = true;
+      document.querySelector('.ctl-modal-color-label').textContent = 'Color - ' + ('gold' === currentColor ? 'Gold' : 'rose' === currentColor ? 'Rose Gold' : 'Silver');
+      document.querySelectorAll('.ctl-modal-color').forEach((el, colorIdx) => {
+        el.classList.remove('ctl-modal-color--active');
+        if (["gold","rose","silver"][colorIdx] === currentColor) el.classList.add('ctl-modal-color--active');
+      });
+      renderMedia(images[0] || '', productColorData.title || '');
+      updateDots();
+      ctlModalBaseNew = parseFloat((productColorData.newPrice || '').replace(/[^\d.]/g, '')) || 0;
+      ctlModalBaseOld = parseFloat((productColorData.oldPrice || '').replace(/[^\d.]/g, '')) || 0;
+      window.updateCtlModalPrices();
+    }
+
+    const arrowLeft = document.querySelector('.ctl-modal-arrow.left'),
+          arrowRight = document.querySelector('.ctl-modal-arrow.right');
+    arrowLeft && (arrowLeft.onclick = () => {
+      currentImg = (currentImg - 1 + images.length) % images.length;
+      showImage();
+    });
+    arrowRight && (arrowRight.onclick = () => {
+      currentImg = (currentImg + 1) % images.length;
+      showImage();
+    });
+    const colorNames = ['gold', 'rose', 'silver'];
+    document.querySelectorAll('.ctl-modal-color').forEach((el, colorIdx) => {
+      el.onclick = function() {
+        document.querySelectorAll('.ctl-modal-color').forEach(e => e.classList.remove('ctl-modal-color--active'));
+        this.classList.add('ctl-modal-color--active');
+        currentColor = colorNames[colorIdx];
+        ctlSelectedColors[idx] = currentColor;
+        updateAll();
+      };
+    });
+    document.querySelectorAll('.ctl-modal-section').forEach(sec => {
+      sec.classList.remove('open');
+      const arr = sec.querySelector('.arrow');
+      arr && (arr.textContent = '+');
+    });
+    updateAll();
+  }
+
+  function renderMedia(src, alt) {
+    const mediaWrap = document.getElementById('ctl-modal-media');
+    if (!mediaWrap) return;
+    mediaWrap.innerHTML = '';
+    
+    if (src.endsWith('.mp4')) {
+      const video = document.createElement('video');
+      video.src = src;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.style.width = '545px';
+      video.style.height = '545px';
+      video.style.objectFit = 'contain';
+      mediaWrap.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt;
+      img.id = 'ctl-modal-img';
+      img.style.width = '545px';
+      img.style.height = '545px';
+      img.style.objectFit = 'contain';
+      mediaWrap.appendChild(img);
+    }
+  }
+
+  document.querySelectorAll('.ctl-size').forEach(select => {
+    updateCartButtonState(select);
+    select.addEventListener('change', function() {
+      updateCartButtonState(this);
+    });
+  });
+
+  function updateCartButtonState(select) {
+    const btn = select.closest('.ctl-item').querySelector('.ctl-cart');
+    if (0 === select.selectedIndex) {
+      btn.disabled = true;
+      btn.classList.add('disabled');
+    } else {
+      btn.disabled = false;
+      btn.classList.remove('disabled');
+    }
+  }
+
+  document.querySelectorAll('.ctl-modal-section-title').forEach(function(title) {
+    title.onclick = function() {
+      var section = this.parentElement;
+      var arrow = this.querySelector('.arrow');
+      if (section.classList.contains('open')) {
+        section.classList.remove('open');
+        arrow.textContent = '+';
+      } else {
+        document.querySelectorAll('.ctl-modal-section').forEach(function(sec) {
+          sec.classList.remove('open');
+          var arr = sec.querySelector('.arrow');
+          if (arr) arr.textContent = '+';
+        });
+        section.classList.add('open');
+        arrow.textContent = '–';
+      }
+    };
+  });
+
+  document.getElementById('ctl-modal-close').onclick = function() {
+    var modal = document.getElementById('ctl-modal');
+    if (modal) modal.style.display = 'none';
+    document.getElementById('ctl-modal-overlay').classList.remove('ctl-modal-overlay--visible');
+    document.body.classList.remove('body--modal-open');
+    if (currentModalIdx !== null) {
+      const card = document.querySelectorAll('.ctl-item')[currentModalIdx];
+      const color = ctlSelectedColors[currentModalIdx];
+      const product = ctlProducts[currentModalIdx];
+      if (card && product && product.colors[color]) {
+        const img = card.querySelector('.ctl-img');
+        if (img && product.colors[color].images[0]) {
+          img.src = product.colors[color].images[0];
+          img.alt = product.colors[color].title;
+        }
+        const title = card.querySelector('.ctl-title');
+        if (title) title.textContent = product.colors[color].title;
+        const prices = card.querySelector('.ctl-prices');
+        if (prices) {
+          prices.innerHTML = `<span class='ctl-old'>${product.colors[color].oldPrice}</span> <span class='ctl-new'>${product.colors[color].newPrice}</span>`;
+        }
+        const colorSwitchers = card.querySelectorAll('.ctl-color');
+        colorSwitchers.forEach(c => c.classList.remove('ctl-color--active'));
+        const activeColorEl = Array.from(colorSwitchers).find(c => c.getAttribute('data-color') === color);
+        if (activeColorEl) activeColorEl.classList.add('ctl-color--active');
+      }
+    }
+    currentModalIdx = null;
+  };
+
+  // Закрытие модалки по клику на оверлей с отладкой
+  document.getElementById('ctl-modal-overlay').addEventListener('mousedown', function(e) {
+    console.log('Overlay click', e.target, this);
+    if (e.target === this) {
+      alert('Закрываю модалку!'); // временно для отладки
+      var modal = document.getElementById('ctl-modal');
+      if (modal) modal.style.display = 'none';
+      this.classList.remove('ctl-modal-overlay--visible');
+      document.body.classList.remove('body--modal-open');
+    }
+  });
+
+  (function() {
+    var qtyValue = document.getElementById('ctl-modal-qty-value');
+    var minusBtn = document.getElementById('ctl-modal-qty-minus');
+    var plusBtn = document.getElementById('ctl-modal-qty-plus');
+
+    function updatePrices() {
+      var qty = parseInt(qtyValue.textContent, 10) || 1;
+      var priceNew = document.querySelector('#ctl-modal-prices .ctl-new');
+      var priceOld = document.querySelector('#ctl-modal-prices .ctl-old');
+      if (priceNew) priceNew.textContent = '$' + (ctlModalBaseNew * qty).toFixed(2);
+      if (priceOld) priceOld.textContent = '$' + (ctlModalBaseOld * qty).toFixed(2);
+    }
+
+    if (minusBtn && plusBtn && qtyValue) {
+      minusBtn.addEventListener('click', function() {
+        var qty = Math.max(1, (parseInt(qtyValue.textContent, 10) || 1) - 1);
+        qtyValue.textContent = qty;
+        updatePrices();
+      });
+
+      plusBtn.addEventListener('click', function() {
+        var qty = (parseInt(qtyValue.textContent, 10) || 1) + 1;
+        qtyValue.textContent = qty;
+        updatePrices();
+      });
+    }
+
+    window.updateCtlModalPrices = updatePrices;
+    updatePrices();
+  })();
+
+  document.getElementById('ctl-modal-add').onclick = function() {
+    console.log('DEBUG: Клик по кнопке ADD TO BAG');
+    console.log('DEBUG: Доступные продукты:', ctlProducts);
+    if (currentModalIdx === null) return;
+    const product = ctlProducts[currentModalIdx].product;
+    const color = ctlSelectedColors[currentModalIdx];
+    const sizeSel = document.getElementById('ctl-modal-size');
+    const size = sizeSel && sizeSel.selectedIndex > 0 ? sizeSel.options[sizeSel.selectedIndex].text.replace('Size: ', '').trim() : null;
+    const qty = parseInt(document.getElementById('ctl-modal-qty-value').textContent, 10) || 1;
+    if (!product || !product.variants) {
+      alert('Product data not available');
+      return;
+    }
+    const variant = product.variants.length === 1
+      ? product.variants[0]
+      : product.variants.find(v => {
+          // Если есть и цвет, и размер
+          if (v.option1 && v.option2) {
+            return (
+              v.option1.toLowerCase() === color &&
+              v.option2.replace(/[^\d.\w ]/g, '').toLowerCase() === size.toLowerCase()
+            );
+          }
+          // Если только цвет
+          if (v.option1 && !v.option2) {
+            return v.option1.toLowerCase() === color;
+          }
+          // Если только размер
+          if (!v.option1 && v.option2) {
+            return v.option2.replace(/[^\d.\w ]/g, '').toLowerCase() === size.toLowerCase();
+          }
+          // Если только один вариант вообще
+          return true;
+        });
+    if (!variant) {
+      alert('Вариант с выбранным цветом и размером не найден');
+      return;
+    }
+    console.log('DEBUG: Найден продукт:', product);
+    console.log('DEBUG: Найден вариант:', variant);
+    console.log('DEBUG: product:', product);
+    console.log('DEBUG: variants:', product.variants);
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: variant.id, quantity: qty })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Закрыть модалку
+      var modal = document.getElementById('ctl-modal');
+      if (modal) modal.style.display = 'none';
+      document.getElementById('ctl-modal-overlay').classList.remove('ctl-modal-overlay--visible');
+      document.body.classList.remove('body--modal-open');
+      // Открыть мини-корзину
+      var cartIcon = document.querySelector('a:has(.header__nav-icon.icon-cart)');
+      if (cartIcon) {
+        cartIcon.click();
+      } else {
+        // Если селектор другой, раскомментируйте и используйте нужный:
+        // document.querySelector('.site-header__cart')?.click();
+        // document.querySelector('.cart-link')?.click();
+      }
+      // Можно показать кастомное уведомление
+      // showToast('Товар добавлен в корзину!');
+    })
+    .catch(error => {
+      alert('Ошибка при добавлении в корзину');
+      console.error(error);
+    });
+  };
+
+  // Переместить модалку и overlay в конец body, чтобы они были поверх всего
+  (function() {
+    var modal = document.getElementById('ctl-modal');
+    var overlay = document.getElementById('ctl-modal-overlay');
+    if (modal && modal.parentNode !== document.body) {
+      document.body.appendChild(modal);
+    }
+    if (overlay && overlay.parentNode !== document.body) {
+      document.body.appendChild(overlay);
+    }
+  })();
+
+  // Добавляем обработчик для кнопки покупки в карточке
+  document.querySelectorAll('.ctl-item').forEach((item, idx) => {
+    const cartBtn = item.querySelector('.ctl-cart');
+    const sizeSel = item.querySelector('.ctl-size');
+    if (!cartBtn) return;
+    cartBtn.addEventListener('click', function(e) {
+      e.stopPropagation(); // чтобы не всплывал клик на карточку
+      const product = ctlProducts[idx].product;
+      const color = ctlSelectedColors[idx];
+      const size = sizeSel && sizeSel.selectedIndex > 0 ? sizeSel.options[sizeSel.selectedIndex].text.replace('Size: ', '').trim() : null;
+      const qty = 1;
+      if (!product || !product.variants) {
+        alert('Product data not available');
+        return;
+      }
+      const variant = product.variants.length === 1
+        ? product.variants[0]
+        : product.variants.find(v => {
+            // Если есть и цвет, и размер
+            if (v.option1 && v.option2) {
+              return (
+                v.option1.toLowerCase() === color &&
+                v.option2.replace(/[^\d.\w ]/g, '').toLowerCase() === size.toLowerCase()
+              );
+            }
+            // Если только цвет
+            if (v.option1 && !v.option2) {
+              return v.option1.toLowerCase() === color;
+            }
+            // Если только размер
+            if (!v.option1 && v.option2) {
+              return v.option2.replace(/[^\d.\w ]/g, '').toLowerCase() === size.toLowerCase();
+            }
+            // Если только один вариант вообще
+            return true;
+          });
+      if (!variant) {
+        alert('Вариант с выбранным цветом и размером не найден');
+        return;
+      }
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variant.id, quantity: qty })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Открыть мини-корзину
+        var cartIcon = document.querySelector('a:has(.header__nav-icon.icon-cart)');
+        if (cartIcon) {
+          cartIcon.click();
+        } else {
+          // document.querySelector('.site-header__cart')?.click();
+          // document.querySelector('.cart-link')?.click();
+        }
+        // Можно показать кастомное уведомление
+        // showToast('Товар добавлен в корзину!');
+      })
+      .catch(error => {
+        alert('Ошибка при добавлении в корзину');
+        console.error(error);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Complete The Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Complete The Look"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Number of products to show",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "gold_image_1",
+          "label": "Gold Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "gold_image_2",
+          "label": "Gold Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "gold_image_3",
+          "label": "Gold Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "rose_image_1",
+          "label": "Rose Gold Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "rose_image_2",
+          "label": "Rose Gold Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "rose_image_3",
+          "label": "Rose Gold Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "silver_image_1",
+          "label": "Silver Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "silver_image_2",
+          "label": "Silver Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "silver_image_3",
+          "label": "Silver Image 3"
+        },
+        {
+          "type": "text",
+          "id": "rating",
+          "label": "Rating",
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "reviews",
+          "label": "Number of Reviews",
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "info": "HTML allowed"
+        },
+        {
+          "type": "text",
+          "id": "materials",
+          "label": "Materials",
+          "info": "HTML allowed"
+        },
+        {
+          "type": "text",
+          "id": "sizes",
+          "label": "Available Sizes",
+          "info": "Comma separated list of sizes"
+        },
+        {
+          "type": "url",
+          "id": "video",
+          "label": "Product Video URL",
+          "info": "Ссылка на видео (mp4, YouTube или Vimeo)"
+        },
+        {
+          "type": "header",
+          "content": "Gold Options"
+        },
+        {
+          "type": "text",
+          "id": "gold_title",
+          "label": "Gold Title"
+        },
+        {
+          "type": "text",
+          "id": "gold_old_price",
+          "label": "Gold Old Price"
+        },
+        {
+          "type": "text",
+          "id": "gold_new_price",
+          "label": "Gold New Price"
+        },
+        {
+          "type": "header",
+          "content": "Rose Gold Options"
+        },
+        {
+          "type": "text",
+          "id": "rose_title",
+          "label": "Rose Gold Title"
+        },
+        {
+          "type": "text",
+          "id": "rose_old_price",
+          "label": "Rose Gold Old Price"
+        },
+        {
+          "type": "text",
+          "id": "rose_new_price",
+          "label": "Rose Gold New Price"
+        },
+        {
+          "type": "header",
+          "content": "Silver Options"
+        },
+        {
+          "type": "text",
+          "id": "silver_title",
+          "label": "Silver Title"
+        },
+        {
+          "type": "text",
+          "id": "silver_old_price",
+          "label": "Silver Old Price"
+        },
+        {
+          "type": "text",
+          "id": "silver_new_price",
+          "label": "Silver New Price"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete The Look"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,452 @@
+{% schema %}
+{
+  "name": "Promo Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Promo Banner"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promo Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping On"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "All US Orders Over $250"
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon Type",
+          "options": [
+            {
+              "value": "preset",
+              "label": "Preset Icon"
+            },
+            {
+              "value": "custom",
+              "label": "Custom Icon"
+            }
+          ],
+          "default": "preset"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Preset Icon",
+          "options": [
+            {
+              "value": "shipping",
+              "label": "Shipping"
+            },
+            {
+              "value": "followers",
+              "label": "Followers"
+            },
+            {
+              "value": "certified",
+              "label": "Certified"
+            },
+            {
+              "value": "paypal",
+              "label": "PayPal"
+            }
+          ],
+          "default": "shipping",
+          "info": "Select this if using preset icon"
+        },
+        {
+          "type": "text",
+          "id": "custom_icon_url",
+          "label": "Custom Icon URL",
+          "info": "Enter URL for custom SVG icon",
+          "default": "https://cdn.shopify.com/s/files/1/0000/0000/files/placeholder.svg"
+        },
+        {
+          "type": "range",
+          "id": "custom_icon_width",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Custom Icon Width",
+          "default": 45,
+          "info": "Adjust custom icon size"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner",
+      "category": "Promotional",
+      "blocks": [
+        {
+          "type": "promo",
+          "settings": {
+            "title": "Free Shipping On",
+            "text": "All US Orders Over $250",
+            "icon_type": "preset",
+            "icon": "shipping",
+            "custom_icon_url": "https://cdn.shopify.com/s/files/1/0000/0000/files/placeholder.svg"
+          }
+        },
+        {
+          "type": "promo",
+          "settings": {
+            "title": "Over 1.8 Million Followers",
+            "text": "& 28,200 5-Star Reviews",
+            "icon_type": "preset",
+            "icon": "followers",
+            "custom_icon_url": "https://cdn.shopify.com/s/files/1/0000/0000/files/placeholder.svg"
+          }
+        },
+        {
+          "type": "promo",
+          "settings": {
+            "title": "GIA & IGI Certified",
+            "text": "Gem Authenticity",
+            "icon_type": "preset",
+            "icon": "certified",
+            "custom_icon_url": "https://cdn.shopify.com/s/files/1/0000/0000/files/placeholder.svg"
+          }
+        },
+        {
+          "type": "promo",
+          "settings": {
+            "title": "New: Pay In 4 Easy",
+            "text": "Installments With ▼ PayPal",
+            "icon_type": "preset",
+            "icon": "paypal",
+            "custom_icon_url": "https://cdn.shopify.com/s/files/1/0000/0000/files/placeholder.svg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="promo-container">
+  {% for block in section.blocks %}
+    <div class="promo-block" {{ block.shopify_attributes }}>
+      <div class="promo-content">
+        <div class="promo-img">
+          {% if block.settings.icon_type == 'custom' and block.settings.custom_icon_url != blank %}
+            <img
+              src="{{ block.settings.custom_icon_url }}"
+              alt="{{ block.settings.title }}"
+              width="{{ block.settings.custom_icon_width }}"
+              style="width: {{ block.settings.custom_icon_width }}px; height: auto;"
+            >
+          {% else %}
+            {% case block.settings.icon %}
+              {% when 'shipping' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="38" version="1.0" viewBox="0 0 64 55">
+                  <path d="m16.8 5.7 13.2.4V43h4.3c3.3 0 4.9.6 6.7 2.5 3 3.2 6.4 3.2 9.6 0 1.5-1.6 3.6-2.5 5.5-2.5h3l-.3-8.2-.3-8.3-3.3-.3c-3.1-.3-3.6-.9-6.3-6.8L46 13H31V5l-13.7.2-13.8.2 13.3.3zm30.1 12c4.2 8.6 4.5 8.3-6.3 8.3H31V14h14l1.9 3.7zM52.2 28H58v13h-3c-1.6 0-3-.5-3-1.2 0-2.4-3.4-4.8-6.7-4.8-2.7 0-3.7.6-5.1 3-1.4 2.5-2.3 3-5.4 3H31V26.7l7.7.7c4.2.3 10.2.6 13.5.6zm-3 9.7c3.9 3.6.5 10.2-4.7 8.9-3.7-.9-5.2-4.8-3.1-8.1 1.9-2.9 5.1-3.2 7.8-.8z"/><path d="M10.7 17.7c2.4.2 6.2.2 8.5 0 2.4-.2.5-.4-4.2-.4s-6.6.2-4.3.4zM12 27c0 .5 2.5 1 5.5 1s5.5-.5 5.5-1c0-.6-2.5-1-5.5-1s-5.5.4-5.5 1zM11.7 36.2c-2.7 2.2-3.1 6.1-.7 9.1 3.8 4.9 11 2.5 11-3.7 0-5.5-6-8.6-10.3-5.4zm7.7 1.4c4.5 4.5-1.6 12.1-6.6 8.2-2.8-2.2-3.1-5.5-.9-7.7 2.5-2.5 5.4-2.7 7.5-.5z"/>
+                </svg>
+              {% when 'followers' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" version="1.0" viewBox="0 0 900 600">
+                  <path d="M446.8 47.1c-.3.7-.6 1.8-.6 2.3 0 .5-.4 1.2-.9 1.5-.9.5-25.5 44.7-37.3 66.6-2.4 4.4-4.7 8.6-5.3 9.2-.5.7-.6 1.3-.1 1.3s.4.4-.2.8c-.6.4-2.8 3.8-4.9 7.7-2.1 3.8-5.3 9.6-7.1 12.7-1.8 3.2-3 5.8-2.6 5.8.4 0 .2.4-.4.8-1.4.9-16.4 28.4-16.4 30.1 0 .6-.3 1.1-.7 1.1-.5 0-2.1 2.4-3.6 5.3l-2.9 5.2-14.6 2.8c-20.9 4-104.4 20-131.6 25.3-12.6 2.4-23 4.5-23.2 4.6-.1.2 2.8 3.5 6.4 7.4 3.7 3.9 11.9 12.7 18.2 19.5 6.3 6.8 15.8 16.9 21 22.4 5.3 5.5 12.2 12.9 15.5 16.5 13.6 14.8 37.4 40 44.6 47.3 4.3 4.2 7.5 7.7 7.1 7.7-.3 0 .7 1.3 2.2 2.9l2.7 2.9-6 48.3c-3.3 26.6-8.1 64.8-10.6 84.8s-4.4 36.8-4.3 37.3c.2.5 4.1-1 8.8-3.3 4.7-2.3 9-4.3 9.5-4.5.6-.1 6.4-2.8 13-5.9 6.6-3.1 14.9-7.1 18.5-8.7 3.6-1.6 12.4-5.9 19.6-9.4 7.3-3.5 13.4-6.4 13.7-6.4.3 0 7-3.1 15-6.9 7.9-3.8 15.4-7.2 16.6-7.6 1.1-.3 2.1-1.1 2.1-1.7 0-.6.3-.9.6-.6.3.3 5.3-1.6 11.2-4.4 5.9-2.8 14.5-6.8 19.2-9l8.5-3.9 6 2.7c6.5 3 15.5 7.2 33.5 15.8 22.2 10.5 31.5 14.8 32.5 14.9.6.1 1.2.4 1.5.7.7.8 43.8 21 45.3 21.3.7.1 1.4.5 1.7.8.3.3 2.5 1.5 5 2.7 25.6 12 30.4 14.2 30.7 13.8.3-.2-4.3-38.4-10.1-84.8-5.8-46.3-10.6-84.8-10.6-85.3 0-.6 1.3-2.5 2.9-4.3 1.7-1.7 2.9-3.2 2.8-3.2-.1 0 6-6.4 13.5-14.2 7.6-7.9 13.8-14.9 13.8-15.6 0-.7.5-1 1-.7.6.3 1 .2 1-.2 0-.5 3.3-4.3 7.3-8.4 6.3-6.6 14-14.8 43.2-45.9 3.9-4.1 7.5-7.9 8-8.6 1.4-1.7 14.8-16 20.2-21.6l4.5-4.6-5.4-1.1c-12-2.4-48-9.2-50.5-9.6-1.6-.2-15.2-2.9-30.3-5.8-15.1-3-40.2-7.9-55.8-10.8-26.7-5.1-28.4-5.5-29.6-7.9-.7-1.4-2.6-5-4.3-8-1.6-3-4.9-9.1-7.3-13.5-2.4-4.4-4.7-8.2-5.2-8.3-.4-.2-.8-.9-.8-1.5 0-1.2-10.7-20.8-11.9-21.7-.3-.3-.7-1.1-.9-1.9-.2-.8-2-4.4-4.1-8-2.1-3.6-5.5-9.8-7.6-13.6-9.5-17.7-16-29.1-16.8-29.6-.5-.3-.7-.8-.5-1 .3-.5-20.2-38.1-21.2-38.9-.4-.3-.9-1.2-1.2-1.9-.4-1.3-.5-1.3-1 0zm14.1 100.2c7.8 14.2 15 27.2 16 29 .9 1.8 6.1 11.1 11.4 20.7 8.5 15.4 10.6 18.4 17.6 25.4l7.9 7.9 24.4 4.7c13.3 2.6 40.5 7.8 60.3 11.5 19.8 3.8 36.2 7 36.4 7.1.2.2-.3.9-1 1.7-.8.8-6.6 7-13 13.8-6.4 6.8-25 26.6-41.2 43.9l-29.6 31.5-.1 15.1c0 12.6 1 23 6 63 3.3 26.3 6.2 49.3 6.5 51.1l.6 3.2-14.3-6.8c-7.9-3.8-17.4-8.3-21.3-10.1-3.8-1.8-14.4-6.7-23.5-11-9.1-4.2-22.9-10.7-30.7-14.4l-14.2-6.6H429.8l-28.6 13.4c-25.8 12-61.4 28.8-71.5 33.6l-3.8 1.8.6-3.1c.3-1.8 3.2-24.8 6.5-51.2 5-39.9 6-50.5 5.9-63v-15l-22.6-24c-46.1-48.9-62.3-66.4-62.3-66.9 0-.3.9-.6 1.9-.6 1 0 13.3-2.2 27.2-4.9 14-2.8 36.2-7.1 49.4-9.6 13.2-2.5 28.2-5.4 33.4-6.4l9.3-1.9 7.9-7.8c7.8-7.7 8.5-8.9 31.7-50.9 13-23.7 25-45.5 26.6-48.6 2.8-5.3 3.1-5.5 4.1-3.5.6 1.1 7.5 13.7 15.4 27.9z"/>
+                </svg>
+              {% when 'certified' %}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="154.667"
+                  height="136"
+                  version="1.0"
+                  viewBox="0 0 116 102"
+                  style="fill: none; stroke: #333333; stroke-width: 1;"
+                >
+                  <path d="M40 23.1c0 .5-.4.8-.9.5-1.1-.7-15.5 21.1-15.8 23.9-.2 2.7 33.5 36.8 36.6 37 2.4.2 36.3-33.4 36.8-36.5.3-2.3-14.5-25.3-15.8-24.4-.5.3-.9 0-.9-.5 0-.8-6.6-1.1-20-1.1s-20 .3-20 1.1zm14.4 5.6c-6.3 9.9-8.7 13.3-9.1 13-.2-.3-1-3.9-1.7-8.1L42.3 26h13.9l-1.8 2.7zm22 4.9c-.7 4.2-1.5 7.8-1.7 8.1-.4.3-2.8-3.1-9.1-13L63.8 26h13.9l-1.3 7.6zm-10.2 3.2 5.8 8.7-6 .3c-3.3.2-8.7.2-12 0l-6-.3 5.8-8.7C56.9 32 59.7 28 60 28c.3 0 3.1 4 6.2 8.8zm-25.8 1.6 1.3 7.6H27.8l1.8-2.8c6.3-9.8 8.7-13.2 9.1-12.9.2.3 1 3.9 1.7 8.1zm44.8-3.2c1.9 2.9 4.3 6.5 5.2 8l1.8 2.8H78.3l.8-4.8c.5-2.6 1.1-6.2 1.4-8 .3-1.7.7-3.2.9-3.2.2 0 1.9 2.4 3.8 5.2zM47.9 61.6c2.9 6.4 5 11.8 4.9 12-.2.2-5.8-5.1-12.3-11.6l-12-12h14.2l5.2 11.6zm19.9-.4c-2.7 6.2-5.5 12.5-6 14-.5 1.6-1.4 2.8-1.8 2.8-.4 0-1.3-1.2-1.8-2.8-.5-1.5-3.3-7.8-6-14L47.1 50h25.8l-5.1 11.2zm11.7.8c-6.5 6.5-12 11.8-12.2 11.6-.2-.1 2-5.5 4.8-11.9L77.3 50h14.2l-12 12z"/>
+                </svg>
+              {% when 'paypal' %}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="110.667"
+                  height="117.333"
+                  version="1.0"
+                  viewBox="0 0 83 88"
+                >
+                  <path d="M25.7 42.7C24.2 53.6 23 63.3 23 64.2c0 1.3 1.1 1.8 4.8 2 4.5.3 4.7.4 4.4 3-.3 2.8-.3 2.8 5.1 2.8h5.5l.9-6.3.8-6.2 6.9-.6c6.2-.5 7.2-.9 9.8-3.8 3.4-3.8 3.9-10.4.9-14.2-1-1.3-2.1-4-2.5-6-.4-2.1-1.6-4.9-2.7-6.3C53.3 24 50 23 38.8 23H28.4l-2.7 19.7zM52 26.5c5.5 2.8 7.6 10.5 4.5 16.5-2.2 4.3-6.3 6-14.4 6h-6.9l-.7 5.2C33.2 65.1 33.2 65 29.1 65c-2.1 0-4-.2-4.3-.5-.2-.3.8-9.2 2.3-19.7C28.7 34.2 30 25.4 30 25.2c0-.1 4.3-.2 9.5-.2 6.6 0 10.5.5 12.5 1.5zm10.1 18.3c.9 3.2.8 4.4-.5 7-2.2 4.2-3.1 4.6-11.1 5.2l-7 .5-1 6c-1 6-1.1 6-4.8 6.3-4.2.4-4 1.1-2.4-10.3l1.2-8 7.1-.6c7.9-.6 11.6-2.4 14.2-7 1-1.6 2-2.9 2.4-2.9.4 0 1.2 1.7 1.9 3.8z"/>
+                </svg>
+            {% endcase %}
+          {% endif %}
+        </div>
+        <div class="promo-text-content">
+          <div class="promo-title">{{ block.settings.title }}</div>
+          <div class="promo-text">{{ block.settings.text }}</div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .promo-container {
+      font-family: 'Raleway', sans-serif;
+      width: 100vw;
+      margin: 0;
+      padding: 5px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: #f8f8f8;
+  }
+
+  .promo-block {
+      padding: clamp(15px, 3vw, 25px) 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: clamp(80px, 15vw, 120px);
+      transition: transform 0.2s;
+      background: #f8f8f8;
+  }
+
+  .promo-block:hover {
+      transform: translateY(-3px);
+  }
+
+  .promo-block:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -1.5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 60%;
+      background-color: #e0e0e0;
+  }
+
+  .promo-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+  }
+
+  .promo-block:first-child .promo-img {
+      max-width: 52px;
+      width: 52px;
+      overflow: hidden;
+      margin: 0 10px 0 0;
+      padding-right: 5px;
+  }
+
+  .promo-block:first-child .promo-img svg {
+      width: 52px !important;
+      height: 44px !important;
+      max-width: 52px !important;
+      max-height: 44px !important;
+      margin-left: 4px;
+      padding-left: 0;
+      margin-right: 4px;
+  }
+
+  .promo-img {
+      flex-shrink: 0;
+  }
+
+  .promo-img svg {
+      width: clamp(60px, 8vw, 90px);
+      height: auto;
+      flex-shrink: 0;
+      fill: #333333;
+  }
+
+  .promo-block:first-child .promo-img svg {
+      width: clamp(80px, 12vw, 120px);
+      height: auto;
+  }
+
+  .promo-block:nth-child(3) .promo-img svg {
+      width: clamp(45px, 7vw, 80px);
+  }
+
+  .promo-block:nth-child(3) .promo-text-content {
+      margin-left: -3px;
+  }
+
+  .promo-text-content {
+      text-align: left;
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+  }
+
+  .promo-title {
+      font-weight: 600;
+      font-size: clamp(14px, 2.5vw, 18px);
+      margin-bottom: clamp(2px, 0.5vw, 4px);
+      white-space: normal;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.3;
+      color: #333333;
+  }
+
+  .promo-text {
+      font-size: clamp(12px, 2vw, 16px);
+      line-height: 1.4;
+      white-space: normal;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      color: #666666;
+  }
+
+  @media (max-width: 735px) {
+      .promo-container {
+          grid-template-columns: 1fr;
+          padding: 5px 15px;
+          gap: 0;
+      }
+
+      .promo-block {
+          position: relative;
+          padding: 15px 0;
+          min-height: auto;
+      }
+
+      .promo-block:not(:last-child) {
+          border-bottom: 2px solid #e0e0e0;
+      }
+
+      .promo-title {
+          font-size: clamp(12px, 2vw, 14px);
+      }
+
+      .promo-text {
+          font-size: clamp(10px, 1.8vw, 12px);
+      }
+
+      .promo-img svg {
+          width: clamp(40px, 7vw, 60px);
+      }
+
+      .promo-block:first-child .promo-img {
+          max-width: 40px;
+          width: 40px;
+          margin: 0;
+          padding-right: 0;
+      }
+
+      .promo-block:first-child .promo-img svg {
+          width: 40px !important;
+          height: 34px !important;
+          max-width: 40px !important;
+          max-height: 34px !important;
+          margin-left: 3px;
+          margin-right: 0;
+      }
+
+      .promo-block:nth-child(3) .promo-img svg {
+          width: clamp(40px, 7vw, 60px);
+      }
+
+      .promo-block:first-child .promo-text-content {
+          margin-left: 6px;
+          padding-left: 0;
+      }
+
+      .promo-block:nth-child(3) .promo-text-content {
+          margin-left: 2px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .promo-container {
+          grid-template-columns: 1fr;
+          padding: 5px 10px;
+      }
+
+      .promo-title {
+          font-size: clamp(10px, 1.8vw, 12px);
+      }
+
+      .promo-text {
+          font-size: clamp(9px, 1.5vw, 11px);
+      }
+
+      .promo-img svg {
+          width: clamp(40px, 7vw, 60px);
+      }
+
+      .promo-block:first-child .promo-img {
+          max-width: 35px;
+          width: 35px;
+          margin: 0;
+          padding-right: 0;
+      }
+
+      .promo-block:first-child .promo-img svg {
+          width: 35px !important;
+          height: 30px !important;
+          max-width: 35px !important;
+          max-height: 30px !important;
+          margin-left: 2px;
+          margin-right: 0;
+      }
+
+      .promo-block:nth-child(3) .promo-img svg {
+          width: clamp(40px, 7vw, 60px);
+      }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const headers = document.querySelectorAll('.promo-accordion-header');
+      function handleAccordion(e) {
+          e.preventDefault();
+          console.log('Accordion event:', e.type);
+          const body = this.nextElementSibling;
+          const isActive = this.classList.contains('active');
+          document.querySelectorAll('.promo-accordion-header').forEach(h => h.classList.remove('active'));
+          document.querySelectorAll('.promo-accordion-body').forEach(b => b.style.display = 'none');
+          if (!isActive) {
+              this.classList.add('active');
+              body.style.display = 'block';
+          }
+      }
+      headers.forEach(header => {
+          header.addEventListener('click', handleAccordion);
+          header.addEventListener('touchend', function(e) {
+              if (e.cancelable) e.preventDefault();
+              if (!header.wasTouched) {
+                  header.wasTouched = true;
+                  handleAccordion.call(this, e);
+                  setTimeout(() => { header.wasTouched = false; }, 500);
+              }
+          });
+      });
+  });
+</script>

@@ -1,0 +1,807 @@
+{% schema %}
+{
+  "name": "Instagram Feed Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "See It Styled On Instagram"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Over 11 million followers on social media can't be wrong"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL",
+      "info": "Пример: https://facebook.com/yourpage"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "info": "Пример: https://www.instagram.com/ergonspaces?igsh=eWw5djg1cHJ4MHI1&utm_source=qr"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon",
+      "info": "Default icon will be used if not set"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_icon",
+      "label": "Facebook Icon",
+      "info": "Default icon will be used if not set"
+    },
+    {
+      "type": "header",
+      "content": "Instagram Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/470309382_1253516155921166_2434228434992023659_n.jpg?v=1746029375"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/485378389_18394742338107136_8630084446360710535_n.jpg?v=1746029375"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/467612311_891469323056386_6280926360300767539_n.jpg?v=1746030982"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/467469135_423082574206295_4977327284432755332_n.jpg?v=1746030982"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/462700402_1040583887532156_2915475346725417714_n.jpg?v=1746031879"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/459330344_543034815069296_6745975772185394614_n.jpg?v=1746032196"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/457387938_1019367006336666_4647348937315865417_n.jpg?v=1746032239"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/454681461_418443744570186_3424001860788846422_n_1.jpg?v=1746032255"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_9",
+      "label": "Image 9",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/449715395_489421033465683_6843025225211303593_n.jpg?v=1746032432"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_10",
+      "label": "Image 10",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/446306598_1524098631504898_7199539258081859663_n.jpg?v=1746032432"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_11",
+      "label": "Image 11",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/436267340_954355259812724_2954679831876225386_n.jpg?v=1746032432"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_12",
+      "label": "Image 12",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/440075199_798598541742782_3163979561527436933_n.jpg?v=1746032432"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_13",
+      "label": "Image 13",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/434735866_333002309760460_1886970173639892227_n.jpg?v=1746032541"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_14",
+      "label": "Image 14",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/434186409_1472108910260500_1790946728044754658_n.jpg?v=1746032541"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_15",
+      "label": "Image 15",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/430158410_801522958663020_8918739020498998139_n.jpg?v=1746032541"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_16",
+      "label": "Image 16",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/425958379_892891022622020_1450202824078463306_n.jpg?v=1746032541"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_17",
+      "label": "Image 17",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/382960423_298753316122695_2793253805554958552_n.jpg?v=1746032652"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_18",
+      "label": "Image 18",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/373124731_1348050999459216_3993912181314578039_n.jpg?v=1746032654"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_19",
+      "label": "Image 19",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/356269071_965851487975954_6453983602478278025_n.jpg?v=1746032648"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_20",
+      "label": "Image 20",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/351108226_266625749082296_854070486521607949_n.jpg?v=1746032646"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_21",
+      "label": "Image 21",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/349090741_907013097029723_1934631735380028482_n.jpg?v=1746032755"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_22",
+      "label": "Image 22",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/346262689_1629208294249509_2914221992080243103_n.jpg?v=1746032755"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_23",
+      "label": "Image 23",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/340964291_1913923185623229_5088225126301458936_n.jpg?v=1746032755"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_24",
+      "label": "Image 24",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/321246635_187524300606792_8592113380776064353_n.jpg?v=1746032755"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_25",
+      "label": "Image 25",
+      "info": "https://cdn.shopify.com/s/files/1/0613/6191/3913/files/316605114_5718594784899210_5862290356909477299_n.jpg?v=1746032836"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Feed Gallery",
+      "category": "Social Media"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="instagram-block">
+  <div class="instagram-content">
+    <div class="instagram-title">{{ section.settings.title }}</div>
+    <h4 class="instagram-stats">{{ section.settings.subtitle }}</h4>
+    <div class="instagram-buttons">
+      <a class="instagram-button like-button" href="{{ section.settings.facebook_url }}" target="_blank">
+        {% if section.settings.facebook_icon %}
+          <img src="{{ section.settings.facebook_icon | img_url: '24x24' }}" alt="Facebook" class="instagram-icon">
+        {% else %}
+          <svg class="instagram-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 316 390">
+            <path d="M171 68c-22 3-39 15-47 34-5 11-6 19-7 45v24H74v50h43v63l1 63c4 2 27 3 39 3l12-1V221h22l22-1 3-24 3-25h-49v-20c0-22 0-26 5-30 5-6 10-7 32-7h14V69h-8c-15-1-36-2-42-1z"/>
+          </svg>
+        {% endif %}
+        Like Us
+      </a>
+      <a class="instagram-button follow-button" href="{{ section.settings.instagram_url }}" target="_blank">
+        {% if section.settings.instagram_icon %}
+          <img src="{{ section.settings.instagram_icon | img_url: '24x24' }}" alt="Instagram" class="instagram-icon">
+        {% else %}
+          <svg class="instagram-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+            <path d="M166 6.1C107.6 8.8 75.3 21 45.9 51.6 28.5 69.8 18 89.1 11.5 114.7 5 140.9 3.6 171.1 4.3 275.2c.3 45 1 83.4 1.6 90.3 3.8 41 14 68.1 35.1 93 15.3 18 35.5 31.8 58.7 39.8 28.9 10.1 50 11.7 156.8 11.7 106.8 0 127.9-1.6 156.8-11.7 23.2-8 43.4-21.8 58.7-39.8 21-24.8 31.1-51.4 35.1-92.5.6-6.8 1.3-43.9 1.6-90.9.8-122-1.1-148-13.2-179.3-13.2-34.1-40.9-62.3-75-76.4C400.7 11.3 379.7 7.7 343 6c-26.4-1.2-150.2-1.1-177 .1zm204.8 27.3c34 4.4 54.4 13.3 74 32C469.2 88.7 479 114 482 161.1c1.5 22.8 1.5 169.5 0 192.9-2.8 45.6-12.4 71.1-35.2 93.8-17.8 17.9-39.1 28.2-66.8 32.6-20.4 3.3-42.5 4-123.5 4s-103.1-.7-123.5-4c-19.5-3-35.9-9.2-50.2-18.7-11-7.3-26.7-23.6-33.2-34.5-8.7-14.6-15-34.9-17.7-57.2-1.6-13.5-2.4-183.5-1-207.8 2.8-45.9 11.6-70.1 33.9-93.4 21-21.8 46-32.6 83.2-35.8 20.2-1.7 20.5-1.7 117.5-1.5 79.3.2 94.8.5 105.3 1.9z"/>
+            <path d="M388.1 77.6c-8.3 2.2-15 6.3-22.1 13.4-19.6 19.6-19.5 50.6.1 69.9 31.7 31.2 84.9 8.8 84.9-35.7 0-21.7-16-42.1-37.5-47.7-7.3-1.9-18.2-1.8-25.4.1zm22.6 26c5 1.8 11.6 8.8 13.4 14.1.6 1.9.9 6.3.7 9.8-1 15.5-15.4 25.7-30.5 21.4-6.6-1.8-14.4-9.6-16.2-16.1-3.8-13.6 4.7-28.2 17.9-30.7 5.2-.9 8.8-.6 14.7 1.5zM242 152.5c-.8.2-4.9.9-9 1.5-36.7 6-71.5 33.9-86 69-18.2 44.1-8.5 93.2 25.2 126.8 33.4 33.5 83.9 43.3 127.1 24.7 26.5-11.3 49.5-34.3 60.9-60.6 18.3-42.7 9.7-91.7-22.2-125.3-17.9-18.8-40.7-30.9-66-35.1-8.2-1.3-25.4-1.9-30-1zm29.7 27c25.5 5.4 46.3 20.2 59.6 42.3 9.4 15.6 13.3 31.8 12.4 51.2-1.2 23.2-9.9 42.5-26.6 59-17.2 17-38.9 26-62.9 26-24.8 0-44.9-8-62.6-24.9-18.4-17.7-27.8-39.9-27.8-65.6.1-25.9 9.7-47.5 29-65.6 11.9-11.2 26.8-19.1 41.7-22.3 9.2-1.9 28.5-2 37.2-.1z"/>
+          </svg>
+        {% endif %}
+        Follow Us
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="images-container">
+  <div class="slider">
+    <div class="slider-nav-container">
+      <button class="slider-nav prev" onclick="moveSlide(-1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8L10 13" stroke="#29282D" stroke-width="1.5"/>
+        </svg>
+      </button>
+      <button class="slider-nav next" onclick="moveSlide(1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3L11 8L6 13" stroke="#29282D" stroke-width="1.5"/>
+        </svg>
+      </button>
+    </div>
+    <div class="slides-container">
+      <div class="slides">
+        <div class="slide-group active">
+          {% for i in (1..4) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="slide-group">
+          {% for i in (5..8) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="slide-group">
+          {% for i in (9..12) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="slide-group">
+          {% for i in (13..16) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="slide-group">
+          {% for i in (17..20) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="slide-group">
+          {% for i in (21..25) %}
+            {% assign image_id = 'image_' | append: i %}
+            {% if section.settings[image_id] %}
+              <div class="slide" data-index="{{ forloop.index }}" onclick="openLightbox('{{ section.settings[image_id] | img_url: '2000x' }}')">
+                <img src="{{ section.settings[image_id] | img_url: 'master' }}" alt="Instagram post {{ i }}" loading="lazy">
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="Instagram post">
+  </div>
+</div>
+
+<style>
+  body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+  }
+
+  .instagram-block {
+      font-family: "Raleway", Arial, sans-serif;
+      text-align: left;
+      background-color: #F9F9F9;
+      width: 100vw;
+      margin: 0;
+      box-shadow: none;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 30px 0;
+  }
+
+  .instagram-content {
+      padding: 0;
+      width: 100%;
+      margin: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+      .instagram-block {
+          text-align: center;
+      }
+
+      .instagram-content {
+          padding: 0;
+      }
+
+      .instagram-block .instagram-title,
+      .instagram-block .instagram-stats {
+          text-align: center !important;
+          padding: 0 20px;
+      }
+  }
+
+  .instagram-title {
+      font-family: "Raleway", Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 35px;
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 0 20px 0 20px;
+      display: block;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+      unicode-bidi: isolate;
+  }
+
+  .instagram-stats {
+      color: #2f2f2f;
+      font-family: "Raleway", Verdana, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 12px;
+      margin-bottom: 30px;
+      text-align: left;
+      text-transform: none;
+      padding: 0 20px 0 20px;
+  }
+
+  .instagram-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .instagram-buttons .instagram-icon {
+      width: 24px;
+      height: 24px;
+      filter: none;
+      display: flex;
+      align-items: center;
+      margin: 0;
+  }
+
+  .instagram-buttons svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+  }
+
+  .instagram-buttons svg path {
+      fill: #000000;
+  }
+
+  .instagram-button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      width: 160px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 44px;
+  }
+
+  .like-button {
+      background-color: #E0F4FF;
+      color: #29282D;
+      border: none;
+  }
+
+  .follow-button {
+      background-color: #E0F4FF;
+      color: #29282D;
+      border: none;
+  }
+
+  .instagram-button:hover {
+      opacity: 0.8;
+      transform: translateY(-2px);
+  }
+
+  .images-container {
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background-color: #F9F9F9;
+      padding: 50px 0;
+      overflow: hidden;
+  }
+
+  .slider {
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 25px;
+  }
+
+  .slider-nav-container {
+      position: absolute;
+      right: 25px;
+      top: -40px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+  }
+
+  .slider-nav {
+      width: 32px;
+      height: 32px;
+      background: #ffffff;
+      border: 1px solid rgba(41, 40, 45, 0.1);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: all 0.2s ease;
+      outline: none;
+  }
+
+  .slider-nav:hover {
+      border-color: rgba(41, 40, 45, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .slider-nav:active {
+      transform: translateY(0);
+      box-shadow: none;
+  }
+
+  .slider-nav svg {
+      transition: transform 0.2s ease;
+  }
+
+  .slider-nav:hover svg {
+      transform: scale(1.1);
+  }
+
+  .slider-nav:active svg {
+      transform: scale(0.95);
+  }
+
+  .slider-nav.prev:hover svg {
+      transform: scale(1.1) translateX(-1px);
+  }
+
+  .slider-nav.next:hover svg {
+      transform: scale(1.1) translateX(1px);
+  }
+
+  .slider-nav:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+  }
+
+  .slides-container {
+      width: 100%;
+      overflow: hidden;
+  }
+
+  .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      gap: 10px;
+      width: calc(100% + 10px);
+  }
+
+  .slide {
+      min-width: calc(25% - 10px);
+      flex: 0 0 calc(25% - 10px);
+      padding: 0;
+      position: relative;
+      margin: 0;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+  }
+
+  .slide:hover {
+      transform: scale(1.03);
+  }
+
+  .slide img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: all 0.3s ease;
+  }
+
+  /* Lightbox Styles - Fixed Positioning */
+  .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999; /* Высокий z-index для перекрытия всех элементов */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: auto;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .lightbox-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+  }
+
+  #lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+  }
+
+  .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+      z-index: 10000; /* Ещё выше, чем сам лайтбокс */
+  }
+
+  .lightbox-close:hover,
+  .lightbox-close:focus {
+      color: #bbb;
+      text-decoration: none;
+  }
+
+  @media (max-width: 1024px) {
+      .slide {
+          min-width: calc(33.333% - 10px);
+          flex: 0 0 calc(33.333% - 10px);
+      }
+  }
+
+  @media (max-width: 768px) {
+      .slide {
+          min-width: calc(50% - 5px);
+          flex: 0 0 calc(50% - 5px);
+      }
+      .slider-nav-container {
+          right: 25px;
+      }
+      .slider {
+          padding: 0 15px;
+      }
+      .slides {
+          gap: 10px;
+      }
+      .lightbox-close {
+          top: 15px;
+          right: 25px;
+          font-size: 35px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .slide {
+          min-width: calc(50% - 5px);
+          flex: 0 0 calc(50% - 5px);
+      }
+      .slider-nav-container {
+          right: 15px;
+      }
+      .slider {
+          padding: 0 10px;
+      }
+      .slides {
+          gap: 10px;
+      }
+      .lightbox-close {
+          top: 10px;
+          right: 15px;
+          font-size: 30px;
+      }
+  }
+
+  .slide-group {
+      display: none;
+      gap: 10px;
+  }
+
+  .slide-group.active {
+      display: flex;
+      gap: 10px;
+  }
+</style>
+
+<script>
+  let currentGroupIndex = 0;
+  let isTransitioning = false;
+  const prevButton = document.querySelector('.slider-nav.prev');
+  const nextButton = document.querySelector('.slider-nav.next');
+
+  // Lightbox functions
+  function openLightbox(imgSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      
+      lightboxImg.src = imgSrc;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      document.documentElement.style.overflow = 'hidden'; // For iOS
+  }
+
+  function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+      document.documentElement.style.overflow = 'auto'; // For iOS
+  }
+
+  // Close lightbox when clicking outside the image
+  window.addEventListener('click', function(event) {
+      const lightbox = document.getElementById('lightbox');
+      if (event.target === lightbox) {
+          closeLightbox();
+      }
+  });
+
+  // Close lightbox with ESC key
+  document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+          closeLightbox();
+      }
+  });
+
+  function moveSlide(direction) {
+      if (isTransitioning) return;
+
+      const slideGroups = document.querySelectorAll('.slide-group');
+      const newIndex = currentGroupIndex + direction;
+
+      // Проверяем, возможно ли перемещение
+      if (newIndex < 0 || newIndex >= slideGroups.length) return;
+
+      isTransitioning = true;
+      currentGroupIndex = newIndex;
+
+      // Убираем активный класс у всех групп
+      slideGroups.forEach(group => group.classList.remove('active'));
+
+      // Добавляем активный класс новой группе
+      slideGroups[currentGroupIndex].classList.add('active');
+
+      // Обновляем состояние кнопок
+      updateButtonStates();
+
+      // Сбрасываем состояние перехода
+      setTimeout(() => {
+          isTransitioning = false;
+          updateButtonStates();
+      }, 500);
+  }
+
+  function updateButtonStates() {
+      const slideGroups = document.querySelectorAll('.slide-group');
+
+      // Проверяем возможность перемещения
+      prevButton.disabled = currentGroupIndex === 0 || isTransitioning;
+      nextButton.disabled = currentGroupIndex === slideGroups.length - 1 || isTransitioning;
+  }
+
+  function regroupSlides() {
+      const slidesContainer = document.querySelector('.slides');
+      const allSlides = Array.from(document.querySelectorAll('.slide'));
+      const isMobile = window.innerWidth <= 768;
+      const slidesPerGroup = isMobile ? 2 : 4;
+
+      // Сохраняем все слайды во временном массиве
+      const tempSlides = allSlides.map(slide => slide.cloneNode(true));
+
+      // Очищаем контейнер
+      slidesContainer.innerHTML = '';
+
+      // Создаем новые группы
+      for (let i = 0; i < tempSlides.length; i += slidesPerGroup) {
+          const group = document.createElement('div');
+          group.className = 'slide-group';
+          if (i === 0) group.classList.add('active');
+
+          const groupSlides = tempSlides.slice(i, i + slidesPerGroup);
+          groupSlides.forEach(slide => group.appendChild(slide));
+
+          slidesContainer.appendChild(group);
+      }
+
+      // Сбрасываем индекс и состояния
+      currentGroupIndex = 0;
+      isTransitioning = false;
+      updateButtonStates();
+  }
+
+  // Инициализация при загрузке страницы
+  document.addEventListener('DOMContentLoaded', () => {
+      regroupSlides();
+  });
+
+  // Добавляем обработчики событий для кнопок
+  prevButton.addEventListener('click', () => moveSlide(-1));
+  nextButton.addEventListener('click', () => moveSlide(1));
+
+  // Обработка изменения размера окна
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+          regroupSlides();
+      }, 250);
+  });
+</script>

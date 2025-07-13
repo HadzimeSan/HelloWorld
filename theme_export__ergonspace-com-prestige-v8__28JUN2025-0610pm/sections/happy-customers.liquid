@@ -1,0 +1,213 @@
+{% schema %}
+{
+  "name": "Happy Customers Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#eaf8ff"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Why We Have Over 1 Million Happy Customers!"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Accordion Title",
+          "default": "Accordion Title"
+        },
+        {
+          "type": "textarea",
+          "id": "accordion_text",
+          "label": "Accordion Text",
+          "default": "Accordion content goes here."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Happy Customers Section",
+      "category": "Custom",
+      "blocks": [
+        {"type": "accordion_item", "settings": {"accordion_title": "Inclusive Sizing", "accordion_text": "Our rings are for everybody. We carry sizes 3.5–13 for women's rings and sizes 6–17 for our men's styles, with most half sizes in between."}},
+        {"type": "accordion_item", "settings": {"accordion_title": "Conflict Free", "accordion_text": "All our diamonds and gemstones are ethically sourced and 100% conflict free."}},
+        {"type": "accordion_item", "settings": {"accordion_title": "Free Shipping", "accordion_text": "Enjoy free shipping on all orders, no minimum purchase required."}},
+        {"type": "accordion_item", "settings": {"accordion_title": "Easy Returns and Exchanges", "accordion_text": "Hassle-free returns and exchanges within 30 days of purchase."}}
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign section_title = section.settings.section_title %}
+{% assign image = section.settings.image %}
+
+<style>
+  .happy-customers-outer-container {
+    max-width: 1420px;
+    margin: 40px auto;
+    padding: 0 16px;
+  }
+  .happy-customers-section {
+    display: flex;
+    flex-wrap: wrap;
+    background: #eaf8ff;
+    border-radius: 24px;
+    padding: 40px 32px;
+    margin: 32px 0;
+    align-items: center;
+    gap: 40px;
+  }
+  .happy-customers-content {
+    flex: 1 1 350px;
+    min-width: 320px;
+  }
+  .happy-customers-title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+  .happy-customers-accordion {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .happy-customers-accordion-item {
+    border-bottom: 1px solid #7ed6ff;
+  }
+  .happy-customers-accordion-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    padding: 18px 0;
+    color: #222;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .happy-customers-accordion-content {
+    padding: 0 0 18px 0;
+    color: #444;
+    font-size: 1rem;
+    display: none;
+  }
+  .happy-customers-accordion-item.active .happy-customers-accordion-content {
+    display: block;
+  }
+  .happy-customers-image {
+    flex: 1 1 320px;
+    min-width: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .happy-customers-image img {
+    width: 600px;
+    height: 600px;
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    object-fit: cover;
+  }
+  @media (max-width: 900px) {
+    .happy-customers-title {
+      font-size: 24px;
+    }
+    .happy-customers-section {
+      flex-direction: column-reverse;
+      padding: 24px 8px;
+    }
+    .happy-customers-image {
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+    .happy-customers-image img {
+      width: 340px;
+      height: 340px;
+      max-width: 100%;
+      object-fit: cover;
+    }
+  }
+</style>
+
+<div class="happy-customers-outer-container">
+  <div
+    class="happy-customers-section"
+    style="background: {{ section.settings.background_color | default: '#eaf8ff' }};"
+  >
+    <div class="happy-customers-content">
+      <div class="happy-customers-title">
+        {{ section_title }}
+      </div>
+      <div class="happy-customers-accordion">
+        {% for block in section.blocks %}
+          <div class="happy-customers-accordion-item">
+            <button class="happy-customers-accordion-btn" type="button">
+              <span>{{ block.settings.accordion_title }}</span>
+              <span class="happy-customers-accordion-icon">+</span>
+            </button>
+            <div class="happy-customers-accordion-content">
+              {{ block.settings.accordion_text }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="happy-customers-image">
+      {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image | image_url }}" alt="Rings" loading="lazy">
+      {% else %}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1234/5678/files/rings-example.jpg?v=1680000000"
+          alt="Rings"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var items = document.querySelectorAll('.happy-customers-accordion-item');
+    items.forEach(function(item) {
+      var btn = item.querySelector('.happy-customers-accordion-btn');
+      var icon = btn.querySelector('.happy-customers-accordion-icon');
+      btn.addEventListener('click', function() {
+        var isActive = item.classList.contains('active');
+        items.forEach(function(i) {
+          i.classList.remove('active');
+          var ic = i.querySelector('.happy-customers-accordion-icon');
+          if(ic) ic.textContent = '+';
+        });
+        if(!isActive) {
+          item.classList.add('active');
+          if(icon) icon.textContent = '-';
+        }
+      });
+    });
+  })();
+</script>

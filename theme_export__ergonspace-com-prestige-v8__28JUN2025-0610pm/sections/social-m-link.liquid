@@ -1,0 +1,172 @@
+<style>
+  .social-section {
+    padding: 20px 0;
+    margin: 20px 0;
+  }
+  .social-container {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 15px;
+  }
+  .social-link img {
+    height: 48px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+  .social-link:hover img {
+    transform: scale(1.1);
+  }
+</style>
+
+<div class="social-section">
+  <div class="social-container">
+    {% if section.settings.show_instagram %}
+      <a target="_blank" class="social-link" href="{{ section.settings.instagram_url }}">
+        <img alt="Instagram" title="Instagram" loading="lazy" 
+             src="{{ section.settings.instagram_icon | img_url: '96x96' }}">
+      </a>
+    {% endif %}
+    
+    {% if section.settings.show_tiktok %}
+      <a target="_blank" class="social-link" href="{{ section.settings.tiktok_url }}">
+        <img alt="Tiktok" title="Tiktok" loading="lazy" 
+             src="{{ section.settings.tiktok_icon | img_url: '96x96' }}">
+      </a>
+    {% endif %}
+    
+    {% if section.settings.show_youtube %}
+      <a target="_blank" class="social-link" href="{{ section.settings.youtube_url }}">
+        <img alt="Youtube" title="Youtube" loading="lazy" 
+             src="{{ section.settings.youtube_icon | img_url: '96x96' }}">
+      </a>
+    {% endif %}
+    
+    {% if section.settings.show_spotify %}
+      <a target="_blank" class="social-link" href="{{ section.settings.spotify_url }}">
+        <img alt="Spotify" title="Spotify" loading="lazy" 
+             src="{{ section.settings.spotify_icon | img_url: '96x96' }}">
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Social Media Links",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Instagram Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instagram",
+      "label": "Show Instagram",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon"
+    },
+    {
+      "type": "header",
+      "content": "TikTok Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tiktok",
+      "label": "Show TikTok",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "tiktok_icon",
+      "label": "TikTok Icon"
+    },
+    {
+      "type": "header",
+      "content": "YouTube Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_youtube",
+      "label": "Show YouTube",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "youtube_icon",
+      "label": "YouTube Icon"
+    },
+    {
+      "type": "header",
+      "content": "Spotify Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spotify",
+      "label": "Show Spotify",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "spotify_url",
+      "label": "Spotify URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "spotify_icon",
+      "label": "Spotify Icon"
+    },
+    {
+      "type": "header",
+      "content": "Design Settings"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 24,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Spacing Between Icons",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Media Links",
+      "category": "Social"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1031 @@
+<!doctype html>
+
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(97099474, "init", {
+           clickmap:true,
+           trackLinks:true,
+           accurateTrackBounce:true,
+           webvisor:true,
+           ecommerce:"dataLayer"
+      });
+    </script>
+    <noscript>
+      <div><img src="https://mc.yandex.ru/watch/97099474" style="position:absolute; left:-9999px;" alt=""></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0"
+    >
+
+    <title>
+      {% if page_title == blank -%}
+        {{- shop.name -}}
+      {%- else -%}
+        {{- page_title -}}
+        {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- endif %}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+    {%- endif -%}
+
+    {%- comment -%}Few prefetch to increase performance on commonly used third-parties{%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    {%- unless settings.heading_font.system? -%}
+      <link rel="preload" href="{{ settings.heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- unless settings.text_font.system? -%}
+      <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- render 'social-meta-tags' -%}
+    {%- render 'microdata-schema' -%}
+    {%- render 'css-variables' -%}
+    {%- render 'js-variables' -%}
+
+    {%- if request.page_type == 'gift_card' -%}
+      <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16697626457"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-16697626457');
+    </script>
+    <script async src="{{ 'es-module-shims.min.js' | asset_url }}"></script>
+
+    <script type="importmap">
+      {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+    
+    {{ content_for_header }}
+
+    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'complete-the-look.css' | asset_url | stylesheet_tag -}}
+
+    <meta name="mailru-domain" content="y3HoaGMq7lwbqS7a">
+    {% render 'amote-custom' %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  </head>
+
+  {% liquid
+    assign features_class = ''
+
+    if settings.show_button_transition
+      assign features_class = features_class | append: 'features--button-transition '
+    endif
+
+    if settings.show_image_zoom_on_hover
+      assign features_class = features_class | append: 'features--zoom-image '
+    endif
+
+    if settings.show_page_transition
+      assign features_class = features_class | append: 'features--page-transition '
+    endif
+  %}
+
+  <body class="{{ features_class }} color-scheme color-scheme--{{ settings.default_color_scheme.id }}">
+    {%- render 'shadow-dom-templates' -%}
+    {% if request.path contains '/products/ergonmagic' %}
+      <div id="countdown-banner">
+        <div class="banner-left">
+          <div class="subline-static">
+            LIFETIME WARRANTY + EASY RETURNS<br>
+            BUY 2 | <strong>25% OFF</strong>, BUY 3 | <strong>40% OFF</strong>
+          </div>
+        </div>
+        <div class="banner-right">
+          <div class="timer-box">
+            <span class="time-segment"><span id="hours">00</span><span class="unit">H</span></span
+            ><span class="colon">:</span>
+            <span class="time-segment"><span id="minutes">00</span><span class="unit">M</span></span
+            ><span class="colon">:</span>
+            <span class="time-segment"><span id="seconds">00</span><span class="unit">S</span></span>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        #countdown-banner {
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          display: flex;
+          justify-content: space-between;
+          align-items: stretch;
+          font-family: "Raleway", sans-serif;
+          font-weight: 700;
+          color: #000;
+          text-transform: uppercase;
+          font-size: 14px;
+          background-color: #29282D;
+          height: 60px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-left {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding-left: 16px;
+          color: white;
+        }
+
+        .subline-static {
+          font-size: 11px; /* уменьшенный шрифт */
+          font-weight: 700;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+
+        .banner-right {
+          background-color: #E0F4FF;
+          min-width: 190px;
+          padding: 0 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .timer-box {
+          font-size: 22px;
+          font-weight: 800;
+          font-variant-numeric: tabular-nums;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1px;
+        }
+
+        .time-segment {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          text-align: center;
+        }
+
+        .unit {
+          font-size: 22px;
+          font-weight: 800;
+          margin-left: 0;
+        }
+
+        .colon {
+          font-size: 22px;
+          font-weight: 800;
+          margin: 0 1px;
+        }
+
+        @media screen and (max-width: 768px) {
+          .banner-left {
+            padding-left: 12px;
+          }
+
+          .subline-static {
+            font-size: 10px; /* еще чуть меньше на мобильных */
+          }
+
+          .timer-box {
+            font-size: 20px;
+            gap: 1px;
+          }
+
+          .time-segment {
+            width: 42px;
+          }
+
+          .unit, .colon {
+            font-size: 20px;
+          }
+
+          .banner-right {
+            min-width: 170px;
+            padding: 0 4px;
+          }
+        }
+      </style>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const STORAGE_KEY = "countdown_end_time";
+          let countdownDate = localStorage.getItem(STORAGE_KEY);
+
+          if (!countdownDate || new Date().getTime() > parseInt(countdownDate)) {
+            countdownDate = new Date().getTime() + 24 * 60 * 60 * 1000;
+            localStorage.setItem(STORAGE_KEY, countdownDate);
+          } else {
+            countdownDate = parseInt(countdownDate);
+          }
+
+          function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = countdownDate - now;
+
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval);
+              document.querySelector('.timer-box').innerHTML = "Offer expired!";
+              return;
+            }
+
+            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+            const seconds = Math.floor((timeLeft / 1000) % 60);
+
+            document.getElementById("hours").textContent = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").textContent = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").textContent = seconds < 10 ? "0" + seconds : seconds;
+          }
+
+          updateCountdown();
+          const timerInterval = setInterval(updateCountdown, 1000);
+        });
+      </script>
+    {% endif %}
+
+    <loading-bar class="loading-bar" aria-hidden="true"></loading-bar>
+    <a href="#main" allow-hash-change class="skip-to-content sr-only">
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
+
+    {% if request.page_type != 'password' %}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+    {% endif %}
+
+    <main id="main" class="anchor">
+      {{ content_for_layout }}
+      {%- if template.name contains 'product' -%}
+        {% unless product.id == 7890352537657 %}
+        <!-- RYVIU APP :: WIDGET -->
+        <div class="lt-block-reviews">
+          <ryviu-widget
+            product_id="{{product.id}}"
+            handle="{{product.handle}}"
+            title_product="{{product.title}}"
+            image_product="{{ product.featured_image.src | img_url: '100x' }}"
+          ></ryviu-widget>
+        </div>
+        <!-- / RYVIU APP -->
+        {% endunless %}
+      {%- endif -%}
+      {%- comment -%}
+        IMPLEMENTATION NOTE: For best semantics, having the footer group outside the main would be slightly better, but
+          moving it inside the main allows to have all the sections (including sections inside the footer group) to be
+          consecutive, and hence having a cleaner margin collapsing management.
+      {%- endcomment -%}
+      {% if request.page_type != 'password' %}
+        {% sections 'footer-group' %}
+      {% endif %}
+    </main>
+
+    {% if request.path contains '/products/ergonmagic' %}
+      <div id="ringSizeSidebarOverlay" class="sidebar-modal-overlay">&nbsp;</div>
+      <div id="ringSizeSidebar" class="sidebar-modal">
+        <div class="sidebar-modal__content">
+          <h2 style="text-align:center;font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:1.6rem;font-weight:800;margin:0 0 18px 0;letter-spacing:0.01em;">
+            Ring Size Chart
+          </h2>
+          <!-- 1. Аккордеон How to Measure Your Ring Size -->
+          <div class="ergon-accordion open">
+            <button class="ergon-accordion-toggle" type="button">How to Measure Your Ring Size</button>
+            <div class="ergon-accordion-content">
+              <div class="ring-steps-list">
+                <div class="ring-step">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0613/6191/3913/files/step1-ring-size.webp?v=1746384882"
+                    alt="Step 1"
+                  >
+                  <div class="ring-step-caption" data-step="1.">Grab a ruler, marker, and some string.</div>
+                </div>
+                <div class="ring-step">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0613/6191/3913/files/step2-ringsize_d1b2f034-297e-49e0-9d93-5e069aa90129.webp?v=1746384882"
+                    alt="Step 2"
+                  >
+                  <div class="ring-step-caption" data-step="2.">Wrap the string tightly around your finger.</div>
+                </div>
+                <div class="ring-step">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0613/6191/3913/files/step3-ringsize.webp?v=1746384883"
+                    alt="Step 3"
+                  >
+                  <div class="ring-step-caption" data-step="3.">Mark the string where it overlaps.</div>
+                </div>
+                <div class="ring-step">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0613/6191/3913/files/step4-ringsize.webp?v=1746384882"
+                    alt="Step 4"
+                  >
+                  <div class="ring-step-caption" data-step="4.">
+                    Measure the distance between the two marks in millimeters and use the chart to find your size!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 2. Аккордеон Find Your Size Here -->
+          <h3 style="text-align:left;font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:1.1rem;font-weight:700;margin:0 0 10px 0;letter-spacing:0.01em;">
+            Ring Size Chart
+          </h3>
+          <div class="ergon-accordion">
+            <button class="ergon-accordion-toggle" type="button">Find Your Size Here</button>
+            <div class="ergon-accordion-content">
+              <div class="ring-size-table-wrapper">
+                <table class="ring-size-table">
+                  <thead>
+                    <tr>
+                      <th>
+                        Ring Size<br>
+                        (U.S)
+                      </th>
+                      <th>
+                        Circumference<br>
+                        (mm)
+                      </th>
+                      <th>
+                        Circumference<br>
+                        (in)
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>3 1/2</td>
+                      <td>45.5</td>
+                      <td>1.790</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>46.7</td>
+                      <td>1.838</td>
+                    </tr>
+                    <tr>
+                      <td>4 1/2</td>
+                      <td>48.0</td>
+                      <td>1.890</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>49.3</td>
+                      <td>1.941</td>
+                    </tr>
+                    <tr>
+                      <td>5 1/2</td>
+                      <td>50.6</td>
+                      <td>1.991</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>51.9</td>
+                      <td>2.042</td>
+                    </tr>
+                    <tr>
+                      <td>6 1/2</td>
+                      <td>53.1</td>
+                      <td>2.091</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>54.4</td>
+                      <td>2.141</td>
+                    </tr>
+                    <tr>
+                      <td>7 1/2</td>
+                      <td>55.8</td>
+                      <td>2.195</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>57.2</td>
+                      <td>2.250</td>
+                    </tr>
+                    <tr>
+                      <td>8 1/2</td>
+                      <td>58.2</td>
+                      <td>2.292</td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>59.5</td>
+                      <td>2.342</td>
+                    </tr>
+                    <tr>
+                      <td>9 1/2</td>
+                      <td>60.9</td>
+                      <td>2.401</td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>62.1</td>
+                      <td>2.443</td>
+                    </tr>
+                    <tr>
+                      <td>10 1/2</td>
+                      <td>63.3</td>
+                      <td>2.493</td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>64.9</td>
+                      <td>2.558</td>
+                    </tr>
+                    <tr>
+                      <td>11 1/2</td>
+                      <td>66.2</td>
+                      <td>2.607</td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>67.2</td>
+                      <td>2.644</td>
+                    </tr>
+                    <tr>
+                      <td>12 1/2</td>
+                      <td>68.4</td>
+                      <td>2.694</td>
+                    </tr>
+                    <tr>
+                      <td>13</td>
+                      <td>70.2</td>
+                      <td>2.762</td>
+                    </tr>
+                    <tr>
+                      <td>13 1/2</td>
+                      <td>75.5</td>
+                      <td>2.814</td>
+                    </tr>
+                    <tr>
+                      <td>14</td>
+                      <td>72.8</td>
+                      <td>2.865</td>
+                    </tr>
+                    <tr>
+                      <td>14 1/2</td>
+                      <td>73.9</td>
+                      <td>2.913</td>
+                    </tr>
+                    <tr>
+                      <td>15</td>
+                      <td>75.4</td>
+                      <td>2.969</td>
+                    </tr>
+                    <tr>
+                      <td>15 1/2</td>
+                      <td>76.7</td>
+                      <td>3.019</td>
+                    </tr>
+                    <tr>
+                      <td>16</td>
+                      <td>78.0</td>
+                      <td>3.071</td>
+                    </tr>
+                    <tr>
+                      <td>17</td>
+                      <td>80.5</td>
+                      <td>3.173</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <h3 style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:1.1rem;font-weight:700;margin:18px 0 6px 0;letter-spacing:0.01em;">
+            Easy 30 Day Returns & Exchanges
+          </h3>
+          <p style="font-family:'Raleway',Arial,Helvetica,sans-serif;font-size:1rem;font-weight:400;margin:0 0 0 0;line-height:1.5;color:#222;">
+            We want you to shop with confidence! That's why we offer easy 30-day returns and exchanges. From the moment
+            your order arrives, you have 30 days to return or exchange your item. Whether you need a different size or
+            want to try a new style, we're here to help. Feel free to make a swap or return during this time!
+          </p>
+        </div>
+        <span class="sidebar-modal__close" id="closeRingSizeSidebar">&times;</span>
+      </div>
+      <style>
+        .sidebar-modal-overlay {
+          display: none;
+          position: fixed;
+          z-index: 2147483646;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0,0,0,0.45);
+          transition: opacity 0.3s;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .sidebar-modal-overlay.open {
+          display: block;
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .sidebar-modal.open {
+          /* уже есть z-index: 2147483647 */
+        }
+        body.sidebar-modal-open {
+          overflow: hidden;
+          touch-action: none;
+        }
+        .sidebar-modal {
+          position: fixed !important;
+          top: 0;
+          right: 0;
+          width: 420px;
+          max-width: 100vw;
+          height: 100%;
+          background: #fff;
+          z-index: 2147483647 !important;
+          box-shadow: -2px 0 16px rgba(0,0,0,0.15);
+          transform: translateX(100%);
+          transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+          overflow-y: auto;
+          display: block;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE and Edge */
+        }
+        .sidebar-modal::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
+        }
+        .sidebar-modal.open {
+          transform: translateX(0);
+        }
+        .sidebar-modal__content {
+          padding: 32px 24px 24px 12px;
+          height: 100%;
+          position: relative;
+        }
+        .sidebar-modal__close {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          font-size: 32px;
+          cursor: pointer;
+          color: #222;
+          z-index: 10;
+        }
+        .ergon-accordion {
+          margin-bottom: 1rem;
+        }
+        .ergon-accordion-toggle {
+          width: 100%;
+          text-align: left;
+          background: none;
+          border: none;
+          font-size: 1.7rem;
+          font-weight: 800;
+          letter-spacing: 0.01em;
+          padding: 0.7rem 0;
+          cursor: pointer;
+          border-bottom: 1px solid #eee;
+          outline: none;
+          transition: background 0.2s;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          position: relative;
+          z-index: 1;
+          min-height: 44px;
+        }
+        .ergon-accordion-content {
+          display: none;
+          padding: 0.5rem 0 0 0;
+          font-size: 1rem;
+          color: #222;
+          transition: all 0.3s ease;
+          -webkit-overflow-scrolling: touch;
+          will-change: display;
+        }
+        .ergon-accordion.open .ergon-accordion-content {
+          display: block;
+          animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .ring-steps-wrapper {
+          padding-left: 0;
+        }
+        .ring-steps-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px 16px;
+          margin: 18px 0 0 0;
+          padding-left: 0 !important;
+          margin-left: 0 !important;
+          list-style: none;
+          width: 100%;
+        }
+        .ring-steps-list li {
+          margin-left: 0 !important;
+          padding-left: 0 !important;
+        }
+        .ring-steps-list li img {
+          width: 185px;
+          height: 185px;
+          object-fit: cover;
+          border-radius: 12px;
+          margin-bottom: 10px !important;
+          background: #f7f7f7;
+        }
+        .ring-video-block {
+          margin-top: 24px;
+          text-align: center;
+        }
+        @media (max-width: 600px) {
+          .sidebar-modal {
+            width: 100vw;
+            padding: 0;
+          }
+          .sidebar-modal__content {
+            padding: 20px 10px 10px 10px;
+          }
+          .ring-steps-list {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px 8px !important;
+            margin: 10px 0 0 0 !important;
+          }
+          .ring-step img {
+            width: 165px !important;
+            height: 165px !important;
+            margin-bottom: 6px !important;
+          }
+          .ring-step-caption {
+            font-size: 12px !important;
+            line-height: 1.2 !important;
+          }
+          .ring-video-block video,
+          .ring-video-block .ring-video-wrapper {
+            width: 345px !important;
+            height: 345px !important;
+            max-width: 100vw !important;
+            margin: 0 auto !important;
+            display: block !important;
+          }
+          .ergon-accordion-toggle {
+            font-size: 1.4rem;
+            padding: 0.9rem 0;
+            min-height: 44px;
+          }
+          .ergon-accordion-content {
+            font-size: 0.95rem;
+            padding: 0.7rem 0 0 0;
+            position: relative;
+            z-index: 0;
+          }
+          .ring-size-table-wrapper {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+          }
+        }
+        #ringSizeSidebar, #ringSizeSidebar * {
+          font-family: 'Raleway', Arial, Helvetica, sans-serif !important;
+        }
+        #ringSizeSidebar .ergon-accordion-toggle:after {
+          content: '+';
+          display: inline-block !important;
+          visibility: visible !important;
+          font-size: 1.4rem;
+          font-weight: 400;
+          transition: transform 0.2s;
+          color: #222;
+          margin-left: 0;
+        }
+        #ringSizeSidebar .ergon-accordion.open > .ergon-accordion-toggle:after {
+          content: '-';
+        }
+        .step-row {
+          display: flex;
+          align-items: flex-start;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.3;
+          color: #000;
+          text-align: left;
+          margin-bottom: 0;
+          flex-wrap: nowrap;
+          word-break: break-word;
+        }
+        .step-num {
+          font-size: 15px;
+          font-weight: 500;
+          color: #000;
+          font-family: 'Raleway', Arial, Helvetica, sans-serif;
+          margin-right: 6px;
+          flex-shrink: 0;
+          line-height: 1.3;
+        }
+        .ring-steps-wrapper,
+        .ergon-accordion-content,
+        .ergon-accordion-content > *,
+        .ergon-accordion-content ol,
+        .ergon-accordion-content ul,
+        .ring-steps-list,
+        .ring-step,
+        .ring-step * {
+          padding-left: 0 !important;
+          margin-left: 0 !important;
+        }
+        .ring-video-block .ring-video-wrapper {
+          position: relative !important;
+          display: block !important;
+          width: 396px;
+          height: 396px;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+        .ring-video-block .custom-play-btn {
+          position: absolute !important;
+          top: 15px !important;
+          left: 35px !important;
+          margin: 0 !important;
+          width: 40px;
+          height: 40px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          z-index: 2;
+          padding: 0;
+          transform: none !important;
+        }
+        .ring-video-block .custom-play-btn svg {
+          width: 40px;
+          height: 40px;
+        }
+        .ring-video-block video {
+          width: 396px;
+          height: 396px;
+          border-radius: 12px;
+          display: block;
+        }
+        @media (max-width: 600px) {
+          .ring-video-block video {
+            width: 100%;
+            height: auto;
+          }
+        }
+        #ringSizeSidebar .ergon-accordion .ergon-accordion-toggle {
+          font-weight: 800 !important;
+          font-size: 18px !important;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding-right: 0 !important;
+        }
+        .ring-size-table-wrapper {
+          overflow-x: auto;
+          margin: 18px 0 0 0;
+        }
+        .ring-size-table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 10px 10px;
+          font-size: 14px;
+          background: #fff;
+          color: #222;
+          font-family: 'Raleway', Arial, Helvetica, sans-serif;
+        }
+        .ring-size-table th, .ring-size-table td {
+          color: #111;
+          font-weight: 500;
+          font-size: 15px;
+          letter-spacing: 0.01em;
+          font-family: 'Raleway', Arial, Helvetica, sans-serif;
+        }
+        .ring-size-table th {
+          height: 50px;
+          width: 100px;
+          min-width: 100px;
+          max-width: 100px;
+          background: #E0F4FF;
+          color: #000;
+          font-weight: 700;
+          text-align: center;
+          padding: 0;
+          border-radius: 6px 6px 0 0;
+          font-size: 14px;
+          border: none;
+          line-height: 1.1;
+        }
+        .ring-size-table th br {
+          margin: 0;
+          line-height: 0.5;
+          display: block;
+        }
+        .ring-size-table td {
+          height: 30px;
+          width: 100px;
+          min-width: 100px;
+          max-width: 100px;
+          background: #f7f7f7;
+          text-align: center;
+          padding: 0;
+          font-size: 14px;
+          border: none;
+          line-height: 30px;
+        }
+        .ring-size-table tr td:first-child {
+          font-weight: 500;
+        }
+        .ring-size-table tr {
+          box-shadow: none;
+        }
+        .ring-size-table tr:last-child td {
+          border-radius: 0 0 0 0;
+        }
+        .ring-step-caption {
+          margin: 0;
+          font-size: 14px;
+          font-family: 'Raleway', Arial, Helvetica, sans-serif;
+          font-weight: 400;
+          line-height: 1rem;
+          color: #222;
+          text-align: left;
+          display: flex;
+          align-items: flex-start;
+        }
+        .ring-step-caption::before {
+          content: attr(data-step);
+          font-weight: 500;
+          font-size: 15px;
+          margin-right: 8px;
+          flex-shrink: 0;
+          color: #000;
+          font-family: 'Raleway', Arial, Helvetica, sans-serif;
+        }
+        .ring-step {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .ring-step img {
+          width: 185px;
+          height: 185px;
+          object-fit: cover;
+          border-radius: 12px;
+          margin-bottom: 10px !important;
+          background: #f7f7f7;
+        }
+        body.sidebar-modal-open,
+        body.sidebar-modal-open html,
+        body.sidebar-modal-open .main,
+        body.sidebar-modal-open .container,
+        body.sidebar-modal-open #MainContent {
+          overflow: hidden !important;
+          position: relative !important;
+          touch-action: none !important;
+          max-height: 100vh !important;
+        }
+      </style>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var openBtn = document.getElementById('openRingSizeSidebar');
+          var closeBtn = document.getElementById('closeRingSizeSidebar');
+          var sidebar = document.getElementById('ringSizeSidebar');
+          var overlay = document.getElementById('ringSizeSidebarOverlay');
+
+          function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('open');
+            document.body.classList.add('sidebar-modal-open');
+          }
+          function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.classList.remove('sidebar-modal-open');
+          }
+
+          if(openBtn && sidebar && overlay) {
+            openBtn.addEventListener('click', openSidebar);
+            openBtn.addEventListener('touchend', function(e) {
+              e.preventDefault();
+              openSidebar();
+            });
+
+            if (closeBtn) {
+              closeBtn.addEventListener('click', closeSidebar);
+              closeBtn.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                closeSidebar();
+              });
+            }
+
+            overlay.addEventListener('click', closeSidebar);
+            overlay.addEventListener('touchend', function(e) {
+              e.preventDefault();
+              closeSidebar();
+            });
+
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') closeSidebar();
+            });
+          }
+
+          // Простой аккордеон
+          var accordionButtons = document.querySelectorAll('.ergon-accordion-toggle');
+
+          accordionButtons.forEach(function(button, index) {
+            // Открываем первый аккордеон по умолчанию
+            if (index === 0) {
+              button.parentElement.classList.add('open');
+              button.nextElementSibling.style.display = 'block';
+            } else {
+              button.parentElement.classList.remove('open');
+              button.nextElementSibling.style.display = 'none';
+            }
+
+            // Добавляем обработчик клика
+            button.onclick = function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+
+              var accordion = this.parentElement;
+              var content = this.nextElementSibling;
+              var isOpen = accordion.classList.contains('open');
+
+              // Закрываем все аккордеоны
+              accordionButtons.forEach(function(btn) {
+                btn.parentElement.classList.remove('open');
+                btn.nextElementSibling.style.display = 'none';
+              });
+
+              // Если был закрыт - открываем
+              if (!isOpen) {
+                accordion.classList.add('open');
+                content.style.display = 'block';
+              }
+            };
+          });
+
+          var video = document.getElementById('ergonRingVideo');
+          var playBtn = document.getElementById('ergonPlayBtn');
+          if (video && playBtn) {
+            video.src = "https://cdn.shopify.com/videos/c/o/v/ff66d1a210824be3a8452cdd1fd6973a.mp4";
+            video.controls = false;
+
+            function handlePlay() {
+              video.controls = true;
+              video.play();
+              playBtn.style.display = 'none';
+            }
+
+            playBtn.addEventListener('click', handlePlay);
+            playBtn.addEventListener('touchend', function(e) {
+              e.preventDefault();
+              handlePlay();
+            });
+
+            video.addEventListener('play', function() {
+              playBtn.style.display = 'none';
+            });
+            video.addEventListener('pause', function() {
+              if (video.currentTime === 0 || video.ended) {
+                playBtn.style.display = '';
+                video.controls = false;
+              }
+            });
+          }
+        });
+      </script>
+    {% endif %}
+    {{ content_for_footer }}
+    <script src="{{ 'complete-the-look.js' | asset_url }}" defer></script>
+  </body>
+</html>

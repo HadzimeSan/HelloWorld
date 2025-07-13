@@ -1,0 +1,135 @@
+body {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  color: #29282D;
+  font-family: 'Raleway', Arial, sans-serif;
+}
+.ctl-flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+  max-width: 1920px;
+  margin: 32px auto;
+  margin-top: -60px;
+}
+.ctl-look-video {
+  width: 720px;
+  margin-top: 50px;
+  margin-left: 100px;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #0002;
+  object-fit: cover;
+  background: #e0f4ff;
+}
+.complete-the-look {
+  max-width: 400px;
+  font-family: 'Raleway', Arial, sans-serif;
+  background: #fff;
+  margin-right: 345px;
+  margin-bottom: 24px;
+}
+.complete-the-look h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: left;
+}
+.ctl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ctl-item {
+  display: flex;
+  align-items: center;
+  background: #f2f2f2;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px #0001;
+  position: relative;
+}
+.ctl-img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-right: 16px;
+  background: #fff;
+}
+.ctl-info {
+  flex: 1;
+}
+.ctl-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.ctl-rating {
+  font-size: 14px;
+  color: #bfa14a;
+  margin-bottom: 4px;
+}
+.ctl-rating span {
+  color: #29282D;
+  font-weight: 600;
+}
+.ctl-prices {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.ctl-old {
+  text-decoration: line-through;
+  color: #aaa;
+  margin-right: 6px;
+}
+.ctl-new {
+  color: #29282D;
+  font-weight: 600;
+}
+.ctl-size {
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.ctl-size option {
+  color: #000;
+}
+.ctl-cart {
+  width: 36px;
+  height: 36px;
+  background: #edecec;
+  border: none;
+  border-radius: 50%;
+  margin-left: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.ctl-cart svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: #29282D;
+  transition: fill 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.ctl-cart:hover:not(:disabled),
+.ctl-cart:not(:disabled):hover {
+  background: #29282D;
+}
+.ctl-cart:hover:not(:disabled) svg,
+.ctl-cart:not(:disabled):hover svg {
+  fill: #fff;
+}
+.ctl-cart:disabled,
+.ctl-cart.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* ...весь остальной CSS из вашего файла... */

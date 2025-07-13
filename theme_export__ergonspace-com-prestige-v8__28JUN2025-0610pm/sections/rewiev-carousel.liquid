@@ -1,0 +1,421 @@
+{% schema %}
+{
+  "name": "Reviews Carousel",
+  "class": "reviews-carousel-section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Card width",
+      "unit": "px",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "label": "Card spacing",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Card border radius",
+      "unit": "px",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "unit": "ms",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "default": 3000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "label": "Star color",
+          "default": "#FFD700"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Review text",
+          "default": "<p>Great product! I love it!</p>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name",
+          "default": "John Doe"
+        },
+        {
+          "type": "color",
+          "id": "author_color",
+          "label": "Author color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews carousel",
+      "category": "Testimonials",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign section_id = 'reviews-carousel-' | append: section.id
+%}
+
+<style>
+  #{{ section_id }} {
+    position: relative;
+    padding: 40px 0;
+    background-color: {{ section.settings.background_color }};
+  }
+  
+  #{{ section_id }} .reviews-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+  
+  #{{ section_id }} .reviews-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #{{ section_id }} .review-card {
+    flex: 0 0 {{ section.settings.card_width }}px;
+    scroll-snap-align: start;
+    padding: 0 calc({{ section.settings.card_spacing }}px / 2);
+  }
+  
+  #{{ section_id }} .review-content {
+    background: {{ section.settings.card_bg }};
+    border-radius: {{ section.settings.border_radius }}px;
+    padding: {{ section.settings.card_padding }}px;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  #{{ section_id }} .review-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    display: block;
+  }
+  
+  #{{ section_id }} .review-rating {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  
+  #{{ section_id }} .review-text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  #{{ section_id }} .review-author {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  #{{ section_id }} .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: {% if section.settings.show_arrows %}flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #{{ section_id }} .carousel-arrow.prev {
+    left: 10px;
+  }
+  
+  #{{ section_id }} .carousel-arrow.next {
+    right: 10px;
+  }
+  
+  #{{ section_id }} .carousel-dots {
+    display: {% if section.settings.show_dots %}flex{% else %}none{% endif %};
+    justify-content: center;
+    gap: 8px;
+    margin-top: 25px;
+  }
+  
+  #{{ section_id }} .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  #{{ section_id }} .carousel-dot.active {
+    background: #333;
+  }
+</style>
+
+<div id="{{ section_id }}" class="reviews-carousel-section">
+  <div class="reviews-carousel">
+    {% for block in section.blocks %}
+      <div class="review-card" {{ block.shopify_attributes }}>
+        <div class="review-content">
+          {% if block.settings.avatar != blank %}
+            <img class="review-avatar" 
+                 src="{{ block.settings.avatar | img_url: '160x160' }}" 
+                 alt="{{ block.settings.author | escape }}"
+                 loading="lazy"
+                 width="80"
+                 height="80">
+          {% else %}
+            <div class="review-avatar" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+          
+          <div class="review-rating" style="color: {{ block.settings.star_color }};">
+            {% for i in (1..5) %}
+              {% if i <= block.settings.rating %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </div>
+          
+          <div class="review-text" style="color: {{ block.settings.text_color }};">
+            {{ block.settings.text }}
+          </div>
+          
+          <div class="review-author" style="color: {{ block.settings.author_color }};">
+            {{ block.settings.author }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <button class="carousel-arrow prev" aria-label="Previous review">←</button>
+  <button class="carousel-arrow next" aria-label="Next review">→</button>
+  
+  <div class="carousel-dots">
+    {% for block in section.blocks %}
+      <button class="carousel-dot" data-index="{{ forloop.index0 }}" aria-label="Go to review {{ forloop.index }}"></button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+(function() {
+  const sectionId = '{{ section_id }}';
+  const section = document.getElementById(sectionId);
+  
+  if (!section) return;
+  
+  const carousel = section.querySelector('.reviews-carousel');
+  const prevBtn = section.querySelector('.prev');
+  const nextBtn = section.querySelector('.next');
+  const dots = section.querySelectorAll('.carousel-dot');
+  const cards = section.querySelectorAll('.review-card');
+  
+  if (!carousel || !cards.length) return;
+  
+  let currentIndex = 0;
+  let autoplayInterval;
+  const cardWidth = {{ section.settings.card_width }};
+  const spacing = {{ section.settings.card_spacing }};
+  
+  // Initialize
+  function init() {
+    updateDots();
+    
+    {% if section.settings.autoplay %}
+      startAutoplay();
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+    {% endif %}
+    
+    prevBtn.addEventListener('click', prevCard);
+    nextBtn.addEventListener('click', nextCard);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        goToCard(parseInt(this.dataset.index));
+      });
+    });
+  }
+  
+  // Navigation functions
+  function goToCard(index) {
+    currentIndex = index;
+    const scrollPosition = index * (cardWidth + spacing);
+    carousel.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth'
+    });
+    updateDots();
+  }
+  
+  function nextCard() {
+    if (currentIndex < cards.length - 1) {
+      goToCard(currentIndex + 1);
+    } else {
+      goToCard(0);
+    }
+  }
+  
+  function prevCard() {
+    if (currentIndex > 0) {
+      goToCard(currentIndex - 1);
+    } else {
+      goToCard(cards.length - 1);
+    }
+  }
+  
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+  
+  // Autoplay functions
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayInterval = setInterval(nextCard, {{ section.settings.autoplay_speed }});
+  }
+  
+  function stopAutoplay() {
+    clearInterval(autoplayInterval);
+  }
+  
+  // Initialize carousel
+  init();
+})();
+</script>
