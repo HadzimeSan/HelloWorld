@@ -896,3 +896,105 @@ const task5DivCode10 = document.getElementById('task5');
 if (task5DivCode10) {
     task5DivCode10.innerHTML += '<br><strong>Работа с кодом. Задание 10:</strong> ' + formattedCode10;
 }
+
+// Игра "Камень, ножницы, бумага"
+function rockPaperScissorsGame() {
+    const options = ["камень", "ножницы", "бумага"];
+    const userInput = prompt('Выберите: камень, ножницы или бумага').toLowerCase();
+    if (!options.includes(userInput)) {
+        alert('Некорректный ввод! Пожалуйста, выберите: камень, ножницы или бумага.');
+        return;
+    }
+    const computerIndex = Math.floor(Math.random() * 3);
+    const computerChoice = options[computerIndex];
+    let result;
+    if (userInput === computerChoice) {
+        result = 'Ничья!';
+    } else if (
+        (userInput === 'камень' && computerChoice === 'ножницы') ||
+        (userInput === 'ножницы' && computerChoice === 'бумага') ||
+        (userInput === 'бумага' && computerChoice === 'камень')
+    ) {
+        result = 'Вы победили!';
+    } else {
+        result = 'Вы проиграли!';
+    }
+    const output = `Ваш выбор: ${userInput}<br>Выбор компьютера: ${computerChoice}<br><strong>${result}</strong>`;
+    alert(`Ваш выбор: ${userInput}\nВыбор компьютера: ${computerChoice}\n${result}`);
+    const task6DivRPS = document.getElementById('task6');
+    if (task6DivRPS) {
+        task6DivRPS.innerHTML += '<br><strong>Камень, ножницы, бумага:</strong><br>' + output;
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const rpsButton = document.querySelector('#rock-paper-scissors .guess-number-card__button');
+    if (rpsButton) {
+        rpsButton.addEventListener('click', rockPaperScissorsGame);
+    }
+});
+
+// Работа с кодом. Задание 1 (sort по возрасту)
+const people = [
+   { name: 'Глеб', age: 29 },
+   { name: 'Анна', age: 17 },
+   { name: 'Олег', age: 7 },
+   { name: 'Оксана', age: 47 }
+];
+const sortedPeople = people.sort((a, b) => a.age - b.age);
+console.log('Работа с кодом. Задание 1 (sort по возрасту):', sortedPeople);
+const task7DivPeople = document.getElementById('task7');
+if (task7DivPeople) {
+    task7DivPeople.innerHTML += '<br><strong>Работа с кодом. Задание 1 (sort по возрасту):</strong> ' + JSON.stringify(sortedPeople);
+}
+
+// Работа с кодом. Задание 2 (реализация filter)
+function isPositive(num) {
+    return num > 0;
+}
+function isMale(person) {
+    return person.gender === 'male';
+}
+function filter(arr, ruleFunction) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (ruleFunction(arr[i])) {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+console.log('Работа с кодом. Задание 2 (isPositive):', filter([3, -4, 1, 9], isPositive));
+const people2 = [
+   {name: 'Глеб', gender: 'male'},
+   {name: 'Анна', gender: 'female'},
+   {name: 'Олег', gender: 'male'},
+   {name: 'Оксана', gender: 'female'}
+];
+console.log('Работа с кодом. Задание 2 (isMale):', filter(people2, isMale));
+const task1DivFilter = document.getElementById('task1');
+if (task1DivFilter) {
+    task1DivFilter.innerHTML += '<br><strong>Работа с кодом. Задание 2 (isPositive):</strong> ' + JSON.stringify(filter([3, -4, 1, 9], isPositive));
+    task1DivFilter.innerHTML += '<br><strong>Работа с кодом. Задание 2 (isMale):</strong> ' + JSON.stringify(filter(people2, isMale));
+}
+
+// Работа с кодом. Задание 3 (интервал 3 сек, 30 сек)
+(function intervalDateLogger() {
+    let count = 0;
+    const intervalId = setInterval(() => {
+        count++;
+        console.log('Работа с кодом. Задание 3 (дата):', new Date());
+        if (count === 10) {
+            clearInterval(intervalId);
+            console.log('30 секунд прошло');
+        }
+    }, 3000);
+})();
+
+// Работа с кодом. Задание 4 (delayForSecond)
+function delayForSecond(callback) {
+    setTimeout(callback, 1000);
+}
+// Работа с кодом. Задание 5 (правильный порядок вызова delayForSecond)
+delayForSecond(function() {
+    sayHi('Глеб');
+});
