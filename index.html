@@ -40,8 +40,12 @@
         <div class="container">
             <div class="hero">
                 <div class="hero-text">
-                    <h1 class="hero-title">Добро пожаловать<br> на мой сайт мини-игр</h1>
+                    <h1 class="hero-title" id="main-title">Добро пожаловать<br> на мой сайт мини-игр</h1>
+                    <button id="toggle-title-btn" style="margin-bottom: 10px;">Скрыть</button>
+                    <button id="change-title-btn" style="margin-bottom: 10px;">Изменить текст</button>
                     <p class="hero-description">Тебе предстоит пройти несколько увлекательных игр. Если готов, нажимай <strong>«Поехали!»</strong> и <strong>приступай.</strong></p>
+                    <p id="color-paragraph">Этот текст можно сделать синим по кнопке ниже.</p>
+                    <button id="color-btn" style="margin-bottom: 10px;">Изменить цвет</button>
                 </div>
                 <a href="#games" class="hero-btn">Поехали!</a>
             </div>
@@ -203,6 +207,9 @@
             </div>
         </section>
     </footer>
+
+    <button id="add-paragraph-btn" style="margin: 20px 0;">Добавить элемент</button>
+    <button id="remove-description-btn" style="margin: 20px 0;">Удалить элемент</button>
 
 </body>
 <script src="assets/js/marquee.js"></script>
