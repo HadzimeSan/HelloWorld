@@ -998,3 +998,83 @@ function delayForSecond(callback) {
 delayForSecond(function() {
     sayHi('Глеб');
 });
+
+// Скрытие и показ текста в <h1>
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.getElementById('main-title');
+    const btn = document.getElementById('toggle-title-btn');
+    if (title && btn) {
+        btn.addEventListener('click', function() {
+            if (title.style.display === 'none') {
+                title.style.display = '';
+                btn.textContent = 'Скрыть';
+            } else {
+                title.style.display = 'none';
+                btn.textContent = 'Показать';
+            }
+        });
+    }
+});
+
+// Динамическое изменение текста в <h1>
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.getElementById('main-title');
+    const btn = document.getElementById('change-title-btn');
+    if (title && btn) {
+        btn.addEventListener('click', function() {
+            title.innerHTML = 'Привет, мир!';
+        });
+    }
+});
+
+// Изменение цвета текста в <p>
+document.addEventListener('DOMContentLoaded', function() {
+    const p = document.getElementById('color-paragraph');
+    const btn = document.getElementById('color-btn');
+    if (p && btn) {
+        btn.addEventListener('click', function() {
+            p.style.color = 'blue';
+        });
+    }
+});
+
+// Поиск и изменение элементов по классу 'description'
+document.addEventListener('DOMContentLoaded', function() {
+    const descs = document.querySelectorAll('.description');
+    descs.forEach(el => {
+        el.textContent = 'Измененный текст';
+    });
+});
+
+// Работа с querySelectorAll: смена текста у <p> с классом description
+document.addEventListener('DOMContentLoaded', function() {
+    const descPs = document.querySelectorAll('p.description');
+    descPs.forEach(el => {
+        el.textContent = 'Новый текст';
+    });
+});
+
+// Добавление нового элемента <p> в конец документа
+document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('add-paragraph-btn');
+    if (addBtn) {
+        addBtn.addEventListener('click', function() {
+            const p = document.createElement('p');
+            p.textContent = 'Новый абзац';
+            document.body.appendChild(p);
+        });
+    }
+});
+
+// Удаление первого <p> с классом description
+document.addEventListener('DOMContentLoaded', function() {
+    const removeBtn = document.getElementById('remove-description-btn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+            const firstDesc = document.querySelector('p.description');
+            if (firstDesc) {
+                firstDesc.remove();
+            }
+        });
+    }
+});
