@@ -351,11 +351,10 @@ function arithmeticGame() {
     } else {
         resultText = `Ошибка! ${question} = ${correctAnswer}, а вы ответили: ${userInput}`;
     }
+    alert(resultText);
     const task2Div = document.getElementById('task2');
     if (task2Div) {
-        task2Div.textContent = resultText;
-    } else {
-        alert(resultText);
+        task2Div.innerHTML = `<strong>Простая арифметика:</strong> ${resultText}`;
     }
 }
 
@@ -542,13 +541,7 @@ if (task1Div) {
 
 // Задание 2: Найти индекс значения 4 в массиве
 const arr2 = [1, 5, 4, 10, 0, 3];
-let indexOf4 = -1;
-for (let i = 0; i < arr2.length; i++) {
-    if (arr2[i] === 4) {
-        indexOf4 = i;
-        break;
-    }
-}
+const indexOf4 = arr2.indexOf(4);
 console.log('Индекс значения 4:', indexOf4);
 const task2Div2 = document.getElementById('task2');
 if (task2Div2) {
@@ -588,14 +581,13 @@ if (task5DivArr) {
     task5DivArr.innerHTML += '<br><strong>Задание 5 (push):</strong> ' + JSON.stringify(arr5);
 }
 
-// Задание 6: Отсортировать массив и удалить букву 'a'
+// Задание 6: Отсортировать массив и удалить нечисловые элементы
 let arr6 = [9, 8, 7, 'a', 6, 5];
-arr6 = arr6.sort();
-arr6 = arr6.filter(item => item !== 'a');
-console.log('Задание 6 (sort, filter):', arr6);
+const filteredAndSortedArr6 = arr6.filter(item => typeof item === 'number').sort((a, b) => a - b);
+console.log('Задание 6 (sort, filter):', filteredAndSortedArr6);
 const task6DivArr = document.getElementById('task6');
 if (task6DivArr) {
-    task6DivArr.innerHTML += '<br><strong>Задание 6 (sort, filter):</strong> ' + JSON.stringify(arr6);
+    task6DivArr.innerHTML += '<br><strong>Задание 6 (sort, filter):</strong> ' + JSON.stringify(filteredAndSortedArr6);
 }
 
 // Задание 7: Угадай число из массива
@@ -626,13 +618,13 @@ if (task1Div8) {
     task1Div8.innerHTML += '<br><strong>Задание 8 (reverse):</strong> ' + reversedStr8;
 }
 
-// Задание 9: Преобразовать двумерный массив в одномерный с помощью spread
+// Задание 9: Преобразовать двумерный массив в одномерный с помощью flat
 const arr9 = [[1, 2, 3], [4, 5, 6]];
-const flatArr9 = [...arr9[0], ...arr9[1]];
-console.log('Задание 9 (spread):', flatArr9);
+const flatArr9 = arr9.flat();
+console.log('Задание 9 (flat):', flatArr9);
 const task2Div9 = document.getElementById('task2');
 if (task2Div9) {
-    task2Div9.innerHTML += '<br><strong>Задание 9 (spread):</strong> ' + JSON.stringify(flatArr9);
+    task2Div9.innerHTML += '<br><strong>Задание 9 (flat):</strong> ' + JSON.stringify(flatArr9);
 }
 
 // Задание 10: Сумма текущего и следующего элементов массива
