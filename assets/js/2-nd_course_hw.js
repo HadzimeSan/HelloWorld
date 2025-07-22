@@ -711,3 +711,386 @@ if (task1Div15) {
     task1Div15.innerHTML += '<br><strong>Задание 15 (массив):</strong> ' + JSON.stringify(arr15);
     task1Div15.innerHTML += '<br><strong>Задание 15 (среднее):</strong> ' + avg15;
 }
+
+// Игра "Переверни текст"
+function reverseTextGame() {
+    const userText = prompt('Введите текст, который нужно перевернуть:');
+    if (userText === null) return;
+    const reversed = userText.split('').reverse().join('');
+    const task3DivReverse = document.getElementById('task3');
+    if (task3DivReverse) {
+        task3DivReverse.innerHTML += '<br><strong>Перевернутый текст:</strong> ' + reversed;
+    } else {
+        alert('Перевернутый текст: ' + reversed);
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const reverseTextButton = document.querySelector('#text-reverse .guess-number-card__button');
+    if (reverseTextButton) {
+        reverseTextButton.addEventListener('click', reverseTextGame);
+    }
+});
+
+// Игра "Викторина"
+function quizGame() {
+    const quiz = [
+        {
+            question: "Какой цвет небо?",
+            options: ["1. Красный", "2. Синий", "3. Зеленый"],
+            correctAnswer: 2
+        },
+        {
+            question: "Сколько дней в неделе?",
+            options: ["1. Шесть", "2. Семь", "3. Восемь"],
+            correctAnswer: 2
+        },
+        {
+            question: "Сколько у человека пальцев на одной руке?",
+            options: ["1. Четыре", "2. Пять", "3. Шесть"],
+            correctAnswer: 2
+        }
+    ];
+    let correctCount = 0;
+    let resultDetails = '';
+    for (let i = 0; i < quiz.length; i++) {
+        const q = quiz[i];
+        const userAnswer = prompt(q.question + "\n" + q.options.join("\n"));
+        if (userAnswer !== null && Number(userAnswer) === q.correctAnswer) {
+            correctCount++;
+            resultDetails += `<br>Вопрос ${i+1}: верно`;
+        } else {
+            resultDetails += `<br>Вопрос ${i+1}: неверно (правильный: ${q.correctAnswer})`;
+        }
+    }
+    alert(`Вы ответили правильно на ${correctCount} из ${quiz.length} вопросов!`);
+    const task4DivQuiz = document.getElementById('task4');
+    if (task4DivQuiz) {
+        task4DivQuiz.innerHTML += `<br><strong>Викторина:</strong> Правильных ответов: ${correctCount} из ${quiz.length}` + resultDetails;
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const quizButton = document.querySelector('#quiz .guess-number-card__button');
+    if (quizButton) {
+        quizButton.addEventListener('click', quizGame);
+    }
+});
+
+// Работа с кодом. Задание 1: Преобразовать строку 'js' в верхний регистр
+const strCode1 = 'js';
+const upperStrCode1 = strCode1.toUpperCase();
+console.log('Работа с кодом. Задание 1 (toUpperCase):', upperStrCode1);
+const task5DivCode1 = document.getElementById('task5');
+if (task5DivCode1) {
+    task5DivCode1.innerHTML += '<br><strong>Работа с кодом. Задание 1 (toUpperCase):</strong> ' + upperStrCode1;
+}
+
+// Работа с кодом. Задание 2: Фильтрация массива строк по начальному символу (без учёта регистра)
+function filterByStart(arr, startStr) {
+    const lowerStart = startStr.toLowerCase();
+    return arr.filter(item => item.toLowerCase().startsWith(lowerStart));
+}
+const arrCode2 = ['Apple', 'banana', 'apricot', 'Cherry', 'avocado'];
+const filteredCode2 = filterByStart(arrCode2, 'a');
+console.log('Работа с кодом. Задание 2 (фильтр по началу):', filteredCode2);
+const task6DivCode2 = document.getElementById('task6');
+if (task6DivCode2) {
+    task6DivCode2.innerHTML += '<br><strong>Работа с кодом. Задание 2 (фильтр по началу):</strong> ' + JSON.stringify(filteredCode2);
+}
+
+// Работа с кодом. Задание 3: Округление числа 32.58884
+const numCode3 = 32.58884;
+const floorCode3 = Math.floor(numCode3);
+const ceilCode3 = Math.ceil(numCode3);
+const roundCode3 = Math.round(numCode3);
+console.log('Работа с кодом. Задание 3 (floor):', floorCode3);
+console.log('Работа с кодом. Задание 3 (ceil):', ceilCode3);
+console.log('Работа с кодом. Задание 3 (round):', roundCode3);
+const task7DivCode3 = document.getElementById('task7');
+if (task7DivCode3) {
+    task7DivCode3.innerHTML += '<br><strong>Работа с кодом. Задание 3:</strong> floor: ' + floorCode3 + ', ceil: ' + ceilCode3 + ', round: ' + roundCode3;
+}
+
+// Работа с кодом. Задание 4: Найти min и max из 52, 53, 49, 77, 21, 32
+const numsCode4 = [52, 53, 49, 77, 21, 32];
+const minCode4 = Math.min(...numsCode4);
+const maxCode4 = Math.max(...numsCode4);
+console.log('Работа с кодом. Задание 4 (min):', minCode4);
+console.log('Работа с кодом. Задание 4 (max):', maxCode4);
+const task1DivCode4 = document.getElementById('task1');
+if (task1DivCode4) {
+    task1DivCode4.innerHTML += '<br><strong>Работа с кодом. Задание 4:</strong> min: ' + minCode4 + ', max: ' + maxCode4;
+}
+
+// Работа с кодом. Задание 5: Функция для вывода случайного числа от 1 до 10
+function printRandom1to10() {
+    const rand = Math.floor(Math.random() * 10) + 1;
+    console.log('Работа с кодом. Задание 5 (random 1-10):', rand);
+}
+printRandom1to10();
+
+// Работа с кодом. Задание 6: Функция, возвращающая массив случайных чисел
+function getRandomArray(n) {
+    const len = Math.floor(n / 2);
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+        arr.push(Math.floor(Math.random() * (n + 1)));
+    }
+    return arr;
+}
+const arrCode6 = getRandomArray(10);
+console.log('Работа с кодом. Задание 6 (массив):', arrCode6);
+const task2DivCode6 = document.getElementById('task2');
+if (task2DivCode6) {
+    task2DivCode6.innerHTML += '<br><strong>Работа с кодом. Задание 6 (массив):</strong> ' + JSON.stringify(arrCode6);
+}
+
+// Работа с кодом. Задание 7: Функция для случайного числа в диапазоне
+function getRandomInRange(a, b) {
+    const min = Math.min(a, b);
+    const max = Math.max(a, b);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const randCode7 = getRandomInRange(5, 15);
+console.log('Работа с кодом. Задание 7 (random in range 5-15):', randCode7);
+const task3DivCode7 = document.getElementById('task3');
+if (task3DivCode7) {
+    task3DivCode7.innerHTML += '<br><strong>Работа с кодом. Задание 7 (random 5-15):</strong> ' + randCode7;
+}
+
+// Работа с кодом. Задание 8: Вывести в консоль текущую дату
+console.log('Работа с кодом. Задание 8 (текущая дата):', new Date());
+
+// Работа с кодом. Задание 9: Дата через 73 дня
+const currentDate = new Date();
+const futureDate = new Date(currentDate);
+futureDate.setDate(currentDate.getDate() + 73);
+console.log('Работа с кодом. Задание 9 (текущая дата):', currentDate);
+console.log('Работа с кодом. Задание 9 (через 73 дня):', futureDate);
+const task4DivCode9 = document.getElementById('task4');
+if (task4DivCode9) {
+    task4DivCode9.innerHTML += '<br><strong>Работа с кодом. Задание 9:</strong> текущая: ' + currentDate.toLocaleDateString() + ', через 73 дня: ' + futureDate.toLocaleDateString();
+}
+
+// Работа с кодом. Задание 10: Форматирование даты и времени на русском
+function formatDateRu(date) {
+    const months = [
+        'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+    ];
+    const days = [
+        'воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'
+    ];
+    const d = date.getDate();
+    const m = months[date.getMonth()];
+    const y = date.getFullYear();
+    const day = days[date.getDay()];
+    const hh = String(date.getHours()).padStart(2, '0');
+    const mm = String(date.getMinutes()).padStart(2, '0');
+    const ss = String(date.getSeconds()).padStart(2, '0');
+    return `Дата: ${d} ${m} ${y} — это ${day}.<br>Время: ${hh}:${mm}:${ss}`;
+}
+const nowCode10 = new Date();
+const formattedCode10 = formatDateRu(nowCode10);
+console.log('Работа с кодом. Задание 10 (формат):', formattedCode10.replace(/<br>/g, ' '));
+const task5DivCode10 = document.getElementById('task5');
+if (task5DivCode10) {
+    task5DivCode10.innerHTML += '<br><strong>Работа с кодом. Задание 10:</strong> ' + formattedCode10;
+}
+
+// Игра "Камень, ножницы, бумага"
+function rockPaperScissorsGame() {
+    const options = ["камень", "ножницы", "бумага"];
+    const userInput = prompt('Выберите: камень, ножницы или бумага').toLowerCase();
+    if (!options.includes(userInput)) {
+        alert('Некорректный ввод! Пожалуйста, выберите: камень, ножницы или бумага.');
+        return;
+    }
+    const computerIndex = Math.floor(Math.random() * 3);
+    const computerChoice = options[computerIndex];
+    let result;
+    if (userInput === computerChoice) {
+        result = 'Ничья!';
+    } else if (
+        (userInput === 'камень' && computerChoice === 'ножницы') ||
+        (userInput === 'ножницы' && computerChoice === 'бумага') ||
+        (userInput === 'бумага' && computerChoice === 'камень')
+    ) {
+        result = 'Вы победили!';
+    } else {
+        result = 'Вы проиграли!';
+    }
+    const output = `Ваш выбор: ${userInput}<br>Выбор компьютера: ${computerChoice}<br><strong>${result}</strong>`;
+    alert(`Ваш выбор: ${userInput}\nВыбор компьютера: ${computerChoice}\n${result}`);
+    const task6DivRPS = document.getElementById('task6');
+    if (task6DivRPS) {
+        task6DivRPS.innerHTML += '<br><strong>Камень, ножницы, бумага:</strong><br>' + output;
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const rpsButton = document.querySelector('#rock-paper-scissors .guess-number-card__button');
+    if (rpsButton) {
+        rpsButton.addEventListener('click', rockPaperScissorsGame);
+    }
+});
+
+// Работа с кодом. Задание 1 (sort по возрасту)
+const people = [
+   { name: 'Глеб', age: 29 },
+   { name: 'Анна', age: 17 },
+   { name: 'Олег', age: 7 },
+   { name: 'Оксана', age: 47 }
+];
+const sortedPeople = people.sort((a, b) => a.age - b.age);
+console.log('Работа с кодом. Задание 1 (sort по возрасту):', sortedPeople);
+const task7DivPeople = document.getElementById('task7');
+if (task7DivPeople) {
+    task7DivPeople.innerHTML += '<br><strong>Работа с кодом. Задание 1 (sort по возрасту):</strong> ' + JSON.stringify(sortedPeople);
+}
+
+// Работа с кодом. Задание 2 (реализация filter)
+function isPositive(num) {
+    return num > 0;
+}
+function isMale(person) {
+    return person.gender === 'male';
+}
+function filter(arr, ruleFunction) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (ruleFunction(arr[i])) {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+console.log('Работа с кодом. Задание 2 (isPositive):', filter([3, -4, 1, 9], isPositive));
+const people2 = [
+   {name: 'Глеб', gender: 'male'},
+   {name: 'Анна', gender: 'female'},
+   {name: 'Олег', gender: 'male'},
+   {name: 'Оксана', gender: 'female'}
+];
+console.log('Работа с кодом. Задание 2 (isMale):', filter(people2, isMale));
+const task1DivFilter = document.getElementById('task1');
+if (task1DivFilter) {
+    task1DivFilter.innerHTML += '<br><strong>Работа с кодом. Задание 2 (isPositive):</strong> ' + JSON.stringify(filter([3, -4, 1, 9], isPositive));
+    task1DivFilter.innerHTML += '<br><strong>Работа с кодом. Задание 2 (isMale):</strong> ' + JSON.stringify(filter(people2, isMale));
+}
+
+// Работа с кодом. Задание 3 (интервал 3 сек, 30 сек)
+(function intervalDateLogger() {
+    let count = 0;
+    const intervalId = setInterval(() => {
+        count++;
+        console.log('Работа с кодом. Задание 3 (дата):', new Date());
+        if (count === 10) {
+            clearInterval(intervalId);
+            console.log('30 секунд прошло');
+        }
+    }, 3000);
+})();
+
+// Работа с кодом. Задание 4 (delayForSecond)
+function delayForSecond(callback) {
+    setTimeout(callback, 1000);
+}
+// Работа с кодом. Задание 5 (правильный порядок вызова delayForSecond)
+delayForSecond(function() {
+    sayHi('Глеб');
+});
+
+// Скрытие и показ текста в <h1>
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.getElementById('main-title');
+    const btn = document.getElementById('toggle-title-btn');
+    if (title && btn) {
+        btn.addEventListener('click', function() {
+            if (title.style.display === 'none') {
+                title.style.display = '';
+                btn.textContent = 'Скрыть';
+            } else {
+                title.style.display = 'none';
+                btn.textContent = 'Показать';
+            }
+        });
+    }
+});
+
+// Динамическое изменение текста в <h1>
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.getElementById('main-title');
+    const btn = document.getElementById('change-title-btn');
+    if (title && btn) {
+        btn.addEventListener('click', function() {
+            title.innerHTML = 'Привет, мир!';
+        });
+    }
+});
+
+// Изменение цвета текста в <p>
+document.addEventListener('DOMContentLoaded', function() {
+    const p = document.getElementById('color-paragraph');
+    const btn = document.getElementById('color-btn');
+    if (p && btn) {
+        btn.addEventListener('click', function() {
+            p.style.color = 'blue';
+        });
+    }
+});
+
+// Поиск и изменение элементов по классу 'description'
+document.addEventListener('DOMContentLoaded', function() {
+    const descs = document.querySelectorAll('.description');
+    descs.forEach(el => {
+        el.textContent = 'Измененный текст';
+    });
+});
+
+// Работа с querySelectorAll: смена текста у <p> с классом description
+document.addEventListener('DOMContentLoaded', function() {
+    const descPs = document.querySelectorAll('p.description');
+    descPs.forEach(el => {
+        el.textContent = 'Новый текст';
+    });
+});
+
+// Добавление нового элемента <p> в конец документа
+document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('add-paragraph-btn');
+    if (addBtn) {
+        addBtn.addEventListener('click', function() {
+            const p = document.createElement('p');
+            p.textContent = 'Новый абзац';
+            document.body.appendChild(p);
+        });
+    }
+});
+
+// Удаление первого <p> с классом description
+document.addEventListener('DOMContentLoaded', function() {
+    const removeBtn = document.getElementById('remove-description-btn');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+            const firstDesc = document.querySelector('p.description');
+            if (firstDesc) {
+                firstDesc.remove();
+            }
+        });
+    }
+});
+
+// Генератор случайных цветов
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const colorBtn = document.getElementById('color-generator-btn');
+    if (colorBtn) {
+        colorBtn.addEventListener('click', function() {
+            document.body.style.backgroundColor = getRandomColor();
+        });
+    }
+});
