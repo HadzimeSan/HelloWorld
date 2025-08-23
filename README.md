@@ -157,5 +157,6 @@ project/
 ---
 
 **Автор**: [HadzimeSan]  
+https://hadzimesan.github.io/HelloWorld/
 **Дата создания**: 2024  
 **Версия**: 1.0 
